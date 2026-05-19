@@ -1,0 +1,66 @@
+{
+  "model": "Oberschelp et al. (2020)",
+  "allocation": "economic",
+  "system": "Sistema 1 (Inventário-S1, milk production Brazil)",
+  "note": "Effective CFs derived from Giusti et al. (2023) Caracterização sheet (ECONOMIC allocation columns 14-16): CF_eff = total_DALY / total_mass per (substance, geo scope). The sum across the 4 substances reproduces the published ground truth within ~0.001% (rounding). For higher-fidelity native CFs, extract from Oberschelp 2020 Supporting Information es0c05691_si_002.xlsx.",
+  "unit_cf": "DALY / kg substance emitted",
+  "cfs": {
+    "Ammonia": {
+      "mass_kg_per_kg_fpcm": 0.0009836802518966054,
+      "cf_daly_per_kg": {
+        "global": 2.003976667007338e-05,
+        "brazil": 6.435712843718165e-05,
+        "state_sp": 0.0005123960052460927
+      },
+      "daly_contribution": {
+        "global": 1.9712722725966978e-08,
+        "brazil": 6.330683631242903e-08,
+        "state_sp": 5.040338315112908e-07
+      }
+    },
+    "Nitrogen oxides": {
+      "mass_kg_per_kg_fpcm": 0.0005315189757453018,
+      "cf_daly_per_kg": {
+        "global": 2.62179245046705e-06,
+        "brazil": 8.876768001940548e-06,
+        "state_sp": 6.92420884125639e-05
+      },
+      "daly_contribution": {
+        "global": 1.3935324378890113e-09,
+        "brazil": 4.718170636320109e-09,
+        "state_sp": 3.680348391151159e-08
+      }
+    },
+    "Particulates, < 2.5 um": {
+      "mass_kg_per_kg_fpcm": 0.00012787113047175414,
+      "cf_daly_per_kg": {
+        "global": 4.816509434439721e-05,
+        "brazil": 8.62047394856268e-05,
+        "state_sp": 0.000650451006393258
+      },
+      "daly_contribution": {
+        "global": 6.158925063096762e-09,
+        "brazil": 1.102309749005016e-08,
+        "state_sp": 8.317390550399608e-08
+      }
+    },
+    "Sulfur dioxide": {
+      "mass_kg_per_kg_fpcm": 0.00022354414079865808,
+      "cf_daly_per_kg": {
+        "global": 4.60766429291367e-06,
+        "brazil": 8.76942791233845e-06,
+        "state_sp": 5.9019718006078094e-05
+      },
+      "daly_contribution": {
+        "global": 1.030016355448043e-09,
+        "brazil": 1.960354227959469e-09,
+        "state_sp": 1.3193512151847817e-08
+      }
+    }
+  },
+  "ground_truth_reconstruction": {
+    "global": 2.8295196582400795e-08,
+    "brazil": 8.100845866675877e-08,
+    "state_sp": 6.372047330786462e-07
+  }
+}

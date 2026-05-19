@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ACV-IA Response Schema v1",
+  "description": "Schema canônico de resposta para todos os níveis (L0-L4) e idiomas. A IA deve retornar EXATAMENTE este formato (JSON parseável), sem markdown fences, sem texto antes ou depois.",
+  "type": "object",
+  "required": ["answer", "characterization_model", "allocation_method", "reasoning", "references", "uncertainties", "confidence"],
+  "additionalProperties": false,
+  "properties": {
+    "answer": {
+      "type": "object",
+      "description": "Estimativa de impacto em saúde humana (DALY) por kg de leite corrigido por gordura e proteína (FPCM), para cada escopo geográfico. Use null se não conseguir estimar.",
+      "required": ["global", "brazil", "state_sp"],
+      "additionalProperties": false,
+      "properties": {
+        "global": {
+          "type": "object",
+          "required": ["value", "unit"],
+          "properties": {
+            "value": { "type": ["number", "null"] },
+            "unit": { "type": "string", "const": "DALY/kg FPCM" }
+          }
+        },
+        "brazil": {
+          "type": "object",
+          "required": ["value", "unit"],
+          "properties": {
+            "value": { "type": ["number", "null"] },
+            "unit": { "type": "string", "const": "DALY/kg FPCM" }
+          }
+        },
+        "state_sp": {
+          "type": "object",
+          "required": ["value", "unit"],
+          "properties": {
+            "value": { "type": ["number", "null"] },
+            "unit": { "type": "string", "const": "DALY/kg FPCM" }
+          }
+        }
+      }
+    },
+    "characterization_model": {
+      "type": "string",
+      "description": "Nome explícito do(s) modelo(s) de caracterização adotado(s) para calcular o impacto de MP em saúde humana. Ex.: 'Oberschelp et al. (2020)', 'Fantke et al. (2019)', 'Van Zelm et al. (2016)', 'Frischknecht & Jolliet (2016) / Recipe', 'unspecified'."
+    },
+    "allocation_method": {
+      "type": "string",
+      "enum": ["economic", "mass", "system_expansion", "none", "other", "unspecified"],
+      "description": "Método de alocação adotado para os coprodutos do sistema (leite, carne, biofertilizante)."
+    },
+    "reasoning": {
+      "type": "string",
+      "description": "Raciocínio passo a passo: que dados foram usados, que premissas, como o cálculo foi feito, como a regionalização foi tratada. Texto contínuo, sem markdown."
+    },
+    "intermediate_steps": {
+      "type": "array",
+      "description": "Opcional. Etapas numéricas intermediárias (massa por substância × CF, somas parciais).",
+      "items": {
+        "type": "object",
+        "required": ["step", "value", "unit"],
+        "properties": {
+          "step": { "type": "string" },
+          "value": { "type": ["number", "string"] },
+          "unit": { "type": "string" }
+        }
+      }
+    },
+    "references": {
+      "type": "array",
+      "description": "Lista de referências usadas. Cada item DEVE ser verificável: prefira DOI quando disponível. NÃO inventar referências.",
+      "items": {
+        "type": "object",
+        "required": ["citation"],
+        "properties": {
+          "citation": { "type": "string" },
+          "doi": { "type": "string" },
+          "url": { "type": "string" }
+        }
+      }
+    },
+    "uncertainties": {
+      "type": "string",
+      "description": "O que NÃO foi possível calcular ou onde a estimativa é fraca. Honestidade epistêmica. Se nada é incerto, escreva 'none' (mas em geral algo deve estar incerto)."
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["low", "medium", "high"],
+      "description": "Autoavaliação da confiabilidade da estimativa principal."
+    }
+  }
+}
