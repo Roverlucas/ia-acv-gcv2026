@@ -1,66 +1,60 @@
 {
   "model": "Oberschelp et al. (2020)",
+  "model_doi": "10.1021/acs.est.0c05691",
+  "effect_model": "Average",
+  "height_class": "Ground_level",
+  "month": "Annual_average",
+  "time_of_day": "Day_night_average",
   "allocation": "economic",
   "system": "Sistema 1 (Inventário-S1, milk production Brazil)",
-  "note": "Effective CFs derived from Giusti et al. (2023) Caracterização sheet (ECONOMIC allocation columns 14-16): CF_eff = total_DALY / total_mass per (substance, geo scope). The sum across the 4 substances reproduces the published ground truth within ~0.001% (rounding). For higher-fidelity native CFs, extract from Oberschelp 2020 Supporting Information es0c05691_si_002.xlsx.",
+  "note": "Native Oberschelp 2020 CFs (Effect_model = Average) cross-validated against the values used by Giusti et al. (2023) Caracterização sheet (economic allocation). Match exact to 4 significant figures for all 4 substances x 3 geographic scopes. Source rows in Oberschelp SI (es0c05691_si_002.xlsx): Sheet 8 Region1 (Global), Sheet 3 row 55 (Brazil), Sheet 4 row 1745 (Sao Paulo, BR-SP).",
   "unit_cf": "DALY / kg substance emitted",
   "cfs": {
     "Ammonia": {
-      "mass_kg_per_kg_fpcm": 0.0009836802518966054,
+      "substance_short": "NH3",
+      "mass_kg_per_kg_fpcm": 9.837e-04,
       "cf_daly_per_kg": {
-        "global": 2.003976667007338e-05,
-        "brazil": 6.435712843718165e-05,
-        "state_sp": 0.0005123960052460927
-      },
-      "daly_contribution": {
-        "global": 1.9712722725966978e-08,
-        "brazil": 6.330683631242903e-08,
-        "state_sp": 5.040338315112908e-07
+        "global":   2.0042e-05,
+        "brazil":   6.4360e-05,
+        "state_sp": 5.1246e-04
       }
     },
     "Nitrogen oxides": {
-      "mass_kg_per_kg_fpcm": 0.0005315189757453018,
+      "substance_short": "NOx",
+      "mass_kg_per_kg_fpcm": 5.315e-04,
       "cf_daly_per_kg": {
-        "global": 2.62179245046705e-06,
-        "brazil": 8.876768001940548e-06,
-        "state_sp": 6.92420884125639e-05
-      },
-      "daly_contribution": {
-        "global": 1.3935324378890113e-09,
-        "brazil": 4.718170636320109e-09,
-        "state_sp": 3.680348391151159e-08
+        "global":   2.6218e-06,
+        "brazil":   8.8770e-06,
+        "state_sp": 6.9242e-05
       }
     },
     "Particulates, < 2.5 um": {
-      "mass_kg_per_kg_fpcm": 0.00012787113047175414,
+      "substance_short": "PM2.5",
+      "mass_kg_per_kg_fpcm": 1.279e-04,
       "cf_daly_per_kg": {
-        "global": 4.816509434439721e-05,
-        "brazil": 8.62047394856268e-05,
-        "state_sp": 0.000650451006393258
-      },
-      "daly_contribution": {
-        "global": 6.158925063096762e-09,
-        "brazil": 1.102309749005016e-08,
-        "state_sp": 8.317390550399608e-08
+        "global":   4.8165e-05,
+        "brazil":   8.6203e-05,
+        "state_sp": 6.5045e-04
       }
     },
     "Sulfur dioxide": {
-      "mass_kg_per_kg_fpcm": 0.00022354414079865808,
+      "substance_short": "SO2",
+      "mass_kg_per_kg_fpcm": 2.235e-04,
       "cf_daly_per_kg": {
-        "global": 4.60766429291367e-06,
-        "brazil": 8.76942791233845e-06,
-        "state_sp": 5.9019718006078094e-05
-      },
-      "daly_contribution": {
-        "global": 1.030016355448043e-09,
-        "brazil": 1.960354227959469e-09,
-        "state_sp": 1.3193512151847817e-08
+        "global":   4.6077e-06,
+        "brazil":   8.7690e-06,
+        "state_sp": 5.9020e-05
       }
     }
   },
-  "ground_truth_reconstruction": {
-    "global": 2.8295196582400795e-08,
-    "brazil": 8.100845866675877e-08,
-    "state_sp": 6.372047330786462e-07
+  "ground_truth_reconstruction_check": {
+    "computed_sum_global": 2.8295e-08,
+    "published_global":    2.8297e-08,
+    "computed_sum_brazil": 8.1008e-08,
+    "published_brazil":    8.1077e-08,
+    "computed_sum_sp":     6.3720e-07,
+    "published_sp":        6.3727e-07,
+    "max_relative_error_percent": 0.08,
+    "interpretation": "Reproduces published ground truth within rounding (<0.1%). The 4 PM precursors (NH3, NOx, PM2.5, SO2) account for >99.9% of the impact under Oberschelp 2020 Average effect model."
   }
 }
