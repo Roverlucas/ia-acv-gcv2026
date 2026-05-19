@@ -57,10 +57,8 @@ def parse_json_response(text: str) -> tuple[dict | None, str | None]:
     if not text:
         return None, "empty response"
     s = text.strip()
-    # Strip markdown fences if present
     if s.startswith("```"):
         lines = s.splitlines()
-        # Drop first line (```json or ```) and last line if ```
         if lines[0].startswith("```"):
             lines = lines[1:]
         if lines and lines[-1].strip().startswith("```"):
@@ -70,6 +68,55 @@ def parse_json_response(text: str) -> tuple[dict | None, str | None]:
         return json.loads(s), None
     except json.JSONDecodeError as e:
         return None, f"JSONDecodeError: {e}"
+
+
+import re  # noqa: E402
+
+_ARITH_VALUE_RE = re.compile(
+    r'("value"\s*:\s*)('
+    r'(?:[-+]?\d+(?:\.\d+)?(?:[eE][-+]?\d+)?)'
+    r'(?:\s*[+\-*/]\s*[-+]?\d+(?:\.\d+)?(?:[eE][-+]?\d+)?)+'
+    r')'
+)
+
+
+def _eval_arith_expr(expr: str) -> float | None:
+    if not re.match(r'^[\d.eE+\-*/\s]+$', expr):
+        return None
+    try:
+        return float(eval(expr, {"__builtins__": {}}, {}))
+    except Exception:
+        return None
+
+
+def parse_json_lenient(text: str) -> tuple[dict | None, str | None]:
+    """Pre-process arithmetic expressions in JSON, then parse.
+
+    Some LLMs return "value": 1.2e-04 * 5e-06 instead of literal numbers.
+    """
+    if not text:
+        return None, "empty response"
+    s = text.strip()
+    if s.startswith("```"):
+        lines = s.splitlines()
+        if lines[0].startswith("```"):
+            lines = lines[1:]
+        if lines and lines[-1].strip().startswith("```"):
+            lines = lines[:-1]
+        s = "\n".join(lines).strip()
+
+    def repl(m: re.Match) -> str:
+        prefix, expr = m.group(1), m.group(2)
+        val = _eval_arith_expr(expr)
+        if val is None:
+            return m.group(0)
+        return f"{prefix}{val:.6e}"
+
+    s2 = _ARITH_VALUE_RE.sub(repl, s)
+    try:
+        return json.loads(s2), None
+    except json.JSONDecodeError as e:
+        return None, f"JSONDecodeError(lenient): {e}"
 
 
 def build_runs(
