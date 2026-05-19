@@ -43,16 +43,16 @@ Thumbs.db
 *.swp
 *.swo
 
-# Runtime
-results/raw/*.json
-results/raw/*.jsonl
-!results/raw/.gitkeep
+# Runtime — track JSONLs for reproducibility (track small <5MB files;
+# move large runs to Zenodo only if size grows substantially)
+!results/raw/*.jsonl
+!results/raw/*.json
 results/processed/*.parquet
 !results/processed/.gitkeep
 
-# Logs
-*.log
-logs/
+# Logs — keep f2/stress experiment logs for reproducibility
+!logs/
+logs/*.tmp
 
 # Large outputs
 *.zip

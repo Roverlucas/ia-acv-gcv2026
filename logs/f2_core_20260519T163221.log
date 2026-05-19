@@ -1,0 +1,165 @@
+/Users/lucasrover/ia-acv-gcv2026/src/llm_clients.py:139: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+[2026-05-19T16:32:21] Planning 150 runs.
+  Providers: ['gpt', 'gemini', 'deepseek'] · Levels: ['L0', 'L1', 'L2', 'L3', 'L4'] · Langs: ['pt-BR', 'en'] · Reps: 5 · T: 0.0
+  [  1/150] gpt        L0  pt-BR  t=  7.3s OK
+  [  2/150] gpt        L0  pt-BR  t=  6.9s OK
+  [  3/150] gpt        L0  pt-BR  t=  8.0s OK
+  [  4/150] gpt        L0  pt-BR  t=  8.1s OK
+  [  5/150] gpt        L0  pt-BR  t=  6.1s OK
+  [  6/150] gpt        L0  en     t=  8.6s OK
+  [  7/150] gpt        L0  en     t=  6.2s OK
+  [  8/150] gpt        L0  en     t=  6.9s OK
+  [  9/150] gpt        L0  en     t=  5.6s OK
+  [ 10/150] gpt        L0  en     t=  6.0s OK
+  [ 11/150] gpt        L1  pt-BR  t=  7.5s OK
+  [ 12/150] gpt        L1  pt-BR  t=  7.7s OK
+  [ 13/150] gpt        L1  pt-BR  t=  7.4s OK
+  [ 14/150] gpt        L1  pt-BR  t=  7.7s OK
+  [ 15/150] gpt        L1  pt-BR  t=  9.2s OK
+  [ 16/150] gpt        L1  en     t=  2.2s OK
+  [ 17/150] gpt        L1  en     t=  3.4s OK
+  [ 18/150] gpt        L1  en     t=  2.0s OK
+  [ 19/150] gpt        L1  en     t=  2.4s OK
+  [ 20/150] gpt        L1  en     t=  2.0s OK
+  [ 21/150] gpt        L2  pt-BR  t=  4.4s OK
+  [ 22/150] gpt        L2  pt-BR  t=  3.8s OK
+  [ 23/150] gpt        L2  pt-BR  t=  5.5s OK
+  [ 24/150] gpt        L2  pt-BR  t=  3.5s OK
+  [ 25/150] gpt        L2  pt-BR  t=  4.7s OK
+  [ 26/150] gpt        L2  en     t=  3.0s OK
+  [ 27/150] gpt        L2  en     t=  3.7s OK
+  [ 28/150] gpt        L2  en     t=  2.9s OK
+  [ 29/150] gpt        L2  en     t=  2.8s OK
+  [ 30/150] gpt        L2  en     t=  3.3s OK
+  [ 31/150] gpt        L3  pt-BR  t=  8.7s OK
+  [ 32/150] gpt        L3  pt-BR  t=  5.9s OK
+  [ 33/150] gpt        L3  pt-BR  t=  9.0s OK
+  [ 34/150] gpt        L3  pt-BR  t=  7.4s OK
+  [ 35/150] gpt        L3  pt-BR  t= 10.0s OK
+  [ 36/150] gpt        L3  en     t=  6.6s OK
+  [ 37/150] gpt        L3  en     t=  6.2s OK
+  [ 38/150] gpt        L3  en     t=  8.0s OK
+  [ 39/150] gpt        L3  en     t=  8.2s OK
+  [ 40/150] gpt        L3  en     t=  5.8s OK
+  [ 41/150] gpt        L4  pt-BR  t= 12.1s OK
+  [ 42/150] gpt        L4  pt-BR  t=  8.4s OK
+  [ 43/150] gpt        L4  pt-BR  t=  8.9s OK
+  [ 44/150] gpt        L4  pt-BR  t=  9.1s OK
+  [ 45/150] gpt        L4  pt-BR  t=  7.4s OK
+  [ 46/150] gpt        L4  en     t=  8.4s OK
+  [ 47/150] gpt        L4  en     t= 15.7s OK
+  [ 48/150] gpt        L4  en     t=  8.5s OK
+  [ 49/150] gpt        L4  en     t=  7.5s OK
+  [ 50/150] gpt        L4  en     t=  6.8s OK
+  [ 51/150] gemini     L0  pt-BR  t= 44.2s OK
+  [ 52/150] gemini     L0  pt-BR  t= 42.1s OK
+  [ 53/150] gemini     L0  pt-BR  t= 41.4s OK
+  [ 54/150] gemini     L0  pt-BR  t= 41.0s OK
+  [ 55/150] gemini     L0  pt-BR  t= 45.1s OK
+  [ 56/150] gemini     L0  en     t= 39.7s OK
+  [ 57/150] gemini     L0  en     t= 52.4s OK
+  [ 58/150] gemini     L0  en     t= 60.4s OK
+  [ 59/150] gemini     L0  en     t= 52.4s OK
+  [ 60/150] gemini     L0  en     t= 42.6s OK
+  [ 61/150] gemini     L1  pt-BR  t= 34.8s OK
+  [ 62/150] gemini     L1  pt-BR  t= 51.6s OK
+  [ 63/150] gemini     L1  pt-BR  t= 51.7s OK
+  [ 64/150] gemini     L1  pt-BR  t= 39.0s OK
+  [ 65/150] gemini     L1  pt-BR  t= 42.9s OK
+  [ 66/150] gemini     L1  en     t= 46.8s OK
+  [ 67/150] gemini     L1  en     t= 42.5s OK
+  [ 68/150] gemini     L1  en     t= 51.2s OK
+  [ 69/150] gemini     L1  en     t= 47.7s OK
+  [ 70/150] gemini     L1  en     t= 50.5s OK
+  [ 71/150] gemini     L2  pt-BR  t= 57.3s OK
+  [ 72/150] gemini     L2  pt-BR  t= 89.9s OK
+  [ 73/150] gemini     L2  pt-BR  t= 57.3s OK
+  [ 74/150] gemini     L2  pt-BR  t= 57.2s OK
+  [ 75/150] gemini     L2  pt-BR  t= 55.1s OK
+  [ 76/150] gemini     L2  en     t= 56.0s OK
+  [ 77/150] gemini     L2  en     t= 56.1s OK
+  [ 78/150] gemini     L2  en     t= 61.5s OK
+  [ 79/150] gemini     L2  en     t= 63.9s OK
+  [ 80/150] gemini     L2  en     t= 60.6s OK
+  [ 81/150] gemini     L3  pt-BR  t= 44.6s OK
+  [ 82/150] gemini     L3  pt-BR  t= 45.4s OK
+  [ 83/150] gemini     L3  pt-BR  t= 45.4s OK
+  [ 84/150] gemini     L3  pt-BR  t= 45.9s OK
+  [ 85/150] gemini     L3  pt-BR  t= 49.2s OK
+  [ 86/150] gemini     L3  en     t= 47.5s OK
+  [ 87/150] gemini     L3  en     t= 45.3s OK
+  [ 88/150] gemini     L3  en     t= 43.9s OK
+  [ 89/150] gemini     L3  en     t= 45.3s OK
+  [ 90/150] gemini     L3  en     t= 48.9s OK
+  [ 91/150] gemini     L4  pt-BR  t= 41.6s OK
+  [ 92/150] gemini     L4  pt-BR  t= 42.6s OK
+  [ 93/150] gemini     L4  pt-BR  t= 37.6s OK
+  [ 94/150] gemini     L4  pt-BR  t= 41.9s OK
+  [ 95/150] gemini     L4  pt-BR  t= 42.0s OK
+  [ 96/150] gemini     L4  en     t= 45.8s OK
+  [ 97/150] gemini     L4  en     t= 56.9s OK
+  [ 98/150] gemini     L4  en     t= 56.7s OK
+  [ 99/150] gemini     L4  en     t= 57.4s OK
+  [100/150] gemini     L4  en     t= 58.1s OK
+  [101/150] deepseek   L0  pt-BR  t=  8.1s OK
+  [102/150] deepseek   L0  pt-BR  t=  6.2s OK
+  [103/150] deepseek   L0  pt-BR  t=  6.7s OK
+  [104/150] deepseek   L0  pt-BR  t=  7.5s OK
+  [105/150] deepseek   L0  pt-BR  t=  7.8s OK
+  [106/150] deepseek   L0  en     t=  5.9s OK
+  [107/150] deepseek   L0  en     t=  5.8s OK
+  [108/150] deepseek   L0  en     t=  4.8s OK
+  [109/150] deepseek   L0  en     t=  6.3s OK
+  [110/150] deepseek   L0  en     t=  6.9s OK
+  [111/150] deepseek   L1  pt-BR  t=  6.8s OK
+  [112/150] deepseek   L1  pt-BR  t=  6.8s OK
+  [113/150] deepseek   L1  pt-BR  t=  7.1s OK
+  [114/150] deepseek   L1  pt-BR  t=  7.6s OK
+  [115/150] deepseek   L1  pt-BR  t=  7.4s OK
+  [116/150] deepseek   L1  en     t=  7.3s OK
+  [117/150] deepseek   L1  en     t=  6.4s OK
+  [118/150] deepseek   L1  en     t=  8.7s OK
+  [119/150] deepseek   L1  en     t=  8.0s OK
+  [120/150] deepseek   L1  en     t=  8.2s OK
+  [121/150] deepseek   L2  pt-BR  t=  7.7s OK
+  [122/150] deepseek   L2  pt-BR  t= 18.0s OK
+  [123/150] deepseek   L2  pt-BR  t=  9.4s OK
+  [124/150] deepseek   L2  pt-BR  t=  7.8s OK
+  [125/150] deepseek   L2  pt-BR  t=  5.9s OK
+  [126/150] deepseek   L2  en     t= 12.8s OK
+  [127/150] deepseek   L2  en     t=  8.6s OK
+  [128/150] deepseek   L2  en     t=  7.6s OK
+  [129/150] deepseek   L2  en     t= 12.6s OK
+  [130/150] deepseek   L2  en     t= 13.9s OK
+  [131/150] deepseek   L3  pt-BR  t= 26.4s OK
+  [132/150] deepseek   L3  pt-BR  t=  7.3s OK
+  [133/150] deepseek   L3  pt-BR  t= 28.7s OK
+  [134/150] deepseek   L3  pt-BR  t= 18.4s OK
+  [135/150] deepseek   L3  pt-BR  t= 22.7s OK
+  [136/150] deepseek   L3  en     t=  6.7s OK
+  [137/150] deepseek   L3  en     t=  8.5s OK
+  [138/150] deepseek   L3  en     t=  6.2s OK
+  [139/150] deepseek   L3  en     t= 10.1s OK
+  [140/150] deepseek   L3  en     t=  6.5s OK
+  [141/150] deepseek   L4  pt-BR  t=  7.3s OK
+  [142/150] deepseek   L4  pt-BR  t=  7.2s OK
+  [143/150] deepseek   L4  pt-BR  t=  7.3s OK
+  [144/150] deepseek   L4  pt-BR  t=  7.7s OK
+  [145/150] deepseek   L4  pt-BR  t=  8.0s OK
+  [146/150] deepseek   L4  en     t=  9.9s OK
+  [147/150] deepseek   L4  en     t=  6.3s OK
+  [148/150] deepseek   L4  en     t=  5.6s OK
+  [149/150] deepseek   L4  en     t=  8.2s OK
+  [150/150] deepseek   L4  en     t=  7.6s OK
+
+Done. Wrote /Users/lucasrover/ia-acv-gcv2026/results/raw/20260519T193221Z__main.jsonl
+  OK: 150 · ERR: 0 · PARSE_FAIL: 0
+  Total elapsed: 3265.0s (21.8s avg)

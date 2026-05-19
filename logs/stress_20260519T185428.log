@@ -1,0 +1,105 @@
+/Users/lucasrover/ia-acv-gcv2026/src/llm_clients.py:139: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+[2026-05-19T18:54:28] Stress test: 90 runs.
+  Providers: ['gpt', 'gemini', 'deepseek'] · Schemes: ['P1', 'P2', 'P3'] · Levels: ['L3', 'L4'] · Reps: 5
+  [ 1/90] gpt        P1 L3 rep=1 t=  9.5s  OK ans=3.07e-08 ΔnewGT=-46% ΔorigGT=+9%
+  [ 2/90] gpt        P1 L3 rep=2 t=  8.0s  OK ans=3.07e-08 ΔnewGT=-46% ΔorigGT=+9%
+  [ 3/90] gpt        P1 L3 rep=3 t=  9.3s  OK ans=3.07e-08 ΔnewGT=-46% ΔorigGT=+9%
+  [ 4/90] gpt        P1 L3 rep=4 t=  8.7s  OK ans=3.07e-08 ΔnewGT=-46% ΔorigGT=+9%
+  [ 5/90] gpt        P1 L3 rep=5 t=  6.5s  OK ans=3.07e-08 ΔnewGT=-46% ΔorigGT=+9%
+  [ 6/90] gpt        P1 L4 rep=1 t=  8.4s  OK ans=2.67e-08 ΔnewGT=-53% ΔorigGT=-6%
+  [ 7/90] gpt        P1 L4 rep=2 t= 11.3s  OK ans=2.73e-08 ΔnewGT=-52% ΔorigGT=-4%
+  [ 8/90] gpt        P1 L4 rep=3 t=  9.3s  OK ans=2.73e-08 ΔnewGT=-52% ΔorigGT=-4%
+  [ 9/90] gpt        P1 L4 rep=4 t=  9.1s  OK ans=2.86e-08 ΔnewGT=-50% ΔorigGT=+1%
+  [10/90] gpt        P1 L4 rep=5 t=  8.9s  OK ans=2.86e-08 ΔnewGT=-50% ΔorigGT=+1%
+  [11/90] gpt        P2 L3 rep=1 t=  7.9s  OK ans=2.73e-08 ΔnewGT=+158% ΔorigGT=-4%
+  [12/90] gpt        P2 L3 rep=2 t=  7.6s  OK ans=2.86e-08 ΔnewGT=+171% ΔorigGT=+1%
+  [13/90] gpt        P2 L3 rep=3 t=  7.6s  OK ans=2.73e-08 ΔnewGT=+158% ΔorigGT=-4%
+  [14/90] gpt        P2 L3 rep=4 t=  7.2s  OK ans=2.86e-08 ΔnewGT=+171% ΔorigGT=+1%
+  [15/90] gpt        P2 L3 rep=5 t=  8.4s  OK ans=2.86e-08 ΔnewGT=+171% ΔorigGT=+1%
+  [16/90] gpt        P2 L4 rep=1 t=  9.6s  OK ans=2.73e-08 ΔnewGT=+158% ΔorigGT=-4%
+  [17/90] gpt        P2 L4 rep=2 t=  6.2s  OK ans=2.50e-08 ΔnewGT=+137% ΔorigGT=-12%
+  [18/90] gpt        P2 L4 rep=3 t=  7.1s  OK ans=2.50e-08 ΔnewGT=+137% ΔorigGT=-12%
+  [19/90] gpt        P2 L4 rep=4 t=  6.8s  OK ans=2.73e-08 ΔnewGT=+158% ΔorigGT=-4%
+  [20/90] gpt        P2 L4 rep=5 t=  8.9s  OK ans=2.50e-08 ΔnewGT=+137% ΔorigGT=-12%
+  [21/90] gpt        P3 L3 rep=1 t=  6.7s  OK ans=3.07e-08 ΔnewGT=-15% ΔorigGT=+9%
+  [22/90] gpt        P3 L3 rep=2 t=  7.7s  OK ans=3.07e-08 ΔnewGT=-15% ΔorigGT=+9%
+  [23/90] gpt        P3 L3 rep=3 t=  8.4s  OK ans=3.07e-08 ΔnewGT=-15% ΔorigGT=+9%
+  [24/90] gpt        P3 L3 rep=4 t=  8.6s  OK ans=3.07e-08 ΔnewGT=-15% ΔorigGT=+9%
+  [25/90] gpt        P3 L3 rep=5 t=  6.5s  OK ans=3.07e-08 ΔnewGT=-15% ΔorigGT=+9%
+  [26/90] gpt        P3 L4 rep=1 t=  8.3s  OK ans=2.86e-08 ΔnewGT=-21% ΔorigGT=+1%
+  [27/90] gpt        P3 L4 rep=2 t=  6.8s  OK ans=2.73e-08 ΔnewGT=-25% ΔorigGT=-4%
+  [28/90] gpt        P3 L4 rep=3 t=  7.4s  OK ans=2.67e-08 ΔnewGT=-26% ΔorigGT=-6%
+  [29/90] gpt        P3 L4 rep=4 t=  7.2s  OK ans=2.67e-08 ΔnewGT=-26% ΔorigGT=-6%
+  [30/90] gpt        P3 L4 rep=5 t=  7.3s  OK ans=2.67e-08 ΔnewGT=-26% ΔorigGT=-6%
+  [31/90] gemini     P1 L3 rep=1 t= 33.7s  OK ans=2.83e-08 ΔnewGT=-50% ΔorigGT=+0%
+  [32/90] gemini     P1 L3 rep=2 t= 43.7s  OK ans=2.83e-08 ΔnewGT=-50% ΔorigGT=+0%
+  [33/90] gemini     P1 L3 rep=3 t= 40.4s  OK ans=2.83e-08 ΔnewGT=-50% ΔorigGT=+0%
+  [34/90] gemini     P1 L3 rep=4 t= 38.1s  OK ans=2.83e-08 ΔnewGT=-50% ΔorigGT=+0%
+  [35/90] gemini     P1 L3 rep=5 t= 37.7s  OK ans=2.83e-08 ΔnewGT=-50% ΔorigGT=+0%
+  [36/90] gemini     P1 L4 rep=1 t= 34.3s  OK ans=2.83e-08 ΔnewGT=-50% ΔorigGT=+0%
+  [37/90] gemini     P1 L4 rep=2 t= 35.7s  OK ans=2.83e-08 ΔnewGT=-50% ΔorigGT=+0%
+  [38/90] gemini     P1 L4 rep=3 t= 49.1s  OK ans=2.83e-08 ΔnewGT=-50% ΔorigGT=+0%
+  [39/90] gemini     P1 L4 rep=4 t= 52.1s  OK ans=2.83e-08 ΔnewGT=-50% ΔorigGT=+0%
+  [40/90] gemini     P1 L4 rep=5 t= 50.9s  OK ans=2.83e-08 ΔnewGT=-50% ΔorigGT=+0%
+  [41/90] gemini     P2 L3 rep=1 t= 45.2s  OK ans=2.83e-08 ΔnewGT=+168% ΔorigGT=+0%
+  [42/90] gemini     P2 L3 rep=2 t= 42.8s  OK ans=2.83e-08 ΔnewGT=+168% ΔorigGT=+0%
+  [43/90] gemini     P2 L3 rep=3 t= 49.2s  OK ans=2.83e-08 ΔnewGT=+168% ΔorigGT=+0%
+  [44/90] gemini     P2 L3 rep=4 t= 38.4s  OK ans=1.06e-08 ΔnewGT=+0% ΔorigGT=-63%
+  [45/90] gemini     P2 L3 rep=5 t= 34.4s  OK ans=2.83e-08 ΔnewGT=+168% ΔorigGT=+0%
+  [46/90] gemini     P2 L4 rep=1 t= 48.4s  OK ans=2.83e-08 ΔnewGT=+168% ΔorigGT=+0%
+  [47/90] gemini     P2 L4 rep=2 t= 46.8s  OK ans=2.83e-08 ΔnewGT=+168% ΔorigGT=+0%
+  [48/90] gemini     P2 L4 rep=3 t= 46.4s  OK ans=2.83e-08 ΔnewGT=+168% ΔorigGT=+0%
+  [49/90] gemini     P2 L4 rep=4 t= 49.0s  OK ans=2.83e-08 ΔnewGT=+168% ΔorigGT=+0%
+  [50/90] gemini     P2 L4 rep=5 t= 48.0s  OK ans=2.83e-08 ΔnewGT=+168% ΔorigGT=+0%
+  [51/90] gemini     P3 L3 rep=1 t= 34.0s  OK ans=2.83e-08 ΔnewGT=-22% ΔorigGT=+0%
+  [52/90] gemini     P3 L3 rep=2 t= 40.1s  OK ans=2.83e-08 ΔnewGT=-22% ΔorigGT=+0%
+  [53/90] gemini     P3 L3 rep=3 t= 39.5s  OK ans=2.83e-08 ΔnewGT=-22% ΔorigGT=+0%
+  [54/90] gemini     P3 L3 rep=4 t= 32.0s  OK ans=2.83e-08 ΔnewGT=-22% ΔorigGT=+0%
+  [55/90] gemini     P3 L3 rep=5 t= 34.5s  OK ans=2.83e-08 ΔnewGT=-22% ΔorigGT=+0%
+  [56/90] gemini     P3 L4 rep=1 t= 48.6s  OK ans=2.83e-08 ΔnewGT=-22% ΔorigGT=+0%
+  [57/90] gemini     P3 L4 rep=2 t= 38.9s  OK ans=2.83e-08 ΔnewGT=-22% ΔorigGT=+0%
+  [58/90] gemini     P3 L4 rep=3 t= 51.5s  OK ans=2.83e-08 ΔnewGT=-22% ΔorigGT=+0%
+  [59/90] gemini     P3 L4 rep=4 t= 58.8s  OK ans=2.83e-08 ΔnewGT=-22% ΔorigGT=+0%
+  [60/90] gemini     P3 L4 rep=5 t= 39.3s  OK ans=2.83e-08 ΔnewGT=-22% ΔorigGT=+0%
+  [61/90] deepseek   P1 L3 rep=1 t=  8.5s  OK ans=3.88e-08 ΔnewGT=-31% ΔorigGT=+37%
+  [62/90] deepseek   P1 L3 rep=2 t=  7.8s  OK ans=2.88e-08 ΔnewGT=-49% ΔorigGT=+2%
+  [63/90] deepseek   P1 L3 rep=3 t=  7.8s  OK ans=2.48e-08 ΔnewGT=-56% ΔorigGT=-12%
+  [64/90] deepseek   P1 L3 rep=4 t=  8.4s  OK ans=3.82e-08 ΔnewGT=-33% ΔorigGT=+35%
+  [65/90] deepseek   P1 L3 rep=5 t=  9.3s  OK ans=3.82e-08 ΔnewGT=-33% ΔorigGT=+35%
+  [66/90] deepseek   P1 L4 rep=1 t=  7.1s  OK ans=2.72e-08 ΔnewGT=-52% ΔorigGT=-4%
+  [67/90] deepseek   P1 L4 rep=2 t=  7.3s  OK ans=2.72e-08 ΔnewGT=-52% ΔorigGT=-4%
+  [68/90] deepseek   P1 L4 rep=3 t=  7.2s  OK ans=2.72e-08 ΔnewGT=-52% ΔorigGT=-4%
+  [69/90] deepseek   P1 L4 rep=4 t=  6.3s  OK ans=3.82e-08 ΔnewGT=-33% ΔorigGT=+35%
+  [70/90] deepseek   P1 L4 rep=5 t=  7.0s  OK ans=2.72e-08 ΔnewGT=-52% ΔorigGT=-4%
+  [71/90] deepseek   P2 L3 rep=1 t=  8.5s  OK ans=2.14e-08 ΔnewGT=+103% ΔorigGT=-24%
+  [72/90] deepseek   P2 L3 rep=2 t=  7.1s  OK ans=2.14e-08 ΔnewGT=+103% ΔorigGT=-24%
+  [73/90] deepseek   P2 L3 rep=3 t=  8.4s  OK ans=2.14e-08 ΔnewGT=+103% ΔorigGT=-24%
+  [74/90] deepseek   P2 L3 rep=4 t=  6.1s  OK ans=2.14e-08 ΔnewGT=+103% ΔorigGT=-24%
+  [75/90] deepseek   P2 L3 rep=5 t= 20.0s  OK ans=1.10e-05 ΔnewGT=+104126% ΔorigGT=+38773%
+  [76/90] deepseek   P2 L4 rep=1 t=  5.5s  OK ans=2.82e-08 ΔnewGT=+167% ΔorigGT=-0%
+  [77/90] deepseek   P2 L4 rep=2 t=  7.1s  OK ans=2.77e-08 ΔnewGT=+162% ΔorigGT=-2%
+  [78/90] deepseek   P2 L4 rep=3 t=  7.0s  OK ans=2.82e-08 ΔnewGT=+167% ΔorigGT=-0%
+  [79/90] deepseek   P2 L4 rep=4 t=  5.8s  OK ans=2.77e-08 ΔnewGT=+162% ΔorigGT=-2%
+  [80/90] deepseek   P2 L4 rep=5 t=  8.3s  PARSE_FAIL
+  [81/90] deepseek   P3 L3 rep=1 t=  7.1s  OK ans=3.14e-08 ΔnewGT=-13% ΔorigGT=+11%
+  [82/90] deepseek   P3 L3 rep=2 t=  8.8s  OK ans=3.82e-08 ΔnewGT=+5% ΔorigGT=+35%
+  [83/90] deepseek   P3 L3 rep=3 t= 16.6s  OK ans=4.08e-08 ΔnewGT=+12% ΔorigGT=+44%
+  [84/90] deepseek   P3 L3 rep=4 t=  9.0s  OK ans=3.14e-08 ΔnewGT=-13% ΔorigGT=+11%
+  [85/90] deepseek   P3 L3 rep=5 t=  7.8s  OK ans=3.14e-08 ΔnewGT=-13% ΔorigGT=+11%
+  [86/90] deepseek   P3 L4 rep=1 t=  6.9s  OK ans=2.82e-08 ΔnewGT=-22% ΔorigGT=-0%
+  [87/90] deepseek   P3 L4 rep=2 t=  7.8s  OK ans=1.09e-07 ΔnewGT=+200% ΔorigGT=+285%
+  [88/90] deepseek   P3 L4 rep=3 t=  7.2s  OK ans=2.72e-08 ΔnewGT=-25% ΔorigGT=-4%
+  [89/90] deepseek   P3 L4 rep=4 t=  6.9s  OK ans=2.82e-08 ΔnewGT=-22% ΔorigGT=-0%
+  [90/90] deepseek   P3 L4 rep=5 t=  7.8s  OK ans=2.82e-08 ΔnewGT=-22% ΔorigGT=-0%
+
+Done. 20260519T215428Z__stress.jsonl
+  OK: 89 · ERR: 0 · PARSE_FAIL: 1
+  Total elapsed: 29.5 min
