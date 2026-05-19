@@ -8,8 +8,8 @@
 
 - **Unidade funcional**: 1 kg FPCM
 - **Fronteira do sistema**: *cradle-to-farm gate*
-- **Categoria de impacto**: **formação de material particulado** (*Particulate Matter Formation*)
-- **Indicador endpoint**: saúde humana, em DALY/kg FPCM
+- **Categoria de impacto**: **impacto do material particulado na saúde humana**
+- **Indicador**: DALY/kg FPCM
 - **Coprodutos**: leite, carne (descarte), biofertilizante
 - **Alocação aplicada ao inventário**: **econômica**
 - **Modelo de caracterização a ser adotado**: **Oberschelp et al. (2020)** — *Globally regionalized monthly life cycle impact assessment of particulate matter*. Environmental Science & Technology. DOI: 10.1021/acs.est.0c05691
@@ -26,6 +26,6 @@ Os fatores abaixo são fatores nativos do modelo Oberschelp et al. (2020), em DA
 
 ## Pergunta
 
-Considerando o escopo do estudo de ACV, o inventário e os fatores de caracterização fornecidos, qual é o impacto da categoria **formação de material particulado**, em DALY/kg FPCM, para cada um dos três escopos geográficos: **Global**, **Brasil** e **Estado de São Paulo**?
+Considerando o escopo do estudo de ACV, o inventário e os fatores de caracterização fornecidos, qual é o **impacto do material particulado na saúde humana**, em DALY/kg FPCM, para cada um dos três escopos geográficos: **Global**, **Brasil** e **Estado de São Paulo**?
 
 Responda no formato JSON especificado.

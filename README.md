@@ -1,8 +1,8 @@
 # IA Aplicada ao Estudo de ACV
 
-**Quão assertiva é a IA em estudos de Avaliação do Ciclo de Vida?** Uma avaliação experimental por níveis progressivos de prompt, benchmarkada com uma ACV regionalizada da categoria de impacto **formação de material particulado** em sistemas de produção leiteira no Brasil.
+**Quão assertiva é a IA em estudos de Avaliação do Ciclo de Vida?** Uma avaliação experimental por níveis progressivos de prompt, benchmarkada com uma ACV regionalizada do **impacto do material particulado na saúde humana** em sistemas de produção leiteira no Brasil.
 
-> *How assertive is AI in Life Cycle Assessment studies? An experimental evaluation through progressive prompt levels, benchmarked against a regionalized LCA of particulate matter formation in Brazilian milk production systems.*
+> *How assertive is AI in Life Cycle Assessment studies? An experimental evaluation through progressive prompt levels, benchmarked against a regionalized LCA of human health impacts from particulate matter in Brazilian milk production systems.*
 
 ---
 

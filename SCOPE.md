@@ -36,7 +36,7 @@ Fonte: `data/ground_truth/sistema1_oberschelp_economica.json`.
 
 | Nível | Conteúdo entregue à IA | Pergunta-alvo |
 |-------|------------------------|---------------|
-| **L0** | Apenas pergunta geral | *"Em um estudo de ACV de produção de leite no Brasil, qual é o impacto da categoria formação de material particulado, em DALY/kg FPCM?"* |
+| **L0** | Apenas pergunta geral | *"Em um estudo de ACV de produção de leite no Brasil, qual é o impacto do material particulado na saúde humana, em DALY/kg FPCM?"* |
 | **L1** | L0 + escopo definido (UF, fronteira do sistema, categoria de impacto, região) | + especificações ISO-style |
 | **L2** | L1 + inventário (LCI) bruto do Sistema 1 | "Calcule a partir destes dados" |
 | **L3** | L2 + lista de fatores de caracterização disponíveis (Oberschelp 2020) | "Calcule usando estes fatores" |
