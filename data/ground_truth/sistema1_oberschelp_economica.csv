@@ -1,0 +1,4 @@
+cell_id,sistema,modelo,alocacao,escopo_geografico,unidade,valor,fonte
+S1-OBER-ECO-GLOBAL,1,Oberschelp et al. (2020),Economica,global,DALY/kg FPCM,2.8297479606833848e-08,Giusti et al. (2023) - Tabela AICV
+S1-OBER-ECO-BRAZIL,1,Oberschelp et al. (2020),Economica,brazil,DALY/kg FPCM,8.107650880339056e-08,Giusti et al. (2023) - Tabela AICV
+S1-OBER-ECO-STATE_SP,1,Oberschelp et al. (2020),Economica,state_sp,DALY/kg FPCM,6.37272783215278e-07,Giusti et al. (2023) - Tabela AICV

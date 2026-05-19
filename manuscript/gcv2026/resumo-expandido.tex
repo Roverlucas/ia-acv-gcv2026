@@ -1,0 +1,166 @@
+% ============================================================
+% 9º Congresso Brasileiro sobre Gestão do Ciclo de Vida (GCV 2026)
+% Resumo expandido — modelo conforme regras de submissão.
+% Formato: A4, margens 3-2-3-2 cm, Times New Roman 12pt,
+% alinhamento justificado, espaçamento simples, máx. 5 páginas.
+%
+% IMPORTANTE: versão anônima para revisão por pares (sem autoria).
+% ============================================================
+
+\documentclass[12pt,a4paper]{article}
+
+% --- Geometria de página -----------------------------------
+\usepackage[
+  a4paper,
+  top=3cm,
+  bottom=2cm,
+  left=3cm,
+  right=2cm,
+]{geometry}
+
+% --- Codificação e idioma ----------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+
+% --- Fonte Times New Roman ---------------------------------
+\usepackage{mathptmx}      % Times-like serif + math
+\usepackage[scaled=.90]{helvet} % Helvetica para sem-serifa
+\usepackage{courier}
+
+% --- Tipografia / parágrafos -------------------------------
+\usepackage{setspace}
+\singlespacing
+\setlength{\parindent}{1.25cm}
+\setlength{\parskip}{0pt}
+
+% --- Cabeçalhos e numeração de página ----------------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[R]{\thepage}
+
+% --- Seções (numeração progressiva ABNT) -------------------
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\bfseries\uppercase}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\bfseries\itshape}{\thesubsubsection}{1em}{}
+\titlespacing*{\section}{0pt}{1\baselineskip}{0.5\baselineskip}
+\titlespacing*{\subsection}{0pt}{0.8\baselineskip}{0.4\baselineskip}
+
+% --- Legendas (Figura/Tabela acima, fonte abaixo) ----------
+\usepackage{caption}
+\captionsetup{
+  font={small,sf},
+  labelfont={bf},
+  labelsep=endash,
+  justification=centering,
+  skip=4pt,
+}
+
+% --- Pacotes utilitários -----------------------------------
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{siunitx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+
+% --- Tipografia de texto -----------------------------------
+\usepackage{microtype}
+\sloppy
+
+% ============================================================
+\begin{document}
+
+% ----- Título (centralizado, em caixa alta, em negrito) ----
+\begin{center}
+{\bfseries\uppercase{Quão assertiva é a IA no cálculo de Avaliação do Ciclo de Vida? Uma avaliação experimental por níveis progressivos de prompt, benchmarkada com a ACV regionalizada de impactos de material particulado em sistemas de produção leiteira no Brasil}}
+\end{center}
+
+\vspace{1\baselineskip}
+
+% ----- Autores anonimizados para revisão -------------------
+% Manter ANONIMIZADO durante submissão (critério de sigilo).
+% Após aceite, substituir pelos nomes e instituições reais.
+\begin{center}
+\textit{[Identificação dos autores omitida para revisão por pares]}
+\end{center}
+
+\vspace{1\baselineskip}
+
+% ============================================================
+\section{Introdução}
+% TODO: 1 página
+% - Contextualizar ACV e o papel emergente das LLMs
+% - Citar o tema GCV 2026 (digitalização + territórios)
+% - Apresentar lacunas L1, L2, L3 (validação ausente, confusão acurácia/plausibilidade, regionalização ignorada)
+% - Apresentar a pergunta de pesquisa principal
+% - Apresentar paper-benchmark (Giusti et al., 2023)
+
+A evolução na coleta e no processamento de dados em Avaliação do Ciclo de Vida (ACV) tem culminado num uso cada vez mais frequente de ferramentas digitais, como modelos de linguagem de grande porte (LLMs), na aplicação da metodologia (CRCN-NE, 2026). Praticantes — pesquisadores, consultores e alunos — já utilizam LLMs informalmente para estimar fatores ausentes, revisar inventários e, em alguns casos, gerar resultados completos a partir de prompts. Esse uso ocorre, em geral, \textbf{sem protocolo, sem auditoria e sem evidência quantitativa de acurácia}.
+
+% TODO: completar problematização + pergunta-alvo
+
+\section{Metodologia}
+% TODO: ~1.5 página
+% - Paper-benchmark: 4 sistemas × 5 modelos × 3 escopos (matriz 60 células)
+% - Escopo reduzido deste resumo: Sistema 1 × Oberschelp (2020) × Econômica × 3 escopos
+% - 5 níveis de prompt (L0-L4)
+% - LLMs avaliadas (Claude, GPT, Gemini, Llama/DeepSeek)
+% - n >= 5 repetições por célula, T fixa, seed quando suportado
+% - Métricas: acurácia numérica (MAPE, RMSE log), corretude metodológica,
+%   fidelidade regional, alucinação
+% - Análise: ANOVA mista nível × modelo sobre log-MAPE
+
+\subsection{Paper-benchmark e \textit{ground truth}}
+
+% TODO
+
+\subsection{Variável independente: níveis de enriquecimento de prompt}
+
+% TODO: tabela L0-L4
+
+\subsection{Desenho experimental e métricas}
+
+% TODO
+
+\section{Resultados}
+% TODO: ~1.5 página
+% - Curva MAPE x nível de prompt
+% - Heterogeneidade entre LLMs em L0/L1 vs convergência em L3/L4
+% - Taxa de alucinação por nível
+% - Diferenciação regional (Global vs Brasil vs SP) por nível
+
+\section{Conclusões}
+% TODO: ~0.5 página
+% - Em que nível mínimo o output da IA atinge concordância operacional
+% - Recomendações para uso responsável de IA em ACV
+% - Limitações e próximos passos (artigo IJLCA com matriz completa)
+
+\section*{Referências}
+\addcontentsline{toc}{section}{Referências}
+\renewcommand{\refname}{}
+\vspace{-3\baselineskip}
+
+\begin{flushleft}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. \textbf{NBR ISO 14040:2009}: Gestão ambiental — Avaliação do ciclo de vida — Princípios e estrutura. Rio de Janeiro: ABNT, 2009.
+
+BROWN, T. et al. Language models are few-shot learners. \textbf{Advances in Neural Information Processing Systems}, v. 33, 2020.
+
+GIUSTI, G. et al. Human health impacts of particulate matter emitted from different milk production systems in Brazil: a regionalized LCA sensitivity analysis. \textbf{The International Journal of Life Cycle Assessment}, 2023. DOI: 10.1007/s11367-023-02184-8.
+
+OBERSCHELP, C. et al. Global emission hotspots of coal power generation. \textbf{Environmental Science \& Technology}, 2020. DOI: 10.1021/acs.est.0c05691.
+
+% TODO: adicionar restantes (Fantke 2019, Van Zelm 2016, Heijungs \& Dekker 2022, etc.)
+
+\end{flushleft}
+
+\end{document}

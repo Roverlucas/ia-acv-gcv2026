@@ -1,0 +1,54 @@
+{
+  "paper": "Giusti, G., Vieira, J.G.V., Tadano, Y.S., Silva, D.A.L., Fantke, P. (2023). Human health impacts of particulate matter emitted from different milk production systems in Brazil: a regionalized LCA sensitivity analysis. Int J Life Cycle Assess.",
+  "doi": "10.1007/s11367-023-02184-8",
+  "scope_initial_event": "Sistema 1 (Inventário-S1) × Modelo Oberschelp et al. (2020) × Alocação Econômica",
+  "functional_unit": "1 kg FPCM (fat-and-protein-corrected milk)",
+  "unit": "DALY/kg FPCM",
+  "ground_truth_economic": {
+    "global": 2.8297479606833848e-08,
+    "brazil": 8.107650880339056e-08,
+    "state_sp": 6.37272783215278e-07
+  },
+  "ground_truth_mass_reference": {
+    "global": 2.1773170764397558e-08,
+    "brazil": 6.238338875703566e-08,
+    "state_sp": 4.903422257117992e-07
+  },
+  "characterization_model": {
+    "name": "Oberschelp et al. (2020)",
+    "approach": "Geográfica",
+    "scope": "Global",
+    "spatial_diff": "Fator para o globo, para países (inclui Brasil), e para regiões (estados brasileiros).",
+    "flows": "MP2,5; NH3; NOx; SO2",
+    "aicv_method": "Indisponível, modelo recente"
+  },
+  "alocacao_economica_sistema_1": [
+    {
+      "sistema": 1,
+      "coproduto": "Leite",
+      "massa_kg": 1,
+      "aloc_mass_pct": 0.29931158335827596,
+      "preco_brl_kg": 2.25,
+      "preco_total_brl": 2.25,
+      "aloc_econ_pct": 0.3892403585163196
+    },
+    {
+      "sistema": 1,
+      "coproduto": "Carne",
+      "massa_kg": 0.011,
+      "aloc_mass_pct": 0.003292427416941035,
+      "preco_brl_kg": 278.59,
+      "preco_total_brl": 3.0644899999999997,
+      "aloc_econ_pct": 0.5301436383420782
+    },
+    {
+      "sistema": 1,
+      "coproduto": "Biofertilizante",
+      "massa_kg": 2.33,
+      "aloc_mass_pct": 0.697395989224783,
+      "preco_brl_kg": 0.2,
+      "preco_total_brl": 0.466,
+      "aloc_econ_pct": 0.0806160031416022
+    }
+  ]
+}
