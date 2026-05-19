@@ -52,6 +52,7 @@ results/processed/*.parquet
 
 # Logs — keep f2/stress experiment logs for reproducibility
 !logs/
+!logs/*.log
 logs/*.tmp
 
 # Large outputs
