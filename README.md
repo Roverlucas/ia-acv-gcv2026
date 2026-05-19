@@ -34,18 +34,19 @@ A orientadora (Profa. Yara Tadano) é coautora do paper-benchmark — declarado 
 - **Alocação**: Econômica
 - **Escopos geográficos**: Global, Brasil, Estado-SP (3 células de comparação)
 - **Variável independente**: 5 níveis de prompt (L0–L4)
-- **LLMs**: 4 modelos (Claude Opus 4.7, GPT, Gemini, Llama/DeepSeek)
+- **LLMs**: **3 modelos** — GPT (OpenAI), Gemini (Google), DeepSeek V3 (open)  *— Claude removido por orçamento (2026-05-19)*
 - **Repetições**: n ≥ 5 por célula
-- **Idiomas + jurisdições**: 3 idiomas × 3 VPS em países diferentes apenas em **L0** — para isolar viés de regionalização proveniente do *training data* (extensão metodológica)
+- **Idiomas**: **PT-BR + EN** *— ES adiado para fase IJLCA*
+- **Jurisdições (apenas L0)**: 3 VPS (BR / EU / US) — para isolar viés de regionalização proveniente do *training data* (H7)
 
-**Total estimado (evento)**: 5 níveis × 4 LLMs × 3 escopos × 5 reps + (4 LLMs × 3 idiomas × 3 VPS × 5 reps no L0) ≈ 300 + 180 = ~480 outputs. Possível piloto de 100 outputs antes.
+**Total estimado (evento)**: 4 níveis × 3 LLMs × 3 escopos × 2 idiomas × 5 reps + (3 LLMs × 2 idiomas × 3 VPS × 5 reps no L0) = 360 + 90 = **~450 outputs**. Custo total estimado: **~$14 USD**.
 
 ### Escopo artigo (IJLCA) — expansão posterior
 
 - 4 sistemas produtivos × 5 modelos de caracterização × 3 níveis de regionalização = matriz 4×5×3 = **60 células** (mesmo grid do paper-benchmark)
 - Ambas alocações (Mássica + Econômica)
-- 2 idiomas (PT-BR / EN) + análise multi-jurisdição
-- Total estimado: ~800–1500 outputs
+- 3 idiomas (PT-BR / EN / ES) + análise multi-jurisdição
+- Total estimado: ~800–1500 outputs · custo ~$150 USD
 
 Detalhes em [`SCOPE.md`](SCOPE.md).
 
@@ -60,7 +61,7 @@ Detalhes em [`SCOPE.md`](SCOPE.md).
 │   ├── processed/
 │   └── ground_truth/         # Valores de referência extraídos
 ├── prompts/
-│   ├── templates/            # L0..L4 (PT-BR + EN + ES futuramente)
+│   ├── templates/            # L0..L4 (PT-BR + EN; ES na fase IJLCA)
 │   └── runs/                 # Snapshot de prompts efetivamente executados
 ├── src/                      # Pipeline: chamadas API, métricas, análise
 ├── results/

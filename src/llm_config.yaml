@@ -1,0 +1,128 @@
+# LLM configuration — IA Aplicada ao Estudo de ACV
+# Última atualização: 2026-05-19 (v0.2 — Claude removido por orçamento)
+#
+# Cada execução registra: modelo, versão exata da API, timestamp,
+# temperatura, seed, prompt hash, input/output tokens, custo estimado.
+
+version: "0.2"
+
+study:
+  name: "IA Aplicada ao Estudo de ACV"
+  phase: "F1/F2 (evento GCV 2026)"
+  scope: "Sistema 1 × Oberschelp (2020) × Econômica × 3 escopos geográficos"
+
+# -------------------------------------------------------------------
+# Modelos
+# -------------------------------------------------------------------
+models:
+  - id: "gpt"
+    label: "GPT (OpenAI)"
+    vendor: "OpenAI"
+    origin_country: "US"
+    # Versão exata a confirmar na execução — registrar timestamp + API version
+    api_model_id: "gpt-4.1"  # ou "gpt-5" se disponível
+    api_provider: "openai"
+    env_key: "OPENAI_API_KEY"
+    pricing_per_1m:
+      input_usd: 2.50
+      output_usd: 10.00
+    training_cutoff: "2025-05"  # registrar na execução
+    notes: "Maior adesão pública em ACV. Cutoff posterior a 2023 (testa H6 contaminação)."
+
+  - id: "gemini"
+    label: "Gemini (Google)"
+    vendor: "Google"
+    origin_country: "US"
+    api_model_id: "gemini-2.5-pro"  # ou frontier do momento
+    api_provider: "google"
+    env_key: "GEMINI_API_KEY"
+    pricing_per_1m:
+      input_usd: 3.50
+      output_usd: 10.50
+    training_cutoff: "2025-08"  # registrar na execução
+    notes: "Multilíngue forte. Integrado em Google Workspace (uso acadêmico)."
+
+  - id: "deepseek"
+    label: "DeepSeek V3"
+    vendor: "DeepSeek"
+    origin_country: "CN"
+    api_model_id: "deepseek-chat"  # V3
+    api_provider: "deepseek"  # ou via OpenRouter
+    env_key: "DEEPSEEK_API_KEY"
+    pricing_per_1m:
+      input_usd: 0.27
+      output_usd: 1.10
+    training_cutoff: "2024-12"  # registrar na execução
+    notes: "Open-source. Viés de treinamento geopolítico distinto — chave para H7."
+
+# Excluído por decisão de orçamento (2026-05-19):
+# - Claude Opus 4.7 (Anthropic). Custo ~5× Gemini; remoção mantém H4 testável
+#   com 3 modelos e H7 com contraste US (GPT+Gemini) × CN (DeepSeek).
+
+# -------------------------------------------------------------------
+# Parâmetros de chamada
+# -------------------------------------------------------------------
+call_params:
+  temperatures: [0.0, 0.7]   # runs separados; T=0 para reprodutibilidade, T=0.7 para variância
+  max_tokens: 4096
+  seed: 42                   # quando suportado pela API
+  timeout_s: 120
+  retries:
+    max: 3
+    backoff: "exponential"
+
+# -------------------------------------------------------------------
+# Idiomas
+# -------------------------------------------------------------------
+languages:
+  - code: "pt-BR"
+    label: "Português (Brasil)"
+    levels_covered: ["L0", "L1", "L2", "L3", "L4"]
+  - code: "en"
+    label: "Inglês"
+    levels_covered: ["L0", "L1", "L2", "L3", "L4"]
+# ES adiado para fase IJLCA (F3)
+
+# -------------------------------------------------------------------
+# VPS / jurisdições (apenas L0, extensão H7)
+# -------------------------------------------------------------------
+vps:
+  - code: "BR"
+    label: "Brasil"
+    host: ""  # TODO: definir provider (ex: Oracle Cloud BR, AWS sa-east-1)
+  - code: "EU"
+    label: "Europa"
+    host: ""  # TODO: definir (ex: Hetzner DE, AWS eu-central-1)
+  - code: "US"
+    label: "Estados Unidos"
+    host: ""  # TODO: definir (ex: AWS us-east-1, DigitalOcean NYC)
+
+# -------------------------------------------------------------------
+# Plano de execução F2
+# -------------------------------------------------------------------
+execution_plan:
+  reps_per_cell: 5
+  levels: ["L0", "L1", "L2", "L3", "L4"]
+  geo_scopes: ["global", "brazil", "state_sp"]  # apenas para L1-L4
+
+  blocks:
+    - name: "L0_h7_extension"
+      levels: ["L0"]
+      models: 3
+      languages: 2
+      vps: 3
+      reps: 5
+      outputs: 90
+
+    - name: "L1_L4_main"
+      levels: ["L1", "L2", "L3", "L4"]
+      models: 3
+      languages: 2
+      vps: 1   # apenas BR (host default)
+      reps: 5
+      outputs_per_level: 90  # 3 × 2 × 3 escopos × 5 reps
+      outputs_total: 360
+
+  total_outputs_expected: 450
+  total_outputs_with_buffer: 550
+  estimated_cost_usd: 14
