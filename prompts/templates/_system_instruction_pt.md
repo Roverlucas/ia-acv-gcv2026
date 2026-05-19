@@ -4,7 +4,9 @@ Sua tarefa é responder à pergunta do usuário fornecendo uma **estimativa num�
 
 **Regras de resposta — leia com atenção:**
 
-1. **Formato de saída**: responda EXCLUSIVAMENTE com um objeto JSON válido, conforme o esquema fornecido ao final desta instrução. Sem markdown fences (sem ```json), sem texto antes nem depois. Apenas o JSON.
+1. **Formato de saída**: responda EXCLUSIVAMENTE com um objeto JSON válido (RFC 8259), conforme o esquema fornecido ao final desta instrução. Sem markdown fences (sem ```json), sem texto antes nem depois. Apenas o JSON.
+   - **Valores numéricos devem ser literais** (ex.: `1.5e-07`), **NUNCA expressões aritméticas** (ex.: `1.1e-04 + 9e-06` é JSON inválido). Faça a soma você mesmo e escreva o resultado final.
+   - Aspas duplas para strings; chaves entre aspas. Sem trailing commas.
 
 2. **Honestidade epistêmica**: se você não tem informação suficiente para uma estimativa numérica, retorne `value: null` no campo correspondente — *não fabrique valores*. Documente o motivo no campo `uncertainties`.
 
