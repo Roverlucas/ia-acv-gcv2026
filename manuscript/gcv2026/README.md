@@ -1,36 +1,81 @@
 # Resumo expandido — GCV 2026
 
-## Build
+Pasta self-contained pronta para uso no Overleaf. Compila standalone (sem depender de paths externos ao diretório `manuscript/gcv2026/`).
+
+## Como usar no Overleaf
+
+### Opção 1 — Overleaf Premium (GitHub sync)
+1. New Project → Import from GitHub → selecionar `Roverlucas/ia-acv-gcv2026`
+2. Configurar `Main document` para `manuscript/gcv2026/resumo-expandido.tex`
+3. Pull/Push direto pela interface Overleaf
+
+### Opção 2 — Upload manual (Overleaf gratuito)
+1. Comprimir a pasta `manuscript/gcv2026/` em um zip
+2. New Project → Upload Project → escolher o zip
+3. Compile (LaTeX Engine: `pdfLaTeX` ou `XeLaTeX`)
 
 ```bash
 cd manuscript/gcv2026
-latexmk -pdf resumo-expandido.tex
+zip -r resumo-overleaf.zip resumo-expandido.tex figures tables README.md
 ```
 
-## Regras (extraídas de `docs/gcv2026-regras-submissao.docx`)
+## Compilação local
 
-- **Formato**: PDF
-- **Páginas**: máx. 5
-- **Página**: A4
-- **Margens**: superior 3cm, inferior 2cm, lateral esquerda 3cm, lateral direita 2cm
-- **Fonte do corpo**: Times New Roman 12pt
-- **Alinhamento**: justificado
-- **Espaçamento**: simples (1,0)
-- **Numeração**: a partir da primeira página, abaixo e à direita
-- **Estrutura sugerida**: Introdução, Metodologia, Resultados, Conclusões
-- **Legendas figuras/tabelas**: Times 12, centralizadas, acima do elemento; fonte Times 10, centralizada, abaixo
-- **Numeração de seções**: progressiva (1, 1.1, 1.1.1, ...)
-- **Citações no texto**: minúsculas no fluxo, MAIÚSCULAS entre parênteses no fim do parágrafo
-- **Citações longas (>4 linhas)**: destacadas, recuo 4 cm, fonte 10, justificado
-- **Referências**: ordem alfabética no final, alinhadas à esquerda, NBR-6023 ABNT
-- **ANONIMIZAR**: remover identificação de autoria do documento E das propriedades do arquivo Word/PDF
+```bash
+cd manuscript/gcv2026
+tectonic resumo-expandido.tex          # recomendado (self-contained)
+# OU
+pdflatex resumo-expandido.tex
+```
+
+## Estrutura
+
+```
+manuscript/gcv2026/
+├── resumo-expandido.tex   ← main (5 páginas, anônimo, Times 12pt, A4)
+├── resumo-expandido.pdf   ← saída compilada
+├── figures/               ← PDFs auto-contidos (gerados por src/figures.py)
+│   ├── fig1_mape_vs_level.pdf
+│   └── fig4_agreement_share.pdf
+├── tables/                ← fragmentos LaTeX (gerados por src/generate_tables.py)
+│   ├── tbl_summary.tex
+│   ├── tbl_charmodel.tex
+│   └── tbl_agreement.tex
+└── README.md
+```
+
+## Regras GCV 2026 (já aplicadas)
+
+- ✅ Formato PDF
+- ✅ Máx. 5 páginas
+- ✅ A4, margens 3-2-3-2 cm
+- ✅ Times New Roman 12pt (via `mathptmx`)
+- ✅ Alinhamento justificado, espaçamento simples
+- ✅ Numeração de página inferior-direita
+- ✅ Estrutura: Introdução, Metodologia, Resultados, Conclusões
+- ✅ Anônimo (autoria omitida)
+- ✅ Referências NBR-6023 ABNT
 
 ## Checklist pré-submissão
 
-- [ ] Conteúdo: 4 seções (Intro, Metodologia, Resultados, Conclusões)
-- [ ] Máximo 5 páginas
-- [ ] Anonimizado (sem autores, sem agradecimentos, sem instituições)
-- [ ] Propriedades do PDF limpas (`exiftool -all= resumo-expandido.pdf`)
-- [ ] Referências em ABNT (NBR-6023)
-- [ ] Tabelas e figuras com legenda acima + fonte abaixo
-- [ ] Citações verificadas (zero alucinação)
+- [ ] **Verificar se a chamada está aberta** em https://gcvbrasil.com
+- [ ] **Limpar metadata do PDF** (autoria nas propriedades):
+      `exiftool -all= resumo-expandido.pdf`
+- [ ] **Revisão da Yara** (coautora do paper-benchmark — conflito de interesse declarado)
+- [ ] **Pré-registro OSF** (recomendado para credibilidade)
+- [ ] Confirmar coautoria com Giusti, Silva, Vieira, Fantke?
+
+## Regenerar figuras/tabelas
+
+A partir do diretório raiz do repo:
+
+```bash
+source .venv/bin/activate
+python src/analyze.py --exclude-smoke   # processa results/raw/*.jsonl
+python src/figures.py                    # gera PDFs em results/figures/
+python src/generate_tables.py            # gera .tex em manuscript/gcv2026/tables/
+
+# Atualizar figuras self-contained na pasta do manuscrito:
+cp results/figures/fig1_mape_vs_level.pdf manuscript/gcv2026/figures/
+cp results/figures/fig4_agreement_share.pdf manuscript/gcv2026/figures/
+```
