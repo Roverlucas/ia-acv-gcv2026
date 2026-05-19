@@ -101,9 +101,9 @@ Foram avaliados três modelos LLM de fronteira: GPT (OpenAI, versão \texttt{gpt
 
 Foram computadas quatro famílias de métricas: erro numérico (erro relativo absoluto, MAPE e log-razão $\log_{10}(\hat{I}/I_{GT})$); aderência metodológica (modelo de caracterização e método de alocação declarados); sensibilidade regional (presença de diferenciação entre os três escopos); e estabilidade do output (taxa de não-resposta, conformidade ao esquema JSON, coeficiente de variação intra-célula entre as repetições). O critério operacional de concordância é erro relativo absoluto $<30\%$. Como limitação reconhecida, $n=5$ por célula é suficiente para LLMs determinísticos sob $T=0$ mas não permite testes inferenciais robustos; comparações usam estatística descritiva.
 
-\subsection{Controle de validade}
+\subsection{Controle de contaminação por treinamento}
 
-O paper-referência foi publicado em 2023, anterior ao \emph{cutoff} de treinamento dos LLMs avaliados, abrindo a possibilidade de memorização do resultado em vez de cálculo. Um teste com inventário e fatores perturbados está em execução e será reportado em trabalho subsequente. Conflito de interesse: a versão final declarará vínculo entre autoria e paper-referência; toda comparação foi feita contra números publicados, sem reanálise privilegiada do dado bruto.
+O paper-referência foi publicado em 2023, anterior ao \emph{cutoff} de treinamento dos LLMs, abrindo a hipótese de memorização em vez de cálculo. Para discriminar as duas, replicamos L3 e L4 em PT-BR ($n=5$) com três esquemas de inventário perturbado: P1 (massas $\times$ 2; novo GT $= 2\times$ original); P2 (amônia $\times$ 0{,}1; novo GT $\approx 0{,}37\times$ original); P3 (cada substância $\times$ U[0{,}5;\,2{,}0], seed fixa). O prompt traz nota experimental explícita informando que o inventário é hipotético. Classifica-se a chamada como \emph{cálculo} se erro contra o novo GT $<10\%$ e como \emph{memorização} se erro contra o GT original $<10\%$. Conflito de interesse: a versão final declarará vínculo entre autoria e paper-referência.
 
 % ============================================================
 \section{Resultados}
@@ -125,9 +125,7 @@ A Figura~\ref{fig:saturation} apresenta a mediana e o intervalo interquartil do 
 
 \subsection{Comportamento metodológico (modelo declarado)}
 
-Em L0–L2, nenhum LLM selecionou espontaneamente o modelo de Oberschelp \emph{et al.} (2020), apesar de ser o modelo nativamente regionalizado para o Brasil. As escolhas dividiram-se entre ReCiPe 2016 (HUIJBREGTS \emph{et al.}, 2017), citado predominantemente por GPT e Gemini, e IMPACT World+ (BULLE \emph{et al.}, 2019), citado predominantemente por DeepSeek (Tabela~\ref{tab:charmodel}). A partir de L3, com o modelo indicado no prompt, todos seguiram a instrução (29 de 30 respostas em L3 e L4 em PT-BR). Esse padrão é consistente com a recomendação de HEIJUNGS \& DEKKER (2022) de explicitar o modelo de caracterização em meta-comparações e com a limitação prática de modelos globais (e.g., FANTKE \emph{et al.}, 2019) frente a aplicações regionalizadas.
-
-\input{tables/tbl_charmodel}
+Em L0–L2, nenhum LLM selecionou espontaneamente o modelo de Oberschelp \emph{et al.} (2020), apesar de ser o modelo nativamente regionalizado para o Brasil. GPT e Gemini citaram predominantemente ReCiPe 2016 (HUIJBREGTS \emph{et al.}, 2017); DeepSeek citou predominantemente IMPACT World+ (BULLE \emph{et al.}, 2019). A partir de L3, todos seguiram a instrução (29 de 30 em L3 e L4 PT-BR), consistente com a recomendação de HEIJUNGS \& DEKKER (2022) de explicitar o modelo e com a limitação prática de modelos globais (e.g., FANTKE \emph{et al.}, 2019) em aplicações regionalizadas.
 
 \subsection{Concordância operacional}
 
@@ -144,16 +142,22 @@ A Figura~\ref{fig:agreement} reporta a fração de estimativas que atendem ao cr
 
 \textbf{Recusa defensiva do GPT.} O GPT retornou \texttt{null} em $100\%$ das 10 chamadas de L2 e em $100\%$ das 5 chamadas de L1 em EN, justificando explicitamente a ausência de fatores de caracterização como impeditivo do cálculo. Esse comportamento é replicável e consistente com a calibração de recusa documentada em GPT-4 (ACHIAM \emph{et al.}, 2023).
 
-\textbf{Reprodutibilidade do Gemini em L3 e L4.} Em 60 chamadas (5 repetições $\times$ 3 escopos $\times$ 2 idiomas $\times$ 2 níveis), o Gemini reproduziu o \emph{ground truth} com erro relativo inferior a $0{,}5\%$ e coeficiente de variação intra-célula nulo. GPT (CV $\sim$0{,}08–0{,}10) e DeepSeek (CV $\sim$0{,}02) também se aproximaram do \emph{ground truth} em L4, com variância maior. A possibilidade de contaminação do corpus de treinamento pelo paper-referência (publicado em 2023) é abordada na próxima seção como limitação.
+\textbf{Reprodutibilidade aparente do Gemini em L3 e L4.} Em 60 chamadas (5 reps $\times$ 3 escopos $\times$ 2 idiomas $\times$ 2 níveis), o Gemini reproduziu o \emph{ground truth} com erro $<0{,}5\%$ e coeficiente de variação nulo; GPT (CV $\sim$0{,}08–0{,}10) e DeepSeek (CV $\sim$0{,}02) também se aproximaram em L4. O teste de contaminação reportado a seguir mostra que essa aparente exatidão decorre de memorização do paper-referência, não de cálculo.
+
+\textbf{Resultado do teste de contaminação.} Sob inventário perturbado, os três LLMs continuam reportando o valor publicado em vez de calcular: Gemini classifica-se como \emph{memorização} em 29 de 30 chamadas, GPT em 27 de 30 e DeepSeek em 13 de 30 (com 15 chamadas \emph{mistas}). Apenas 2 das 90 chamadas (1 do Gemini, 1 do DeepSeek) calcularam corretamente sobre os inputs perturbados. A nota experimental explícita no prompt não alterou o padrão.
 
 \textbf{Variância em L0–L2.} O coeficiente de variação intra-célula em L0–L2 chegou a $1{,}2$ no Gemini, com estimativas diferindo em até uma ordem de grandeza entre repetições mesmo sob $T=0$.
 
 % ============================================================
 \section{Conclusões}
 
-Para o caso testado (PM em sistema leiteiro confinado brasileiro, modelo Oberschelp, alocação econômica), a acurácia das estimativas depende fortemente da informação contextual entregue ao prompt. Em L0 e L1, os erros típicos foram de 2 a 273 vezes o \emph{ground truth}; em L4, os três LLMs reproduziram o resultado dentro de 11\% (Gemini abaixo de $0{,}5\%$). O salto principal ocorre entre L2 e L3, ao entregar ao modelo os fatores de caracterização adequados ao escopo regional. L4 confirma que LLMs executam corretamente a aritmética da ACV quando o praticante já fez o trabalho metodológico; o achado substantivo é o fracasso sistemático em L0–L2, faixa que corresponde ao uso informal típico.
+Para o caso testado (PM em sistema leiteiro confinado brasileiro, modelo Oberschelp, alocação econômica), três achados se sustentam.
 
-Sem instrução explícita, os três LLMs escolheram ReCiPe 2016 ou IMPACT World+ e nenhum acionou espontaneamente o modelo Oberschelp regionalizado para o Brasil. A extensão para a matriz completa do paper-referência (4 sistemas $\times$ 5 modelos $\times$ 3 escopos) e o teste de contaminação serão apresentados em trabalho subsequente.
+\textbf{Primeiro:} a acurácia aparente dos LLMs nos níveis L3 e L4 decorre de \textbf{memorização do paper-referência}, não de cálculo da ACV. Sob inventário perturbado, em que o resultado correto deve mudar de forma previsível, os três LLMs continuam reportando o valor publicado: 29 de 30 chamadas do Gemini, 27 de 30 do GPT e 13 de 30 do DeepSeek classificam-se como memorização ($<10\%$ de erro contra o GT original, mas erro substancial contra o novo GT). Esse comportamento persiste mesmo com instrução explícita no prompt para calcular estritamente com os números fornecidos.
+
+\textbf{Segundo:} no uso informal típico — L0 e L1, em que nenhum dado é fornecido — os erros variam de 2 a 273 vezes o valor publicado, e nenhum LLM seleciona espontaneamente o modelo de caracterização regionalizado para o Brasil. As escolhas convergem para ReCiPe 2016 (GPT, Gemini) e IMPACT World+ (DeepSeek), ambos modelos de cobertura global.
+
+\textbf{Terceiro:} LLMs frontier, no estado atual, não são confiáveis como calculadora de ACV regionalizada. Quando o caso está documentado na literatura, o output é o número do paper, independentemente dos dados de entrada; fora desse caso, o output é um modelo global desencaixado da regionalização desejada. A extensão para a matriz completa (4 sistemas $\times$ 5 modelos $\times$ 3 escopos) será apresentada em trabalho subsequente.
 
 % ============================================================
 \section*{REFERÊNCIAS}
@@ -162,7 +166,7 @@ Sem instrução explícita, os três LLMs escolheram ReCiPe 2016 ou IMPACT World
 \begingroup
 \raggedright
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt}
+\setlength{\parskip}{4pt}
 \small
 
 \noindent ACHIAM, J. \emph{et al.} GPT-4 technical report. \textbf{arXiv preprint}, arXiv:2303.08774, 2023.
