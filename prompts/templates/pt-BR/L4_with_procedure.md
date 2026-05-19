@@ -4,15 +4,15 @@
 
 ---
 
-## Escopo do estudo
+## Escopo do estudo de ACV
 
 - **Unidade funcional**: 1 kg FPCM
 - **Fronteira do sistema**: *cradle-to-farm gate*
-- **Categoria de impacto**: saúde humana / material particulado
-- **Indicador**: DALY/kg FPCM
+- **Categoria de impacto**: **formação de material particulado** (*Particulate Matter Formation*)
+- **Indicador endpoint**: saúde humana, em DALY/kg FPCM
 - **Coprodutos**: leite, carne (descarte), biofertilizante
 - **Alocação aplicada ao inventário**: **econômica** (já aplicada nas massas abaixo)
-- **Modelo de caracterização**: **Oberschelp et al. (2020)**
+- **Modelo de caracterização**: **Oberschelp et al. (2020)** (modelo de efeito *Average*, ground-level)
 
 ## Inventário do ciclo de vida (emissões para ar, alocação econômica)
 
@@ -42,7 +42,7 @@ onde:
 
 ### Passo 2 — Unidade final
 
-Reporte **I_g** em **DALY/kg FPCM** para cada um dos três escopos.
+Reporte **I_g** em **DALY/kg FPCM** para cada um dos três escopos. Este valor representa o impacto da categoria **formação de material particulado** no indicador endpoint de saúde humana.
 
 ### Passo 3 — Regionalização
 
@@ -61,6 +61,6 @@ Verifique antes de retornar:
 
 ## Pergunta
 
-Aplique o procedimento acima ao inventário e aos fatores fornecidos. Reporte **I_Global**, **I_Brasil** e **I_Estado-SP** em DALY/kg FPCM.
+Aplique o procedimento acima ao inventário e aos fatores fornecidos. Reporte **I_Global**, **I_Brasil** e **I_Estado-SP** em DALY/kg FPCM (categoria de impacto: formação de material particulado).
 
 Responda no formato JSON especificado, incluindo todos os passos intermediários em `intermediate_steps`.

@@ -4,15 +4,15 @@
 
 ---
 
-## Escopo do estudo
+## Escopo do estudo de ACV
 
 - **Unidade funcional**: 1 kg FPCM
 - **Fronteira do sistema**: *cradle-to-farm gate*
-- **Categoria de impacto**: saúde humana / material particulado
-- **Indicador**: DALY/kg FPCM
+- **Categoria de impacto**: **formação de material particulado** (*Particulate Matter Formation*)
+- **Indicador endpoint**: saúde humana, em DALY/kg FPCM
 - **Coprodutos**: leite, carne (descarte), biofertilizante
 - **Alocação aplicada ao inventário**: **econômica**
-- **Modelo de caracterização a ser adotado**: **Oberschelp et al. (2020)** — *Global emission hotspots of coal power generation*. Environmental Science & Technology. DOI: 10.1021/acs.est.0c05691
+- **Modelo de caracterização a ser adotado**: **Oberschelp et al. (2020)** — *Globally regionalized monthly life cycle impact assessment of particulate matter*. Environmental Science & Technology. DOI: 10.1021/acs.est.0c05691
 
 ## Inventário do ciclo de vida (emissões para ar, alocação econômica)
 
@@ -20,12 +20,12 @@
 
 ## Fatores de caracterização — Oberschelp et al. (2020)
 
-Os fatores abaixo são fatores efetivos (DALY/kg de substância emitida), derivados do modelo Oberschelp et al. (2020), para as três escalas geográficas pertinentes ao sistema brasileiro:
+Os fatores abaixo são fatores nativos do modelo Oberschelp et al. (2020), em DALY/kg de substância emitida, para as três escalas geográficas pertinentes ao sistema brasileiro (modelo de efeito *Average*, ground-level, anual, dia-noite):
 
 {{CF_TABLE_OBERSCHELP}}
 
 ## Pergunta
 
-Considerando o escopo do estudo, o inventário e os fatores de caracterização fornecidos, calcule o impacto em saúde humana decorrente das emissões de material particulado, em DALY/kg FPCM, para cada um dos três escopos geográficos: **Global**, **Brasil** e **Estado de São Paulo**.
+Considerando o escopo do estudo de ACV, o inventário e os fatores de caracterização fornecidos, qual é o impacto da categoria **formação de material particulado**, em DALY/kg FPCM, para cada um dos três escopos geográficos: **Global**, **Brasil** e **Estado de São Paulo**?
 
 Responda no formato JSON especificado.

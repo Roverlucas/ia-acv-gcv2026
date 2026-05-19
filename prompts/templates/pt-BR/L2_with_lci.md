@@ -4,12 +4,12 @@
 
 ---
 
-## Escopo do estudo
+## Escopo do estudo de ACV
 
 - **Unidade funcional**: 1 kg FPCM
 - **Fronteira do sistema**: *cradle-to-farm gate*
-- **Categoria de impacto**: saúde humana / material particulado
-- **Indicador**: DALY/kg FPCM
+- **Categoria de impacto**: **formação de material particulado** (*Particulate Matter Formation*)
+- **Indicador endpoint**: saúde humana, em DALY/kg FPCM
 - **Coprodutos**: leite, carne (descarte), biofertilizante
 - **Alocação aplicada ao inventário abaixo**: **econômica**
 - **Sistema**: produção leiteira brasileira (sistema confinado típico)
@@ -22,6 +22,6 @@ A tabela abaixo apresenta o LCI agregado de emissões para ar do sistema, com ma
 
 ## Pergunta
 
-Considerando o escopo do estudo e o inventário acima, calcule o impacto em saúde humana decorrente das emissões de material particulado, em DALY/kg FPCM, para cada um dos três escopos geográficos: **Global**, **Brasil** e **Estado de São Paulo**.
+Considerando o escopo do estudo de ACV e o inventário acima, qual é o impacto da categoria **formação de material particulado**, em DALY/kg FPCM, para cada um dos três escopos geográficos: **Global**, **Brasil** e **Estado de São Paulo**?
 
 Responda no formato JSON especificado.

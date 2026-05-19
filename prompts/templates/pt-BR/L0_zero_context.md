@@ -6,6 +6,6 @@
 
 ## Pergunta
 
-Qual é o impacto em saúde humana, em DALY/kg FPCM, da produção de leite no Brasil? Forneça uma estimativa para escopo **Global**, **Brasil** e **Estado de São Paulo**.
+Em um estudo de ACV de produção de leite no Brasil, qual é o impacto da categoria **formação de material particulado**, em DALY/kg FPCM? Forneça uma estimativa para escopo **Global**, **Brasil** e **Estado de São Paulo**.
 
 Responda no formato JSON especificado.
