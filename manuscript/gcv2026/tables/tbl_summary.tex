@@ -1,0 +1,18 @@
+\begin{table}[h]
+\centering
+\caption{MAPE por LLM $\times$ idioma $\times$ nível (média sobre 3 escopos $\times$ 5 reps).}
+\label{tab:summary}
+\begin{tabular}{llccccc}
+\toprule
+\textbf{LLM} & \textbf{Idioma} & \textbf{L0} & \textbf{L1} & \textbf{L2} & \textbf{L3} & \textbf{L4} \\
+\midrule
+GPT & PT-BR & $+2.5\times$ & $+3.9\times$ & --- & +20\% & +11\% \\
+GPT & EN & $+2.5\times$ & --- & --- & +17\% & +7\% \\
+Gemini & PT-BR & $+5.8\times$ & $+273.2\times$ & $+2.6\times$ & +0\% & +0\% \\
+Gemini & EN & $+16.9\times$ & $+110.0\times$ & +65\% & +0\% & +0\% \\
+DeepSeek & PT-BR & $+2.1\times$ & $+89.4\times$ & $+2.2\times$ & +32\% & +5\% \\
+DeepSeek & EN & $+20.2\times$ & $+20.2\times$ & $+2017.9\times$ & +15\% & +5\% \\
+\bottomrule
+\end{tabular}
+\caption*{\footnotesize Erro relativo absoluto médio (MAPE). Valores apresentados em \% até 100\%; acima disso, em múltiplos do GT ($\times$).}
+\end{table}

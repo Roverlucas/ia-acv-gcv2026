@@ -41,10 +41,10 @@ PROVIDER_LABELS = {"gpt": "GPT", "gemini": "Gemini", "deepseek": "DeepSeek"}
 
 
 def load_long() -> pd.DataFrame:
-    p = PROC / "runs_long.parquet"
+    p = PROC / "runs_long.csv"
     if not p.exists():
         raise FileNotFoundError(f"Run src/analyze.py first to produce {p}")
-    df = pd.read_parquet(p)
+    df = pd.read_csv(p)
     df["level"] = pd.Categorical(df["level"], categories=LEVEL_ORDER, ordered=True)
     return df
 

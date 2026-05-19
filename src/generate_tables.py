@@ -12,8 +12,8 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
-LONG_PATH = ROOT / "results" / "processed" / "runs_long.parquet"
-RUNS_PATH = ROOT / "results" / "processed" / "runs.parquet"
+LONG_PATH = ROOT / "results" / "processed" / "runs_long.csv"
+RUNS_PATH = ROOT / "results" / "processed" / "runs.csv"
 OUT_DIR = ROOT / "manuscript" / "gcv2026" / "tables"
 
 LEVEL_ORDER = ["L0", "L1", "L2", "L3", "L4"]
@@ -36,7 +36,7 @@ def fmt_rel(x: float) -> str:
         return "---"
     if abs(x) < 1.0:
         return f"{x*100:+.0f}\\%"
-    return f"{x:+.1f}\\times"
+    return f"${x:+.1f}\\times$"
 
 
 def tbl_summary_mape(long: pd.DataFrame) -> str:
@@ -139,7 +139,7 @@ def main() -> int:
         print(f"Missing {LONG_PATH}. Run src/analyze.py first.")
         return 1
 
-    long = pd.read_parquet(LONG_PATH)
+    long = pd.read_csv(LONG_PATH)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     (OUT_DIR / "tbl_summary.tex").write_text(tbl_summary_mape(long), encoding="utf-8")

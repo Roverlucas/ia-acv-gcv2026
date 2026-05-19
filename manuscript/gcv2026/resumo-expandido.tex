@@ -1,27 +1,19 @@
 % ============================================================
 % 9º Congresso Brasileiro sobre Gestão do Ciclo de Vida (GCV 2026)
-% Resumo expandido — modelo conforme regras de submissão.
-% Formato: A4, margens 3-2-3-2 cm, Times New Roman 12pt,
-% alinhamento justificado, espaçamento simples, máx. 5 páginas.
-% Versão anônima para revisão por pares.
+% Resumo expandido — conforme regras de submissão.
+% A4, margens 3-2-3-2 cm, Times New Roman 12pt, justificado,
+% espaçamento simples, máx. 5 páginas. Versão anônima.
 % ============================================================
 
 \documentclass[12pt,a4paper]{article}
 
-% --- Geometria ---
 \usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=2cm]{geometry}
-
-% --- Codificação / idioma ---
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[brazil]{babel}
-
-% --- Times-like fonts ---
 \usepackage{mathptmx}
 \usepackage[scaled=.90]{helvet}
 \usepackage{courier}
-
-% --- Tipografia ---
 \usepackage{setspace}
 \singlespacing
 \setlength{\parindent}{1.25cm}
@@ -46,8 +38,6 @@
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{tabularx}
-\usepackage{siunitx}
-\sisetup{output-exponent-marker=\text{e}}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{xurl}
@@ -57,7 +47,6 @@
 
 \begin{document}
 
-% --- Título ---
 \begin{center}
 {\bfseries\uppercase{Quão assertiva é a IA em estudos de Avaliação do Ciclo de Vida? Uma avaliação experimental por níveis progressivos de prompt, benchmarkada com uma ACV regionalizada do impacto do material particulado na saúde humana em sistemas de produção leiteira no Brasil}}
 \end{center}
@@ -73,18 +62,16 @@
 % ============================================================
 \section{Introdução}
 
-A evolução na coleta e no processamento de dados em Avaliação do Ciclo de Vida (ACV) tem culminado no uso crescente de ferramentas digitais, como modelos de linguagem de grande porte (LLMs), na aplicação da metodologia. Praticantes — pesquisadores, consultores e alunos — já recorrem a LLMs informalmente para estimar fatores ausentes, revisar inventários e, em alguns casos, gerar resultados completos a partir de prompts em linguagem natural (BROWN \emph{et al.}, 2020; OBERSCHELP \emph{et al.}, 2020). Esse uso ocorre, em geral, sem protocolo, sem auditoria e sem evidência quantitativa de acurácia.
+A evolução na coleta e no processamento de dados em Avaliação do Ciclo de Vida (ACV) tem culminado no uso crescente de ferramentas digitais, como modelos de linguagem de grande porte (LLMs), na aplicação da metodologia. Praticantes — pesquisadores, consultores e alunos — já recorrem a LLMs informalmente para estimar fatores ausentes, revisar inventários e, em alguns casos, gerar resultados completos a partir de prompts em linguagem natural (BROWN \emph{et al.}, 2020). Esse uso ocorre, em geral, sem protocolo, sem auditoria e sem evidência quantitativa de acurácia.
 
-A literatura apresenta três lacunas convergentes: \textbf{(L1)} ausência de validação empírica em que poucos estudos quantifiquem o erro de LLMs frente a ACVs publicadas com metodologia rastreável; \textbf{(L2)} confusão entre acurácia e plausibilidade, dado que saídas de LLMs são fluentes mesmo quando incorretas; e \textbf{(L3)} regionalização tipicamente ignorada, com LLMs respondendo com fatores genéricos globais e omitindo especificidades regionais empiricamente relevantes para impactos de material particulado (MP) em saúde humana no Brasil (GIUSTI \emph{et al.}, 2022, 2023).
-
-A pergunta operacional que esses três pontos abrem é: \textbf{se aumentarmos progressivamente a informação contextual no prompt, em que ponto — e em que dimensão — a IA passa a produzir um resultado de ACV utilizável?} Este resumo expandido apresenta um desenho experimental que testa essa hipótese tomando como benchmark a ACV regionalizada de Giusti \emph{et al.} (2023) para sistemas de produção leiteira brasileiros.
+A literatura apresenta três lacunas convergentes: (i) ausência de validação empírica que quantifique o erro de LLMs frente a ACVs publicadas com metodologia rastreável; (ii) confusão entre acurácia e plausibilidade, dado que saídas de LLMs são fluentes mesmo quando incorretas; e (iii) regionalização tipicamente ignorada, com LLMs respondendo com fatores genéricos globais e omitindo especificidades regionais empiricamente relevantes para impactos de material particulado (MP) em saúde humana no Brasil (GIUSTI \emph{et al.}, 2022, 2023). A pergunta operacional decorrente é: \textbf{em que ponto da escala de enriquecimento contextual do prompt a IA passa a produzir um resultado de ACV utilizável?} Este resumo expandido apresenta um desenho experimental controlado que testa essa hipótese tomando como benchmark a ACV regionalizada de Giusti \emph{et al.} (2023) para sistemas de produção leiteira brasileiros.
 
 % ============================================================
 \section{Metodologia}
 
 \subsection{Paper-benchmark e \textit{ground truth}}
 
-O estudo de Giusti \emph{et al.} (2023) analisa quatro sistemas de produção leiteira brasileiros (cradle-to-farm gate, unidade funcional de 1\,kg FPCM) e aplica cinco modelos de caracterização com três níveis de regionalização. Para o escopo deste resumo expandido, restringimos a análise ao \textbf{Sistema 1} (sistema confinado típico), \textbf{modelo de caracterização Oberschelp \emph{et al.} (2020)} (modelo de efeito \textit{Average}, ground-level) e \textbf{alocação econômica}, produzindo um ground truth de três células de impacto em DALY/kg FPCM, conforme Tabela~\ref{tab:gt}.
+O estudo de Giusti \emph{et al.} (2023) analisa quatro sistemas de produção leiteira brasileiros (\emph{cradle-to-farm gate}, unidade funcional de 1\,kg FPCM — \emph{fat-and-protein corrected milk}) e aplica cinco modelos de caracterização com três níveis de regionalização. Para este resumo expandido, restringimos a análise ao Sistema 1 (sistema confinado típico), modelo de caracterização Oberschelp \emph{et al.} (2020) com modelo de efeito \textit{Average} a nível do solo, e alocação econômica, produzindo um \emph{ground truth} de três células de impacto em DALY/kg FPCM (Tabela~\ref{tab:gt}). Os fatores de caracterização nativos foram extraídos do material suplementar de Oberschelp \emph{et al.} (2020) e cross-validados contra a planilha de cálculo de Giusti \emph{et al.} (2023), com concordância $<0{,}1\%$.
 
 \begin{table}[h]
 \centering
@@ -99,100 +86,72 @@ Brasil              & $8{,}108 \times 10^{-8}$ \\
 Estado de São Paulo & $6{,}373 \times 10^{-7}$ \\
 \bottomrule
 \end{tabular}
-\caption*{\footnotesize Fonte: Giusti \emph{et al.} (2023), cross-validado contra Oberschelp \emph{et al.} (2020) Supporting Information (es0c05691\_si\_002.xlsx, Sheets 8, 3 e 4; modelo de efeito \textit{Average}, ground-level). Razão SP/Global $\approx 22{,}5\times$.}
+\caption*{\footnotesize Razão SP/Global $\approx 22{,}5\times$.}
 \end{table}
 
 \subsection{Variável independente — níveis de enriquecimento de prompt}
 
-Foram desenhados cinco níveis ordenados de enriquecimento contextual (Tabela~\ref{tab:levels}). Cada nível adiciona uma única dimensão de informação ao anterior, permitindo localizar empiricamente onde o ganho de assertividade ocorre.
+Cinco níveis ordenados foram desenhados, cada um adicionando uma única dimensão de informação ao anterior: L0 (apenas pergunta), L1 (+ escopo ISO 14040/14044), L2 (+ inventário agregado de 28 fluxos PM-relevantes), L3 (+ tabela de fatores de caracterização Oberschelp para os 3 escopos) e L4 (+ procedimento explícito $I_g = \sum_i m_i \cdot CF_{i,g}$).
 
-\begin{table}[h]
-\centering
-\caption{Níveis de enriquecimento de prompt}
-\label{tab:levels}
-\begin{tabularx}{\textwidth}{lX}
-\toprule
-\textbf{Nível} & \textbf{Conteúdo do prompt} \\
-\midrule
-L0 & Apenas a pergunta-alvo \\
-L1 & + escopo ISO 14040/14044 (unidade funcional, fronteira, categoria, região) \\
-L2 & + LCI agregado (28 fluxos PM-relevantes do Sistema 1, alocação econômica) \\
-L3 & + tabela de fatores de caracterização Oberschelp (4 substâncias $\times$ 3 escopos) \\
-L4 & + procedimento explícito de cálculo $I_g = \sum_i m_i \cdot CF_{i,g}$ \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\subsection{Modelos LLM e desenho}
 
-\subsection{Modelos LLM e desenho experimental}
-
-Foram avaliados três modelos LLM de fronteira: \textbf{GPT} (OpenAI), \textbf{Gemini 2.5 Pro} (Google) e \textbf{DeepSeek V3} (open-source). Cada combinação \emph{LLM $\times$ nível $\times$ idioma (PT-BR, EN)} foi replicada \textbf{n = 5} vezes com temperatura fixa em 0 e \emph{seed} controlado quando suportado. Os modelos foram chamados via API com versão da chamada registrada para cada execução. A resposta foi exigida em formato JSON estrito (conforme esquema canônico), permitindo extração automatizada das estimativas para os três escopos geográficos.
+Foram avaliados três modelos LLM de fronteira: GPT (OpenAI), Gemini 2.5 Pro (Google) e DeepSeek V3 (open-source). Cada combinação \emph{LLM $\times$ nível $\times$ idioma (PT-BR, EN)} foi replicada $n=5$ vezes com temperatura fixa em 0 e \emph{seed} controlado quando suportado. Resposta exigida em formato JSON estrito (esquema canônico). Total: \textbf{150 chamadas}, custo total US\$\,1,71, tempo de execução 54 minutos.
 
 \subsection{Métricas}
 
-Foram computadas quatro famílias de métricas: \textbf{(A) Acurácia numérica} (erro relativo absoluto célula a célula, MAPE, log-razão $\log_{10}(\hat{I}/I_{GT})$); \textbf{(B) Corretude metodológica} (modelo de caracterização declarado, alocação declarada); \textbf{(C) Fidelidade regional} (a estimativa diferencia regiões? coincide em direção com GT?); e \textbf{(D) Confiabilidade} (taxa de não-resposta, coerência interna, número de referências citadas, conformidade ao esquema JSON). O critério operacional de concordância adota erro relativo absoluto $< 30\%$.
+Foram computadas quatro famílias: \textbf{(A)} acurácia numérica (erro relativo absoluto, MAPE, log-razão $\log_{10}(\hat{I}/I_{GT})$); \textbf{(B)} corretude metodológica (modelo de caracterização declarado, alocação declarada); \textbf{(C)} fidelidade regional (a estimativa diferencia regiões? coincide em direção com GT?); e \textbf{(D)} confiabilidade (taxa de não-resposta, conformidade ao esquema JSON, coeficiente de variação intra-modelo). O critério operacional de concordância adota erro relativo absoluto $<30\%$.
 
 % ============================================================
 \section{Resultados}
 
-%%% TODO: Substituir esta seção por números reais após F2 executar (~1h). %%%
-%%% Placeholders abaixo indicam onde inserir resultados específicos.       %%%
+Todas as 150 chamadas retornaram JSON estritamente conforme o esquema (zero falhas de parsing). A taxa de resposta numérica (não-\texttt{null}) variou por nível e LLM, com GPT apresentando comportamento defensivo distinto.
+
+\subsection{Curva de saturação MAPE $\times$ nível}
+
+A Figura~\ref{fig:saturation} apresenta a curva de saturação do erro relativo absoluto. O salto principal ocorre entre L2 e L3 (i.e., ao fornecer os fatores de caracterização), com convergência em L3/L4 para erros próximos a zero. A Tabela~\ref{tab:summary} resume os MAPE por LLM, nível e idioma.
 
 \begin{figure}[h]
 \centering
-% \includegraphics[width=\textwidth]{../../results/figures/fig1_mape_vs_level.pdf}
-\fbox{\parbox{0.95\textwidth}{\centering \vspace{4em} [Figura 1 — Erro relativo absoluto (mediana, IQR) vs. nível de enriquecimento de prompt para os 3 LLMs em PT-BR (esquerda) e EN (direita). Eixo y em escala logarítmica. Linha tracejada: limiar operacional de $30\%$.]\vspace{4em}}}
-\caption{Curva de saturação MAPE $\times$ nível por LLM e idioma.}
+\includegraphics[width=0.95\textwidth]{../../results/figures/fig1_mape_vs_level.pdf}
+\caption{Erro relativo absoluto (mediana, intervalo interquartil) vs. nível de enriquecimento de prompt, por LLM e idioma. Eixo $y$ em escala logarítmica. Linha tracejada: limiar operacional de $30\%$.}
 \label{fig:saturation}
 \end{figure}
 
-A Figura~\ref{fig:saturation} apresenta a curva de saturação do erro relativo absoluto em função do nível de enriquecimento de prompt. \textbf{[PLACEHOLDER: descrever achados principais — em que nível ocorre o salto, magnitude do salto, ordem de grandeza dos erros em L0/L1 vs L3/L4]}.
+\input{tables/tbl_summary}
 
-A Tabela~\ref{tab:summary} resume os MAPE por LLM, nível e idioma (média entre os 3 escopos geográficos e 5 repetições).
+\subsection{Comportamento metodológico (modelo declarado)}
 
-\begin{table}[h]
-\centering
-\caption{MAPE por LLM $\times$ nível $\times$ idioma (média sobre 3 escopos $\times$ 5 reps)}
-\label{tab:summary}
-\begin{tabular}{llccccc}
-\toprule
-\textbf{LLM} & \textbf{Idioma} & \textbf{L0} & \textbf{L1} & \textbf{L2} & \textbf{L3} & \textbf{L4} \\
-\midrule
-% --- TODO: inserir números reais ---
-GPT      & PT-BR & --- & --- & --- & --- & --- \\
-GPT      & EN    & --- & --- & --- & --- & --- \\
-Gemini   & PT-BR & --- & --- & --- & --- & --- \\
-Gemini   & EN    & --- & --- & --- & --- & --- \\
-DeepSeek & PT-BR & --- & --- & --- & --- & --- \\
-DeepSeek & EN    & --- & --- & --- & --- & --- \\
-\bottomrule
-\end{tabular}
-\caption*{\footnotesize Valores como fração (e.g., 0{,}50 = 50\%). \textbf{[PLACEHOLDER]}}
-\end{table}
+Em L0--L2, nenhum dos LLMs selecionou espontaneamente o modelo Oberschelp \emph{et al.} (2020), mesmo este sendo o modelo nativamente regionalizado para o Brasil. As escolhas foram divididas entre ReCiPe 2016 (GPT, Gemini, predominantemente) e IMPACT World+ (DeepSeek, predominantemente), conforme Tabela~\ref{tab:charmodel}. A partir de L3, quando o modelo é explicitamente indicado, todos seguiram a instrução (29/30 em L3+L4 em PT-BR).
 
-\textbf{Convergência metodológica.} Nos níveis L0--L2, os LLMs escolheram modelos de caracterização heterogêneos quando não instruídos: \textbf{[PLACEHOLDER — relatar quais modelos cada LLM escolheu]}. Em L3 e L4, todos seguiram a instrução de adotar Oberschelp \emph{et al.} (2020).
+\input{tables/tbl_charmodel}
 
-\textbf{Não-resposta defensiva.} \textbf{[PLACEHOLDER — relatar comportamento de retornar null por falta de fatores quando aplicável]}.
+\subsection{Concordância operacional}
 
-\textbf{Concordância operacional (erro $<30\%$).} A Figura~\ref{fig:agreement} mostra a fração de estimativas que atendem ao critério operacional por LLM e nível.
+A Figura~\ref{fig:agreement} e a Tabela~\ref{tab:agreement} mostram a fração de estimativas que atendem ao critério $<30\%$ de erro relativo absoluto. Em L0--L2 essa fração é praticamente nula em todos os LLMs ($0\%$ na vasta maioria das células). Em L3, GPT e Gemini atingem $100\%$ em ambos os idiomas; DeepSeek atinge $47\%$ (PT-BR) e $67\%$ (EN). Em L4 todos os três LLMs atingem $100\%$.
 
 \begin{figure}[h]
 \centering
-% \includegraphics[width=0.85\textwidth]{../../results/figures/fig4_agreement_share.pdf}
-\fbox{\parbox{0.85\textwidth}{\centering \vspace{4em} [Figura 2 — Fração de estimativas com erro relativo absoluto $<30\%$ vs. nível, por LLM e idioma.]\vspace{4em}}}
-\caption{Concordância operacional vs. ground truth.}
+\includegraphics[width=0.85\textwidth]{../../results/figures/fig4_agreement_share.pdf}
+\caption{Fração de estimativas com erro relativo absoluto $<30\%$ (critério operacional de concordância).}
 \label{fig:agreement}
 \end{figure}
+
+\input{tables/tbl_agreement}
+
+\subsection{Achados específicos}
+
+\textbf{Não-resposta defensiva (GPT).} GPT retornou \texttt{null} em 100\% das 10 chamadas de L2 (PT-BR e EN) e em 100\% das 5 chamadas de L1 EN, justificando explicitamente a ausência de fatores de caracterização como impeditivo do cálculo. Esse comportamento é replicável e indica adesão à regra de honestidade epistêmica do \emph{system prompt}.
+
+\textbf{Reprodutibilidade do Gemini em L3/L4.} Em 60 chamadas (5 reps $\times$ 3 escopos $\times$ 2 idiomas $\times$ 2 níveis), Gemini reproduziu o GT com erro relativo $<0{,}5\%$ e coeficiente de variação intra-célula de zero. GPT (CV $\sim$0{,}08--0{,}10) e DeepSeek (CV $\sim$0{,}02) também se aproximaram do GT em L4, mas com maior variância e desvio.
+
+\textbf{Variância em L0--L2.} O coeficiente de variação intra-célula em L0--L2 chegou a 1{,}2 para Gemini, indicando estimativas drasticamente diferentes entre repetições mesmo com temperatura nula --- contrastando com a reprodutibilidade perfeita em L3/L4 do mesmo modelo.
 
 % ============================================================
 \section{Conclusões}
 
-\textbf{[PLACEHOLDER — preencher com 3 mensagens, alinhadas com hipóteses confirmatórias]}
+O experimento responde diretamente à pergunta de pesquisa. \textbf{(i)} A assertividade da IA em estudos de ACV depende drasticamente do nível de informação contextual fornecida no prompt: em L0--L1, os erros típicos são de 2--273 vezes o ground truth, contradizendo o uso informal observado de LLMs como ``oráculo'' de estimativas de impacto. \textbf{(ii)} O salto principal de assertividade ocorre entre L2 e L3 --- isto é, ao fornecer fatores de caracterização adequados ao escopo regional. A partir de L3, a concordância operacional ($<30\%$ de erro) é atingida pela maioria dos LLMs avaliados; em L4 (procedimento explícito), todos atingem $100\%$ de concordância. \textbf{(iii)} Em ausência de instrução, os três LLMs convergem para modelos mainstream globais (ReCiPe 2016, IMPACT World+) e nenhum seleciona espontaneamente o modelo nativamente regionalizado para o Brasil --- reforçando a lacuna L3 da literatura.
 
-\textbf{(i)} Quão assertiva é a IA em estudos de ACV depende drasticamente do nível de informação contextual fornecida no prompt. Em ausência de contexto (L0--L1), os erros são da ordem de \textbf{[X]} ordens de magnitude. Esse achado contradiz o uso informal observado de LLMs como ``oráculo'' para estimativas de impacto.
-
-\textbf{(ii)} O nível mínimo de prompt em que o output da IA atinge concordância operacional ($<30\%$) é \textbf{[L?]}, com convergência entre LLMs a partir de L3 (fornecimento explícito de fatores de caracterização).
-
-\textbf{(iii)} Implicações para uso responsável de IA em ACV: praticantes que desejam empregar LLMs em estudos regionalizados devem fornecer minimamente o inventário e os fatores de caracterização; o ``protocolo mínimo de prompt'' aqui validado pode servir como diretriz inicial. O ecossistema de LLMs evolui rapidamente — a metodologia replicável proposta neste trabalho permite re-validações periódicas.
+Implicações para uso responsável: praticantes que desejam empregar LLMs em estudos de ACV regionalizada devem fornecer minimamente o inventário e os fatores de caracterização, sob pena de viés de generalização global. O protocolo experimental aqui validado é replicável e pode servir como diretriz mínima de prompt para auditoria de uso de IA em ACV. Como limitação, este resumo restringe-se a um sistema produtivo e a um modelo de caracterização; a extensão para a matriz completa (4 sistemas $\times$ 5 modelos $\times$ 3 escopos) será apresentada em trabalho subsequente.
 
 % ============================================================
 \section*{Referências}

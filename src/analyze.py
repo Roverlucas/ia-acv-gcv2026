@@ -216,8 +216,8 @@ def main() -> int:
     agg = aggregate(long)
 
     PROC_DIR.mkdir(parents=True, exist_ok=True)
-    df.to_parquet(PROC_DIR / "runs.parquet", index=False)
-    long.to_parquet(PROC_DIR / "runs_long.parquet", index=False)
+    df.to_csv(PROC_DIR / "runs.csv", index=False)
+    long.to_csv(PROC_DIR / "runs_long.csv", index=False)
     agg.to_csv(PROC_DIR / "aggregated.csv", index=False)
 
     # Print summary table
