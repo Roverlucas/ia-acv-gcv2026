@@ -48,7 +48,7 @@
 \begin{document}
 
 \begin{center}
-{\bfseries\uppercase{Acurácia de LLMs em estudos de ACV regionalizada: efeito do enriquecimento contextual do prompt em estimativas do impacto do material particulado}}
+{\bfseries\uppercase{Acurácia ilusória de LLMs em ACV regionalizada: memorização do paper-referência mascara incapacidade de cálculo em dois sistemas de produção leiteira}}
 \end{center}
 
 \vspace{1\baselineskip}
@@ -62,9 +62,11 @@
 % ============================================================
 \section{Introdução}
 
-Modelos de linguagem de grande porte (LLMs) foram incorporados a fluxos científicos desde a popularização do GPT-3 (BROWN \emph{et al.}, 2020). Pesquisadores e consultores de Avaliação do Ciclo de Vida (ACV) já usam essas ferramentas para estimar fatores ausentes, revisar inventários e gerar análises a partir de descrições em linguagem natural, sem protocolo de uso, sem rotina de auditoria e sem medida quantitativa de erro associada a essa prática.
+Modelos de linguagem de grande porte (LLMs) foram incorporados a fluxos científicos desde a popularização do GPT-3 (BROWN \emph{et al.}, 2020). Pesquisadores e consultores de Avaliação do Ciclo de Vida (ACV) já usam essas ferramentas para estimar fatores, revisar inventários e gerar análises a partir de descrições em linguagem natural — sem protocolo, sem auditoria e sem medida de erro associada à prática.
 
-Três lacunas convergentes motivam este trabalho. Primeiro, não há estudos publicados que comparem estimativas de LLMs com ACVs auditadas e regionalizadas. Segundo, saídas de LLMs são fluentes mesmo quando o conteúdo numérico ou citacional é incorreto, fenômeno descrito por JI \emph{et al.} (2023) como alucinação. Terceiro, a regionalização de impactos — central para o caso brasileiro de material particulado (MP) em saúde humana (GIUSTI \emph{et al.}, 2022, 2023) — costuma ser substituída por fatores genéricos globais quando se consulta o modelo sem dados específicos. A pergunta operacional decorrente é: \textbf{em que ponto da escala de enriquecimento contextual do prompt o LLM passa a produzir uma estimativa de ACV utilizável?} Este resumo apresenta um desenho experimental que responde a essa pergunta tomando como referência a ACV regionalizada de Giusti \emph{et al.} (2023) para sistemas leiteiros brasileiros.
+Três lacunas convergentes motivam este trabalho. Primeiro, não há estudos que comparem estimativas de LLMs com ACVs auditadas e regionalizadas. Segundo, saídas de LLMs são fluentes mesmo quando o conteúdo é incorreto, fenômeno descrito por JI \emph{et al.} (2023) como alucinação; em outra linha, CARLINI \emph{et al.} (2023) demonstram que modelos memorizam conteúdo de seus dados de treinamento e o reproduzem na inferência, problema reforçado por SAINZ \emph{et al.} (2023) ao mostrar contaminação de benchmarks científicos. Terceiro, a regionalização de impactos — central para o caso brasileiro de material particulado (MP) em saúde humana (GIUSTI \emph{et al.}, 2022, 2023) — costuma ser substituída por fatores globais quando se consulta o modelo sem dados específicos. A pergunta operacional é: \textbf{em que ponto da escala de enriquecimento de prompt o LLM passa a produzir uma estimativa de ACV utilizável?}
+
+\textbf{Resultado central.} A acurácia aparente dos LLMs em níveis de prompt enriquecidos não vem de cálculo, e sim de \textbf{memorização do paper-referência}. Sob inventário propositalmente perturbado, o modelo continua reportando o valor publicado em $97\%$ das chamadas do Gemini (em dois sistemas), $90\%$ do GPT em Sistema 1 e $43\%$ do DeepSeek em Sistema 1, ignorando os dados de entrada. O efeito varia entre LLMs e entre sistemas, o que em si é um achado: o modelo tende a recuperar casos muito citados no corpus de treino.
 
 % ============================================================
 \section{Metodologia}
@@ -97,7 +99,7 @@ Cinco níveis ordenados foram desenhados, cada um adicionando uma dimensão de i
 
 \subsection{Modelos LLM e desenho experimental}
 
-Foram avaliados três modelos LLM de fronteira: GPT (OpenAI, versão \texttt{gpt-4.1-2025-04-14}), Gemini 2.5 Pro (Google, \texttt{gemini-2.5-pro}) e DeepSeek V3 (\texttt{deepseek-chat}, via API). Cada combinação \emph{LLM $\times$ nível $\times$ idioma (PT-BR, EN)} foi replicada $n=5$ vezes, com temperatura fixada em 0 e \emph{seed} igual a 42 (OpenAI e DeepSeek; Gemini não expõe \emph{seed} na API). O \emph{system prompt} exigiu resposta em JSON estrito (esquema canônico, registrado no repositório), com regras explícitas contra fabricação de valores e de referências. Total: 150 chamadas, custo de US\$\,1,71 e tempo de execução de 54\,min. Prompts, respostas brutas e scripts de análise são compartilhados em repositório público anonimizado.
+Foram avaliados três modelos LLM de fronteira: GPT (OpenAI, \texttt{gpt-4.1-2025-04-14}), Gemini 2.5 Pro (Google, \texttt{gemini-2.5-pro}) e DeepSeek V3 (\texttt{deepseek-chat}, via API). Para cada sistema, cada combinação \emph{LLM $\times$ nível $\times$ idioma (PT-BR, EN)} foi replicada $n=5$ vezes, com temperatura zero e \emph{seed} 42 (OpenAI e DeepSeek; Gemini não expõe \emph{seed} na API). O \emph{system prompt} exigiu resposta em JSON estrito (esquema canônico), com regras explícitas contra fabricação de valores e referências. Total do experimento principal: 300 chamadas (150 por sistema), custo US\$\,3,42 e tempo agregado 108\,min. Somadas às 180 chamadas do teste de contaminação (descrito em §2.5), o estudo perfaz \textbf{480 chamadas registradas}. Prompts, respostas brutas e scripts são compartilhados em repositório público anonimizado.
 
 \subsection{Métricas e análise}
 
@@ -105,16 +107,16 @@ Foram computadas quatro famílias de métricas: erro numérico (erro relativo ab
 
 \subsection{Controle de contaminação por treinamento}
 
-O paper-referência foi publicado em 2023, anterior ao \emph{cutoff} de treinamento dos LLMs, abrindo a hipótese de memorização em vez de cálculo. Para discriminar, replicamos L3 e L4 em PT-BR ($n=5$) com três esquemas de inventário perturbado, em cada sistema: P1 (massas $\times$ 2); P2 (amônia $\times$ 0{,}1); P3 (cada substância $\times$ U[0{,}5;\,2{,}0], seed fixa). O prompt traz nota experimental explícita informando que o inventário é hipotético. Classifica-se a chamada como \emph{cálculo} se erro contra o novo GT $<10\%$ e como \emph{memorização} se erro contra o GT original $<10\%$. Total: 180 chamadas adicionais (90 por sistema). Conflito de interesse: a versão final declarará vínculo entre autoria e paper-referência.
+O paper-referência foi publicado em 2023, anterior ao \emph{cutoff} de treinamento dos LLMs, o que abre a hipótese de memorização (CARLINI \emph{et al.}, 2023). Para discriminar memorização de cálculo, replicamos L3 e L4 em PT-BR ($n=5$) com três esquemas de inventário perturbado, em cada sistema: P1 (massas $\times$ 2); P2 (amônia $\times$ 0{,}1); P3 (cada substância $\times$ U[0{,}5;\,2{,}0], seed fixa). O prompt traz nota experimental explícita informando que o inventário é hipotético. Cada chamada produz dois erros simultâneos: $\Delta_{\text{novo}}$ contra o novo \emph{ground truth} calculado e $\Delta_{\text{orig}}$ contra o valor publicado. Classifica-se como \emph{cálculo} quando $|\Delta_{\text{novo}}|<10\%$, \emph{memorização} quando $|\Delta_{\text{orig}}|<10\%$, \emph{misto} quando nenhum dos dois critérios é satisfeito e \emph{null} quando o LLM recusa numericamente. Total: 180 chamadas adicionais (90 por sistema). Conflito de interesse: a versão final declarará vínculo entre autoria e paper-referência.
 
 % ============================================================
 \section{Resultados}
 
-As 150 chamadas retornaram JSON estritamente conforme o esquema. A taxa de resposta numérica não-\texttt{null} variou por nível e por LLM, com o GPT apresentando recusa sistemática em níveis com informação insuficiente.
+Das 300 chamadas do experimento principal, 297 retornaram JSON conforme o esquema (3 falhas de parsing em DeepSeek L4 EN). A taxa de resposta numérica não-\texttt{null} variou por nível e por LLM, com o GPT apresentando recusa sistemática em níveis com informação insuficiente.
 
 \subsection{Curva de saturação MAPE $\times$ nível}
 
-A Figura~\ref{fig:saturation} apresenta a mediana e o intervalo interquartil do erro relativo absoluto por nível, LLM e idioma. O salto principal de acurácia ocorre entre L2 e L3 — quando o prompt passa a incluir os fatores de caracterização — e o erro cai para valores próximos de zero em L3 e L4 nos três LLMs. A Tabela~\ref{tab:summary} consolida os valores médios.
+A Figura~\ref{fig:saturation} apresenta a mediana e o intervalo interquartil do erro relativo absoluto por nível, LLM e idioma. À primeira vista, o salto principal de acurácia ocorre entre L2 e L3 e o erro cai a valores próximos de zero em L3 e L4. Essa aparente convergência é, no entanto, o sintoma central deste trabalho: como mostraremos em §3.4, ela é produto de memorização do paper-referência, não de cálculo.
 
 \begin{figure}[h]
 \centering
@@ -140,13 +142,13 @@ A Figura~\ref{fig:agreement} reporta a fração de estimativas que atendem ao cr
 \label{fig:agreement}
 \end{figure}
 
-\subsection{Achados qualitativos}
+\subsection{Achado central: memorização vs. cálculo}
 
 \textbf{Diferenciação regional.} A razão Estado/Global publicada é $22{,}5\times$ (S1) e $12{,}1\times$ (S2). Em L0--L2, os três LLMs reportam razões entre $1{,}0\times$ e $3{,}0\times$, subestimando a diferenciação em uma a duas ordens de magnitude. Em L3--L4, Gemini reproduz a razão exata em ambos os sistemas ($22{,}52\times$ e $12{,}13\times$); GPT e DeepSeek aproximam-se ($\pm 10$--60\%). DeepSeek em L2 não diferencia regiões em $100\%$ das chamadas.
 
 \textbf{Recusa defensiva do GPT.} O GPT retornou \texttt{null} em $100\%$ das chamadas de L2 (ambos os sistemas, ambos idiomas) e em $100\%$ das chamadas de L1 em EN, justificando a ausência de fatores como impeditivo do cálculo (ACHIAM \emph{et al.}, 2023).
 
-\textbf{Reprodutibilidade aparente em L3 e L4.} O Gemini reproduziu o \emph{ground truth} com erro $<0{,}5\%$ e coeficiente de variação nulo em ambos os sistemas. O teste de contaminação (Tabela~\ref{tab:contam}) mostra que essa exatidão decorre de memorização: sob inventário perturbado, Gemini classifica-se como \emph{memorização} em 29 de 30 chamadas em cada sistema. GPT memoriza fortemente o Sistema 1 (27/30) mas raramente o Sistema 2 (3/30, com 27 respostas \emph{mistas}), sugerindo maior penetração do sistema confinado no corpus. DeepSeek tem o menor padrão (13/30 em S1, 0/30 em S2). A nota experimental no prompt não alterou o padrão.
+\textbf{Reprodutibilidade aparente em L3 e L4.} O Gemini reproduziu o \emph{ground truth} com erro $<0{,}5\%$ e coeficiente de variação nulo em ambos os sistemas. O teste de contaminação (Tabela~\ref{tab:contam}) mostra que essa exatidão vem da memorização do paper-referência, não de cálculo: sob inventário perturbado, Gemini classifica-se como \emph{memorização} em 29 de 30 chamadas em cada sistema. GPT memoriza o Sistema 1 (27/30) e quase nunca o Sistema 2 (3/30, com 27 respostas \emph{mistas}). DeepSeek mostra o menor padrão (13/30 em S1; 0/30 em S2). A nota experimental no prompt não mudou o resultado.
 
 \begin{table}[h]
 \centering
@@ -170,11 +172,11 @@ DeepSeek & 1 & 13 & 15 & 1 & 4 &  0 & 21 & 5 \\
 % ============================================================
 \section{Conclusões}
 
-Para os dois sistemas testados (sistema confinado/SP e semi-intensivo/PR, modelo Oberschelp, alocação econômica), a acurácia aparente dos LLMs em L3 e L4 decorre, em parte substantiva, de memorização do paper-referência, não de cálculo. O comportamento varia: Gemini memoriza consistentemente nos dois sistemas (97\% das chamadas em ambos), GPT memoriza fortemente o Sistema 1 (90\%) mas raramente o Sistema 2 (10\%), e DeepSeek apresenta o menor padrão (43\% S1, 0\% S2) — sugerindo níveis distintos de exposição do paper ao corpus de treinamento e preferência por casos amplamente discutidos.
+Para os dois sistemas testados (confinado/SP e semi-intensivo/PR, modelo Oberschelp, alocação econômica), a acurácia aparente dos LLMs em L3 e L4 vem da memorização do paper-referência, não de cálculo. O gradiente Gemini $\to$ GPT $\to$ DeepSeek e a diferença GPT entre Sistema 1 e Sistema 2 sugerem que o paper-alvo chegou aos corpora de treinamento em doses distintas e que o modelo recupera com mais facilidade casos muito citados.
 
-No uso informal típico — L0 e L1, sem dados fornecidos — os erros variam de uma faixa de 2 a 273 vezes o valor publicado; nenhum LLM seleciona espontaneamente o modelo regionalizado para o Brasil, convergindo para ReCiPe 2016 (GPT, Gemini) e IMPACT World+ (DeepSeek). A magnitude da diferenciação regional é subestimada em uma a duas ordens de magnitude.
+No uso informal típico — L0 e L1, sem dados fornecidos — os erros variam de uma faixa de 2 a 273 vezes o valor publicado; nenhum LLM seleciona espontaneamente o modelo regionalizado para o Brasil, convergindo para ReCiPe 2016 (GPT, Gemini) e IMPACT World+ (DeepSeek). A magnitude da diferenciação regional é subestimada em uma a duas ordens de grandeza.
 
-LLMs frontier, no estado atual, não são confiáveis como calculadora de ACV regionalizada: quando o caso está documentado na literatura, o output é o número do paper, independentemente dos dados de entrada; fora desse caso, o output é um modelo global desencaixado. A extensão para a matriz completa do paper-referência (4 sistemas $\times$ 5 modelos $\times$ 3 escopos) será apresentada em trabalho subsequente.
+A matriz completa do paper-referência (4 sistemas $\times$ 5 modelos $\times$ 3 escopos) será apresentada em trabalho subsequente. \textbf{O ponto operacional, contudo, já se sustenta: se o caso já está na literatura, o LLM devolve o número publicado e ignora o inventário; se não está, devolve um fator global qualquer.} Nenhum dos dois comportamentos é cálculo de ACV.
 
 % ============================================================
 \section*{REFERÊNCIAS}
@@ -187,6 +189,8 @@ LLMs frontier, no estado atual, não são confiáveis como calculadora de ACV re
 \small
 
 \noindent ACHIAM, J. \emph{et al.} GPT-4 technical report. \textbf{arXiv preprint}, arXiv:2303.08774, 2023.
+
+\noindent CARLINI, N. \emph{et al.} Quantifying memorization across neural language models. In: \textbf{International Conference on Learning Representations} (ICLR), 2023.
 
 ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. \textbf{NBR ISO 14040}: gestão ambiental — avaliação do ciclo de vida — princípios e estrutura. Rio de Janeiro: ABNT, 2009.
 
@@ -209,6 +213,8 @@ HUIJBREGTS, M. A. J. \emph{et al.} ReCiPe2016: a harmonised life cycle impact as
 JI, Z. \emph{et al.} Survey of hallucination in natural language generation. \textbf{ACM Computing Surveys}, v. 55, n. 12, p. 1--38, 2023.
 
 OBERSCHELP, C. \emph{et al.} Globally regionalized monthly life cycle impact assessment of particulate matter. \textbf{Environmental Science \& Technology}, 2020. DOI: 10.1021/acs.est.0c05691.
+
+\noindent SAINZ, O. \emph{et al.} NLP evaluation in trouble: on the need to measure LLM data contamination for each benchmark. In: \textbf{Findings of EMNLP}, 2023.
 
 WEI, J. \emph{et al.} Chain-of-thought prompting elicits reasoning in large language models. \textbf{Advances in Neural Information Processing Systems}, v. 35, 2022.
 
