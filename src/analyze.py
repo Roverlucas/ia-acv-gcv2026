@@ -26,10 +26,13 @@ ROOT = Path(__file__).resolve().parent.parent
 RAW_DIR = ROOT / "results" / "raw"
 PROC_DIR = ROOT / "results" / "processed"
 
-GROUND_TRUTH = {
-    "global":   2.8297479606833848e-08,
-    "brazil":   8.107650880339056e-08,
-    "state_sp": 6.37272783215278e-07,
+GROUND_TRUTH_BY_SYSTEM = {
+    1: {"global": 2.8297479606833848e-08,
+        "brazil": 8.107650880339056e-08,
+        "state":  6.37272783215278e-07},
+    2: {"global": 1.2811260424359784e-08,
+        "brazil": 1.0956135102805530e-07,
+        "state":  1.5536479051332848e-07},
 }
 
 # -----------------------------------------------------------------
@@ -96,7 +99,9 @@ def extract_record(run: dict, source_file: str) -> dict:
     answer = (parsed or {}).get("answer") or {}
     g = (answer.get("global") or {}).get("value")
     b = (answer.get("brazil") or {}).get("value")
-    s = (answer.get("state_sp") or {}).get("value")
+    # Schema changed mid-experiment: state_sp (legacy S1) -> state (generic).
+    s = ((answer.get("state") or {}).get("value")
+         if "state" in answer else (answer.get("state_sp") or {}).get("value"))
 
     def num_or_none(x):
         return float(x) if isinstance(x, (int, float)) else None
@@ -120,7 +125,9 @@ def extract_record(run: dict, source_file: str) -> dict:
         "prompt_hash": run.get("prompt_hash"),
         "v_global": g,
         "v_brazil": b,
-        "v_state_sp": s,
+        "v_state": s,
+        # Determine system from the run record itself or from filename
+        "system": run.get("system") or (2 if "s2" in source_file else 1),
         "characterization_model_raw": char_model,
         "characterization_model_class": classify_char_model(char_model),
         "allocation_method_raw": alloc,
@@ -154,12 +161,15 @@ def to_long(df: pd.DataFrame) -> pd.DataFrame:
     """Long-format: one row per (call × geo scope)."""
     long = df.melt(
         id_vars=[c for c in df.columns if not c.startswith("v_")],
-        value_vars=["v_global", "v_brazil", "v_state_sp"],
+        value_vars=["v_global", "v_brazil", "v_state"],
         var_name="geo_scope",
         value_name="estimate",
     )
     long["geo_scope"] = long["geo_scope"].str.replace("v_", "")
-    long["ground_truth"] = long["geo_scope"].map(GROUND_TRUTH)
+    # Per-row GT depends on system
+    def _gt(row):
+        return GROUND_TRUTH_BY_SYSTEM.get(int(row["system"]), {}).get(row["geo_scope"], np.nan)
+    long["ground_truth"] = long.apply(_gt, axis=1)
     long["abs_error"] = (long["estimate"] - long["ground_truth"]).abs()
     long["rel_error"] = (long["estimate"] - long["ground_truth"]) / long["ground_truth"]
     long["abs_rel_error"] = long["rel_error"].abs()
@@ -174,9 +184,9 @@ def to_long(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def aggregate(long: pd.DataFrame) -> pd.DataFrame:
-    """Aggregate by (provider × level × language × geo_scope)."""
+    """Aggregate by (system × provider × level × language × geo_scope)."""
     grp = long.groupby(
-        ["provider", "level", "language", "geo_scope"], dropna=False
+        ["system", "provider", "level", "language", "geo_scope"], dropna=False
     )
     agg = grp.agg(
         n_total=("estimate", "size"),
@@ -221,11 +231,11 @@ def main() -> int:
     agg.to_csv(PROC_DIR / "aggregated.csv", index=False)
 
     # Print summary table
-    print("\n=== AGGREGATED MAPE BY (LLM, LEVEL, LANG) — mean over 3 geo scopes & reps ===")
-    pivot = (long.groupby(["provider", "level", "language"])["abs_rel_error"]
+    print("\n=== AGGREGATED MAPE BY (SYSTEM, LLM, LEVEL, LANG) — mean over 3 geo scopes & reps ===")
+    pivot = (long.groupby(["system", "provider", "level", "language"])["abs_rel_error"]
                   .mean()
                   .unstack("language")
-                  .round(2))
+                  .round(3))
     print(pivot)
 
     # Save markdown summary
