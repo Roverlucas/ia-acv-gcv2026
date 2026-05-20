@@ -7,7 +7,7 @@
 
 \documentclass[12pt,a4paper]{article}
 
-\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=3cm,right=3cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[brazil]{babel}
@@ -15,7 +15,7 @@
 \usepackage[scaled=.90]{helvet}
 \usepackage{courier}
 \usepackage{setspace}
-\onehalfspacing
+\singlespacing
 \setlength{\parindent}{1.25cm}
 \setlength{\parskip}{0pt}
 
@@ -27,9 +27,11 @@
 
 \usepackage{titlesec}
 \titleformat{\section}{\normalfont\bfseries\uppercase}{\thesection}{1em}{}
-\titleformat{\subsection}{\normalfont\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsection}{\normalfont\bfseries\uppercase}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\bfseries}{\thesubsubsection}{1em}{}
 \titlespacing*{\section}{0pt}{1\baselineskip}{0.5\baselineskip}
 \titlespacing*{\subsection}{0pt}{0.8\baselineskip}{0.4\baselineskip}
+\titlespacing*{\subsubsection}{0pt}{0.6\baselineskip}{0.3\baselineskip}
 
 \usepackage{caption}
 \captionsetup{font={small},labelfont={bf},labelsep=endash,justification=centering,skip=4pt}
@@ -53,15 +55,12 @@
 
 \vspace{1\baselineskip}
 
-\begin{center}
-Lucas Rover\textsuperscript{1,2}; Yara de Souza Tadano\textsuperscript{1}
-\end{center}
-
-\begin{center}
-\footnotesize
-\textsuperscript{1}Programa de Pós-Graduação em Sustentabilidade Ambiental Urbana, Universidade Tecnológica Federal do Paraná (UTFPR), Curitiba, PR, Brasil --- \href{mailto:lucasrover@alunos.utfpr.edu.br}{lucasrover@alunos.utfpr.edu.br}; \href{mailto:yaratadano@utfpr.edu.br}{yaratadano@utfpr.edu.br}\\
-\textsuperscript{2}Academia Lendária, Florianópolis, SC, Brasil
-\end{center}
+\begin{flushright}
+Lucas Rover\\
+PPGSAU --- Universidade Tecnológica Federal do Paraná (UTFPR) / lucasrover@alunos.utfpr.edu.br\\[2pt]
+Yara de Souza Tadano\\
+PPGSAU --- Universidade Tecnológica Federal do Paraná (UTFPR) / yaratadano@utfpr.edu.br
+\end{flushright}
 
 \vspace{1\baselineskip}
 
