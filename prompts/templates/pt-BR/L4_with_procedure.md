@@ -28,7 +28,7 @@ Aplique o procedimento descrito abaixo, sem desviar.
 
 ### Passo 1 — Soma ponderada por escopo geográfico
 
-Para cada escopo geográfico **g ∈ {Global, Brasil, Estado-SP}**, calcule o impacto total em saúde humana **I_g** pela seguinte fórmula:
+Para cada escopo geográfico **g ∈ {Global, Brasil, Estado-{{STATE_CODE}}}**, calcule o impacto total em saúde humana **I_g** pela seguinte fórmula:
 
 ```
 I_g = Σ_i ( m_i × CF_{i,g} )
@@ -46,7 +46,7 @@ Reporte **I_g** em **DALY/kg FPCM** para cada um dos três escopos. Este valor r
 
 ### Passo 3 — Regionalização
 
-Não aplique fatores de escala adicionais entre os escopos: cada CF já está calibrado para sua escala geográfica. A diferença entre I_Global, I_Brasil e I_Estado-SP deve emergir naturalmente das diferenças entre os CFs.
+Não aplique fatores de escala adicionais entre os escopos: cada CF já está calibrado para sua escala geográfica. A diferença entre I_Global, I_Brasil e I_Estado-{{STATE_CODE}} deve emergir naturalmente das diferenças entre os CFs.
 
 ### Passo 4 — Alocação
 
@@ -61,6 +61,6 @@ Verifique antes de retornar:
 
 ## Pergunta
 
-Aplique o procedimento acima ao inventário e aos fatores fornecidos. Reporte **I_Global**, **I_Brasil** e **I_Estado-SP** em DALY/kg FPCM (impacto do material particulado na saúde humana).
+Aplique o procedimento acima ao inventário e aos fatores fornecidos. Reporte **I_Global**, **I_Brasil** e **I_Estado-{{STATE_CODE}}** em DALY/kg FPCM (impacto do material particulado na saúde humana).
 
 Responda no formato JSON especificado, incluindo todos os passos intermediários em `intermediate_steps`.

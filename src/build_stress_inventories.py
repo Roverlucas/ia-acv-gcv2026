@@ -1,39 +1,42 @@
 """Generate perturbed inventories + new ground truths for the stress test.
 
-Three perturbations of Sistema 1 (Oberschelp, economic allocation):
+Three perturbations of Sistema N (Oberschelp, economic allocation):
 - P1 (scale):  todas as massas × 2.0
 - P2 (NH3):    massa de Ammonia × 0.1, demais inalteradas
 - P3 (random): cada substância × U[0.5, 2.0] com seed=42
 
+Usage:
+    python src/build_stress_inventories.py --system 1
+    python src/build_stress_inventories.py --system 2
+
 Writes:
-  data/processed/stress/lci_P{1,2,3}.md            (LCI table for prompt injection)
-  data/processed/stress/gt_P{1,2,3}.json           (new ground truth)
-  data/processed/stress/cf_oberschelp_s1.md        (CFs unchanged, copied for self-contained input)
+  data/processed/s{N}/stress/lci_P{1,2,3}.md
+  data/processed/s{N}/stress/gt_P{1,2,3}.json
+  data/processed/s{N}/stress/cf_oberschelp.md       (CFs unchanged, copied)
 """
 
 from __future__ import annotations
+import argparse
 import json
 import random
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PROC = ROOT / "data" / "processed"
-OUT = PROC / "stress"
-OUT.mkdir(parents=True, exist_ok=True)
 
-# Load base LCI and CFs
-with open(PROC / "sistema1_emissions_air.json") as f:
-    lci = json.load(f)
-with open(PROC / "cf_oberschelp_s1.json") as f:
-    cfs = json.load(f)
 
-# Group fluxes by substance (aggregated mass)
-agg_masses = {}
-for r in lci["pm_relevant_flows"]:
-    agg_masses.setdefault(r["substance"], 0.0)
-    agg_masses[r["substance"]] += r["value"]
+def load_system(system: int) -> tuple[dict, dict, dict]:
+    """Load LCI, CFs, and ground truth for the given system."""
+    sys_dir = PROC / f"s{system}"
+    with open(sys_dir / "emissions_air.json") as f:
+        lci = json.load(f)
+    with open(sys_dir / "cf_oberschelp.json") as f:
+        cfs = json.load(f)
+    with open(sys_dir / "ground_truth.json") as f:
+        gt = json.load(f)
+    return lci, cfs, gt
 
-# Per-flow perturbation factors based on substance family
+
 def perturbation_factor(substance: str, scheme: str, rng: random.Random) -> float:
     if scheme == "P1":
         return 2.0
@@ -52,7 +55,7 @@ def write_markdown_table(rows: list[dict], path: Path) -> None:
     path.write_text(md, encoding="utf-8")
 
 
-def gt_for_scheme(scheme: str) -> tuple[dict, dict, list[dict]]:
+def gt_for_scheme(scheme: str, lci: dict, cfs: dict) -> tuple[dict, dict, list[dict]]:
     """Compute new GT + perturbed total masses + per-row perturbed table."""
     rng = random.Random(42)
     perturbed_rows = []
@@ -68,18 +71,17 @@ def gt_for_scheme(scheme: str) -> tuple[dict, dict, list[dict]]:
         new_masses_by_substance.setdefault(r["substance"], 0.0)
         new_masses_by_substance[r["substance"]] += new_val
 
-    # New GT = sum over substances of new_mass × CF
-    new_gt = {"global": 0.0, "brazil": 0.0, "state_sp": 0.0}
+    new_gt = {"global": 0.0, "brazil": 0.0, "state": 0.0}
     breakdown = {}
     for sub, m_new in new_masses_by_substance.items():
         if sub not in cfs["cfs"]:
-            continue  # only PM precursors with CFs contribute to impact
+            continue
         cf = cfs["cfs"][sub]["cf_daly_per_kg"]
         breakdown[sub] = {
             "new_mass_total": m_new,
             "cf_global": cf["global"],
             "cf_brazil": cf["brazil"],
-            "cf_state_sp": cf["state_sp"],
+            "cf_state": cf["state"],
         }
         for k in new_gt:
             new_gt[k] += m_new * cf[k]
@@ -88,18 +90,24 @@ def gt_for_scheme(scheme: str) -> tuple[dict, dict, list[dict]]:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--system", type=int, default=1, choices=[1, 2, 3, 4])
+    args = parser.parse_args()
+    system = args.system
+
+    lci, cfs, gt_data = load_system(system)
+    original_gt = gt_data["ground_truth_economic"]
+
+    out_dir = PROC / f"s{system}" / "stress"
+    out_dir.mkdir(parents=True, exist_ok=True)
+
     schemes = ["P1", "P2", "P3"]
-    summary = {}
-    original_gt = {
-        "global":   2.8297479606833848e-08,
-        "brazil":   8.107650880339056e-08,
-        "state_sp": 6.37272783215278e-07,
-    }
     for s in schemes:
-        gt, breakdown, rows = gt_for_scheme(s)
-        write_markdown_table(rows, OUT / f"lci_{s}.md")
+        gt, breakdown, rows = gt_for_scheme(s, lci, cfs)
+        write_markdown_table(rows, out_dir / f"lci_{s}.md")
         out = {
             "scheme": s,
+            "system": system,
             "description": {
                 "P1": "all masses x 2.0",
                 "P2": "Ammonia x 0.1, others unchanged",
@@ -110,19 +118,16 @@ def main() -> int:
             "ratio_new_over_original": {k: gt[k] / original_gt[k] for k in gt},
             "breakdown_by_substance": breakdown,
         }
-        with open(OUT / f"gt_{s}.json", "w") as f:
+        with open(out_dir / f"gt_{s}.json", "w") as f:
             json.dump(out, f, indent=2, ensure_ascii=False)
-        summary[s] = {
-            "new_gt_global": gt["global"],
-            "ratio_global": gt["global"] / original_gt["global"],
-        }
-        print(f"{s}: new GT global = {gt['global']:.3e} (×{gt['global']/original_gt['global']:.3f} vs original)")
+        print(f"S{system} {s}: new GT global = {gt['global']:.3e} "
+              f"(×{gt['global']/original_gt['global']:.3f} vs original)")
 
-    # Also copy the CF table (unchanged) so each prompt is self-contained
-    cf_md_source = PROC / "cf_oberschelp_s1.md"
-    (OUT / "cf_oberschelp_s1.md").write_text(cf_md_source.read_text(encoding="utf-8"), encoding="utf-8")
+    # Copy CF table (unchanged) so each prompt is self-contained
+    cf_md_source = PROC / f"s{system}" / "cf_oberschelp.md"
+    (out_dir / "cf_oberschelp.md").write_text(cf_md_source.read_text(encoding="utf-8"), encoding="utf-8")
 
-    print("\nFiles written to data/processed/stress/")
+    print(f"\nFiles written to data/processed/s{system}/stress/")
     return 0
 
 

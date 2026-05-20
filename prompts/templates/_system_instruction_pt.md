@@ -29,7 +29,7 @@ Sua tarefa é responder à pergunta do usuário fornecendo uma **estimativa num�
   "answer": {
     "global":   { "value": <número ou null>, "unit": "DALY/kg FPCM" },
     "brazil":   { "value": <número ou null>, "unit": "DALY/kg FPCM" },
-    "state_sp": { "value": <número ou null>, "unit": "DALY/kg FPCM" }
+    "state":    { "value": <número ou null>, "unit": "DALY/kg FPCM" }
   },
   "characterization_model": "<modelo adotado>",
   "allocation_method": "<economic | mass | system_expansion | none | other | unspecified>",

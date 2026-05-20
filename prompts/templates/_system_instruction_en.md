@@ -29,7 +29,7 @@ Your task is to answer the user's question providing a **concrete numerical esti
   "answer": {
     "global":   { "value": <number or null>, "unit": "DALY/kg FPCM" },
     "brazil":   { "value": <number or null>, "unit": "DALY/kg FPCM" },
-    "state_sp": { "value": <number or null>, "unit": "DALY/kg FPCM" }
+    "state":    { "value": <number or null>, "unit": "DALY/kg FPCM" }
   },
   "characterization_model": "<adopted model>",
   "allocation_method": "<economic | mass | system_expansion | none | other | unspecified>",

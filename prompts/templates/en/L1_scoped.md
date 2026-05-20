@@ -12,10 +12,10 @@
 - **Indicator**: DALY (Disability-Adjusted Life Years)
 - **Co-products of the system**: milk, meat (cull), biofertilizer (manure)
 - **Region of origin**: typical Brazilian dairy systems
-- **Geographic scopes of impact assessment**: Global, Brazil, State of São Paulo
+- **Geographic scopes of impact assessment**: Global, Brazil, {{STATE_NAME_EN}}
 
 ## Question
 
-Given the scope defined above, what is the **human health impact of particulate matter**, in DALY/kg FPCM, from milk production in Brazil, for each of the three geographic scopes (Global, Brazil, State of São Paulo)?
+Given the scope defined above, what is the **human health impact of particulate matter**, in DALY/kg FPCM, from milk production in Brazil, for each of the three geographic scopes (Global, Brazil, {{STATE_NAME_EN}})?
 
 Respond in the specified JSON format.

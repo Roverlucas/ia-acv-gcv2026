@@ -22,6 +22,6 @@ A tabela abaixo apresenta o LCI agregado de emissões para ar do sistema, com ma
 
 ## Pergunta
 
-Considerando o escopo do estudo de ACV e o inventário acima, qual é o **impacto do material particulado na saúde humana**, em DALY/kg FPCM, para cada um dos três escopos geográficos: **Global**, **Brasil** e **Estado de São Paulo**?
+Considerando o escopo do estudo de ACV e o inventário acima, qual é o **impacto do material particulado na saúde humana**, em DALY/kg FPCM, para cada um dos três escopos geográficos: **Global**, **Brasil** e **{{STATE_NAME_PT}}**?
 
 Responda no formato JSON especificado.

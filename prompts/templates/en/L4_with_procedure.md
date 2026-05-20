@@ -28,7 +28,7 @@ Apply the procedure described below, without deviating.
 
 ### Step 1 — Weighted sum per geographic scope
 
-For each geographic scope **g ∈ {Global, Brazil, State-SP}**, compute the total human health impact **I_g** using the following formula:
+For each geographic scope **g ∈ {Global, Brazil, State-{{STATE_CODE}}}**, compute the total human health impact **I_g** using the following formula:
 
 ```
 I_g = Σ_i ( m_i × CF_{i,g} )
@@ -46,7 +46,7 @@ Report **I_g** in **DALY/kg FPCM** for each of the three scopes. This value repr
 
 ### Step 3 — Regionalization
 
-Do not apply additional scale factors between scopes: each CF is already calibrated to its geographic scale. The differences between I_Global, I_Brazil and I_State-SP should emerge naturally from the differences between CFs.
+Do not apply additional scale factors between scopes: each CF is already calibrated to its geographic scale. The differences between I_Global, I_Brazil and I_State-{{STATE_CODE}} should emerge naturally from the differences between CFs.
 
 ### Step 4 — Allocation
 
@@ -61,6 +61,6 @@ Before returning, verify:
 
 ## Question
 
-Apply the procedure above to the inventory and factors provided. Report **I_Global**, **I_Brazil** and **I_State-SP** in DALY/kg FPCM (human health impact of particulate matter).
+Apply the procedure above to the inventory and factors provided. Report **I_Global**, **I_Brazil** and **I_State-{{STATE_CODE}}** in DALY/kg FPCM (human health impact of particulate matter).
 
 Respond in the specified JSON format, including all intermediate steps in `intermediate_steps`.

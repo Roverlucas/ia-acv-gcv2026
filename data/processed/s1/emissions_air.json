@@ -1,0 +1,205 @@
+{
+  "source": "Inventário-S1-Completo, Alocação Econômica",
+  "system": "Sistema 1",
+  "functional_unit": "1 kg FPCM",
+  "allocation": "economic",
+  "pm_relevant_flows": [
+    {
+      "substance": "Ammonia",
+      "compartment": "low population density",
+      "unit": "kg",
+      "value": 0.0009697315950809983,
+      "aggregated_from_n_flows": 9
+    },
+    {
+      "substance": "Nitrogen oxides",
+      "compartment": "low population density",
+      "unit": "kg",
+      "value": 0.0004050753955064312,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Sulfur dioxide",
+      "compartment": "low population density",
+      "unit": "kg",
+      "value": 0.00012747787910226475,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Particulates, < 2.5 um",
+      "compartment": "low population density",
+      "unit": "kg",
+      "value": 0.00011275472509381839,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Nitrogen oxides",
+      "compartment": "unspecified",
+      "unit": "kg",
+      "value": 8.089474178309498e-05,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Particulates, > 2.5 um, and < 10um",
+      "compartment": "low population density",
+      "unit": "kg",
+      "value": 7.226101065762145e-05,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Sulfur dioxide",
+      "compartment": "high population density",
+      "unit": "kg",
+      "value": 6.940290264969372e-05,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Particulates, > 10 um",
+      "compartment": "low population density",
+      "unit": "kg",
+      "value": 6.501465708583714e-05,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Nitrogen oxides",
+      "compartment": "high population density",
+      "unit": "kg",
+      "value": 4.542145096513384e-05,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Sulfur dioxide",
+      "compartment": "unspecified",
+      "unit": "kg",
+      "value": 2.6519589101378184e-05,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Particulates, > 10 um",
+      "compartment": "unspecified",
+      "unit": "kg",
+      "value": 1.5949461320178648e-05,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Ammonia",
+      "compartment": "high population density",
+      "unit": "kg",
+      "value": 1.1097337015511453e-05,
+      "aggregated_from_n_flows": 33
+    },
+    {
+      "substance": "Particulates, > 2.5 um, and < 10um",
+      "compartment": "high population density",
+      "unit": "kg",
+      "value": 9.380353821470073e-06,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Particulates, < 2.5 um",
+      "compartment": "high population density",
+      "unit": "kg",
+      "value": 9.015555771776556e-06,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Particulates, < 2.5 um",
+      "compartment": "unspecified",
+      "unit": "kg",
+      "value": 4.988693553410241e-06,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Particulates, > 2.5 um, and < 10um",
+      "compartment": "unspecified",
+      "unit": "kg",
+      "value": 4.21375296570993e-06,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Particulates, > 10 um",
+      "compartment": "high population density",
+      "unit": "kg",
+      "value": 3.5852039792653336e-06,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Ammonia",
+      "compartment": "unspecified",
+      "unit": "kg",
+      "value": 2.7881984710655658e-06,
+      "aggregated_from_n_flows": 6
+    },
+    {
+      "substance": "Particulates, > 10 um",
+      "compartment": "low population density (long-term)",
+      "unit": "kg",
+      "value": 2.7748259610894566e-06,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Particulates, > 2.5 um, and < 10um",
+      "compartment": "low population density (long-term)",
+      "unit": "kg",
+      "value": 1.9537752245560675e-06,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Particulates, < 2.5 um",
+      "compartment": "low population density (long-term)",
+      "unit": "kg",
+      "value": 1.1121472863916135e-06,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Sulfur dioxide",
+      "compartment": "low population density (long-term)",
+      "unit": "kg",
+      "value": 1.437262773272869e-07,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Nitrogen oxides",
+      "compartment": "low population density (long-term)",
+      "unit": "kg",
+      "value": 1.2165778166177984e-07,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Ammonia",
+      "compartment": "low population density (long-term)",
+      "unit": "kg",
+      "value": 6.306793702618641e-08,
+      "aggregated_from_n_flows": 2
+    },
+    {
+      "substance": "Nitrogen oxides",
+      "compartment": "lower stratosphere + upper troposphere",
+      "unit": "kg",
+      "value": 5.729708979971013e-09,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Ammonia",
+      "compartment": "industrial",
+      "unit": "kg",
+      "value": 5.339200362972081e-11,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Sulfur dioxide",
+      "compartment": "lower stratosphere + upper troposphere",
+      "unit": "kg",
+      "value": 4.366799412595305e-11,
+      "aggregated_from_n_flows": 1
+    },
+    {
+      "substance": "Particulates, < 2.5 um",
+      "compartment": "lower stratosphere + upper troposphere",
+      "unit": "kg",
+      "value": 8.766357343641896e-12,
+      "aggregated_from_n_flows": 1
+    }
+  ],
+  "total_raw_flows_aggregated": 1131
+}

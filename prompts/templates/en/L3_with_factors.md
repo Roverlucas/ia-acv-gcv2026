@@ -26,6 +26,6 @@ The factors below are native factors from Oberschelp et al. (2020), in DALY/kg o
 
 ## Question
 
-Given the LCA study scope, the inventory and the characterization factors provided, what is the **human health impact of particulate matter**, in DALY/kg FPCM, for each of the three geographic scopes: **Global**, **Brazil**, and **State of São Paulo**?
+Given the LCA study scope, the inventory and the characterization factors provided, what is the **human health impact of particulate matter**, in DALY/kg FPCM, for each of the three geographic scopes: **Global**, **Brazil**, and **{{STATE_NAME_EN}}**?
 
 Respond in the specified JSON format.

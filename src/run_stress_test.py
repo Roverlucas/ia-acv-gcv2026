@@ -29,9 +29,10 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 from llm_clients import call_llm  # noqa: E402
 from run_experiment import hash_prompt, parse_json_response, parse_json_lenient  # noqa: E402
+from render_prompt import system_state_info  # noqa: E402
 
 TEMPLATES = ROOT / "prompts" / "templates"
-STRESS = ROOT / "data" / "processed" / "stress"
+PROCESSED = ROOT / "data" / "processed"
 RESULTS_DIR = ROOT / "results" / "raw"
 CONFIG_PATH = ROOT / "src" / "llm_config.yaml"
 
@@ -45,26 +46,31 @@ def load_config() -> dict:
     return yaml.safe_load(CONFIG_PATH.read_text(encoding="utf-8"))
 
 
-def render(level: str, scheme: str) -> tuple[str, str]:
-    system = (TEMPLATES / "_system_instruction_pt.md").read_text(encoding="utf-8").strip()
+def render(level: str, scheme: str, system_n: int) -> tuple[str, str]:
+    state_code, state_pt, state_en = system_state_info(system_n)
+    sys_text = (TEMPLATES / "_system_instruction_pt.md").read_text(encoding="utf-8").strip()
     user = (TEMPLATES / LANG / LEVEL_FILES[level]).read_text(encoding="utf-8")
-    lci = (STRESS / f"lci_{scheme}.md").read_text(encoding="utf-8").strip()
-    cf = (STRESS / "cf_oberschelp_s1.md").read_text(encoding="utf-8").strip()
+    stress_dir = PROCESSED / f"s{system_n}" / "stress"
+    lci = (stress_dir / f"lci_{scheme}.md").read_text(encoding="utf-8").strip()
+    cf = (stress_dir / "cf_oberschelp.md").read_text(encoding="utf-8").strip()
     user = user.replace("{{LCI_TABLE}}", lci).replace("{{CF_TABLE_OBERSCHELP}}", cf)
-    # Add a header to the prompt noting that the inventory is hypothetical
     note = (
-        "\n\n> **Nota experimental**: o inventário abaixo é hipotético "
-        "(perturbação controlada do inventário original do Sistema 1) e "
-        "destinado a um teste de robustez. Faça o cálculo com base estritamente "
-        "nos números fornecidos.\n"
+        f"\n\n> **Nota experimental**: o inventário abaixo é hipotético "
+        f"(perturbação controlada do inventário original do Sistema {system_n}) e "
+        f"destinado a um teste de robustez. Faça o cálculo com base estritamente "
+        f"nos números fornecidos.\n"
     )
-    # Inject the note right after the first '---' separator
     user = user.replace("---", "---" + note, 1)
-    return system, user
+
+    def apply_state(s: str) -> str:
+        return (s.replace("{{STATE_NAME_PT}}", state_pt)
+                 .replace("{{STATE_NAME_EN}}", state_en)
+                 .replace("{{STATE_CODE}}", state_code))
+    return apply_state(sys_text), apply_state(user)
 
 
-def load_new_gt(scheme: str) -> dict:
-    return json.loads((STRESS / f"gt_{scheme}.json").read_text(encoding="utf-8"))
+def load_new_gt(scheme: str, system_n: int) -> dict:
+    return json.loads((PROCESSED / f"s{system_n}" / "stress" / f"gt_{scheme}.json").read_text(encoding="utf-8"))
 
 
 def main() -> int:
@@ -73,6 +79,7 @@ def main() -> int:
     parser.add_argument("--schemes", default="P1,P2,P3")
     parser.add_argument("--levels", default="L3,L4")
     parser.add_argument("--reps", type=int, default=REPS)
+    parser.add_argument("--system", type=int, default=1, choices=[1, 2, 3, 4])
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
@@ -84,11 +91,12 @@ def main() -> int:
     schemes = args.schemes.split(",")
     levels = args.levels.split(",")
     reps = args.reps
+    system_n = args.system
 
     runs = []
     for prov in providers:
         for scheme in schemes:
-            new_gt_data = load_new_gt(scheme)
+            new_gt_data = load_new_gt(scheme, system_n)
             for level in levels:
                 for rep in range(1, reps + 1):
                     runs.append({
@@ -96,6 +104,7 @@ def main() -> int:
                         "model_id": models[prov]["api_model_id"],
                         "level": level,
                         "scheme": scheme,
+                        "system": system_n,
                         "language": LANG,
                         "rep": rep,
                         "temperature": 0.0,
@@ -106,22 +115,22 @@ def main() -> int:
                     })
 
     print(f"[{datetime.now().isoformat(timespec='seconds')}] Stress test: {len(runs)} runs.")
-    print(f"  Providers: {providers} · Schemes: {schemes} · Levels: {levels} · Reps: {reps}")
+    print(f"  Sistema S{system_n} · Providers: {providers} · Schemes: {schemes} · Levels: {levels} · Reps: {reps}")
     if args.dry_run:
         for r in runs:
-            print(f"  {r['provider']:10s} {r['level']} {r['scheme']} rep={r['rep']} "
+            print(f"  S{r['system']} {r['provider']:10s} {r['level']} {r['scheme']} rep={r['rep']} "
                   f"new_gt_global={r['new_ground_truth']['global']:.3e}")
         return 0
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
-    run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "__stress"
+    run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + f"__s{system_n}_stress"
     out_path = RESULTS_DIR / f"{run_id}.jsonl"
 
     n_ok = n_err = n_parse_fail = 0
     t_start = time.time()
     with open(out_path, "w", encoding="utf-8") as f:
         for i, run in enumerate(runs, 1):
-            system, user = render(run["level"], run["scheme"])
+            system, user = render(run["level"], run["scheme"], run["system"])
             prompt_hash = hash_prompt(system + "\n\n" + user)
 
             max_tokens = 16384 if run["provider"] == "gemini" else 4096
@@ -173,7 +182,7 @@ def main() -> int:
                 else:
                     status = "OK (null)"
 
-            print(f"  [{i:2d}/{len(runs)}] {run['provider']:10s} {run['scheme']} {run['level']} "
+            print(f"  [{i:2d}/{len(runs)}] S{run['system']} {run['provider']:10s} {run['scheme']} {run['level']} "
                   f"rep={run['rep']} t={elapsed:5.1f}s  {status}")
 
     total = time.time() - t_start

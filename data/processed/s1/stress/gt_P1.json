@@ -1,0 +1,46 @@
+{
+  "scheme": "P1",
+  "system": 1,
+  "description": "all masses x 2.0",
+  "original_ground_truth": {
+    "global": 2.8297479606833848e-08,
+    "brazil": 8.107650880339056e-08,
+    "state": 6.37272783215278e-07
+  },
+  "new_ground_truth": {
+    "global": 5.6594959213667696e-08,
+    "brazil": 1.6215301760678112e-07,
+    "state": 1.274545566430556e-06
+  },
+  "ratio_new_over_original": {
+    "global": 2.0,
+    "brazil": 2.0,
+    "state": 2.0
+  },
+  "breakdown_by_substance": {
+    "Ammonia": {
+      "new_mass_total": 0.0019673605037932107,
+      "cf_global": 2.004208757102534e-05,
+      "cf_brazil": 6.442630755966641e-05,
+      "cf_state": 0.0005124651843685774
+    },
+    "Nitrogen oxides": {
+      "new_mass_total": 0.0010630379514906035,
+      "cf_global": 2.62179245046705e-06,
+      "cf_brazil": 8.876768001940548e-06,
+      "cf_state": 6.92420884125639e-05
+    },
+    "Sulfur dioxide": {
+      "new_mass_total": 0.00044708828159731616,
+      "cf_global": 4.60766429291367e-06,
+      "cf_brazil": 8.76942791233845e-06,
+      "cf_state": 5.9019718006078094e-05
+    },
+    "Particulates, < 2.5 um": {
+      "new_mass_total": 0.0002557422609435083,
+      "cf_global": 4.816509434439721e-05,
+      "cf_brazil": 8.62047394856268e-05,
+      "cf_state": 0.000650451006393258
+    }
+  }
+}

@@ -9,7 +9,7 @@
     "answer": {
       "type": "object",
       "description": "Estimativa de impacto em saúde humana (DALY) por kg de leite corrigido por gordura e proteína (FPCM), para cada escopo geográfico. Use null se não conseguir estimar.",
-      "required": ["global", "brazil", "state_sp"],
+      "required": ["global", "brazil", "state"],
       "additionalProperties": false,
       "properties": {
         "global": {
@@ -28,7 +28,7 @@
             "unit": { "type": "string", "const": "DALY/kg FPCM" }
           }
         },
-        "state_sp": {
+        "state": {
           "type": "object",
           "required": ["value", "unit"],
           "properties": {

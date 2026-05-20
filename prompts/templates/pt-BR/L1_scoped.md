@@ -12,10 +12,10 @@
 - **Indicador**: DALY (Disability-Adjusted Life Years)
 - **Coprodutos do sistema**: leite, carne (descarte), biofertilizante (esterco)
 - **Região de origem**: sistemas leiteiros brasileiros típicos
-- **Escopos geográficos de avaliação do impacto**: Global, Brasil, Estado de São Paulo
+- **Escopos geográficos de avaliação do impacto**: Global, Brasil, {{STATE_NAME_PT}}
 
 ## Pergunta
 
-Considerando o escopo do estudo de ACV definido acima, qual é o **impacto do material particulado na saúde humana**, em DALY/kg FPCM, decorrente da produção de leite no Brasil, para cada um dos três escopos geográficos (Global, Brasil, Estado de São Paulo)?
+Considerando o escopo do estudo de ACV definido acima, qual é o **impacto do material particulado na saúde humana**, em DALY/kg FPCM, decorrente da produção de leite no Brasil, para cada um dos três escopos geográficos (Global, Brasil, {{STATE_NAME_PT}})?
 
 Responda no formato JSON especificado.

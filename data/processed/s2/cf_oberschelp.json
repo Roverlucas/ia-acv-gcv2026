@@ -1,0 +1,70 @@
+{
+  "model": "Oberschelp et al. (2020)",
+  "effect_model": "Average",
+  "allocation": "economic",
+  "system": "Sistema 2",
+  "cfs": {
+    "Ammonia": {
+      "mass_kg_per_kg_fpcm": 0.00030515836981584985,
+      "cf_daly_per_kg": {
+        "global": 2.0042087405806966e-05,
+        "brazil": 0.00031524632382763705,
+        "state": 0.00038609877324150303
+      },
+      "aggregated_from_total_rows": [
+        10,
+        56
+      ]
+    },
+    "Nitrogen oxides": {
+      "mass_kg_per_kg_fpcm": 0.00030384710953403136,
+      "cf_daly_per_kg": {
+        "global": 2.6217924504670505e-06,
+        "brazil": 8.876768001940551e-06,
+        "state": 2.6869123166116706e-05
+      },
+      "aggregated_from_total_rows": [
+        60
+      ]
+    },
+    "Particulates, < 2.5 um": {
+      "mass_kg_per_kg_fpcm": 0.0001029042021742258,
+      "cf_daly_per_kg": {
+        "global": 4.816509434439719e-05,
+        "brazil": 8.620473948562679e-05,
+        "state": 0.00024185039455270097
+      },
+      "aggregated_from_total_rows": [
+        64
+      ]
+    },
+    "Sulfur dioxide": {
+      "mass_kg_per_kg_fpcm": 0.00020449298819729428,
+      "cf_daly_per_kg": {
+        "global": 4.607664292913669e-06,
+        "brazil": 8.76942791233845e-06,
+        "state": 2.19664792223204e-05
+      },
+      "aggregated_from_total_rows": [
+        68
+      ]
+    }
+  },
+  "ground_truth_reconstruction_check": {
+    "global": {
+      "computed_sum": 1.2811260424359784e-08,
+      "published_gt": 1.2811260424359784e-08,
+      "rel_diff_pct": 0.0
+    },
+    "brazil": {
+      "computed_sum": 1.095613510280553e-07,
+      "published_gt": 1.095613510280553e-07,
+      "rel_diff_pct": 0.0
+    },
+    "state": {
+      "computed_sum": 1.5536479051332848e-07,
+      "published_gt": 1.5536479051332848e-07,
+      "rel_diff_pct": 0.0
+    }
+  }
+}

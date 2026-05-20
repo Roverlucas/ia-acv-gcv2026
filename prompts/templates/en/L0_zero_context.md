@@ -6,6 +6,6 @@
 
 ## Question
 
-In an LCA study of milk production in Brazil, what is the **human health impact of particulate matter**, in DALY/kg FPCM? Provide an estimate for **Global**, **Brazil** and **State of São Paulo** scopes.
+In an LCA study of milk production in Brazil, what is the **human health impact of particulate matter**, in DALY/kg FPCM? Provide an estimate for **Global**, **Brazil** and **{{STATE_NAME_EN}}** scopes.
 
 Respond in the specified JSON format.

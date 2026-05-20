@@ -126,6 +126,7 @@ def build_runs(
     langs: list[str],
     reps: int,
     temperature: float,
+    system: int = 1,
 ) -> list[dict]:
     """Generate the flat list of runs to execute."""
     models = {m["id"]: m for m in cfg["models"] if m["id"] in providers}
@@ -139,33 +140,39 @@ def build_runs(
             "language": lang,
             "rep": rep,
             "temperature": temperature,
+            "system": system,
         })
     return runs
 
 
 def run_one(run: dict, save_prompt: bool = True) -> dict:
     """Execute one call and return the merged result dict."""
-    # Render prompt
-    rendered = render(level=run["level"], lang=run["language"])
-    # Extract system and user pieces from the rendered text
-    parts = rendered.split("=" * 80)
-    # render() output is:
-    #   ====...\nSYSTEM INSTRUCTION\n====...\n<system>\n====...\nUSER PROMPT...\n====...\n<user>
-    # We rebuild by reading the source files directly:
-    from render_prompt import LEVEL_FILES, LANG_TO_SYSTEM_SUFFIX, TEMPLATES, PROCESSED
+    from render_prompt import (LEVEL_FILES, LANG_TO_SYSTEM_SUFFIX, TEMPLATES,
+                               PROCESSED, system_state_info)
+    system_n = run.get("system", 1)
+    state_code, state_pt, state_en = system_state_info(system_n)
     sys_suffix = LANG_TO_SYSTEM_SUFFIX[run["language"]]
-    system = (TEMPLATES / f"_system_instruction_{sys_suffix}.md").read_text(encoding="utf-8").strip()
+    system_text = (TEMPLATES / f"_system_instruction_{sys_suffix}.md").read_text(encoding="utf-8").strip()
     user = (TEMPLATES / run["language"] / LEVEL_FILES[run["level"]]).read_text(encoding="utf-8")
     if "{{LCI_TABLE}}" in user:
-        user = user.replace("{{LCI_TABLE}}", (PROCESSED / "sistema1_emissions_air_pm.md").read_text(encoding="utf-8").strip())
+        user = user.replace("{{LCI_TABLE}}",
+                            (PROCESSED / f"s{system_n}" / "emissions_air_pm.md").read_text(encoding="utf-8").strip())
     if "{{CF_TABLE_OBERSCHELP}}" in user:
-        user = user.replace("{{CF_TABLE_OBERSCHELP}}", (PROCESSED / "cf_oberschelp_s1.md").read_text(encoding="utf-8").strip())
+        user = user.replace("{{CF_TABLE_OBERSCHELP}}",
+                            (PROCESSED / f"s{system_n}" / "cf_oberschelp.md").read_text(encoding="utf-8").strip())
+
+    def apply_state(s: str) -> str:
+        return (s.replace("{{STATE_NAME_PT}}", state_pt)
+                 .replace("{{STATE_NAME_EN}}", state_en)
+                 .replace("{{STATE_CODE}}", state_code))
+    system = apply_state(system_text)
+    user = apply_state(user)
 
     prompt_hash = hash_prompt(system + "\n\n" + user)
 
     if save_prompt:
         PROMPT_RUNS_DIR.mkdir(parents=True, exist_ok=True)
-        runfile = PROMPT_RUNS_DIR / f"{run['language']}_{run['level']}_{prompt_hash}.md"
+        runfile = PROMPT_RUNS_DIR / f"s{system_n}_{run['language']}_{run['level']}_{prompt_hash}.md"
         if not runfile.exists():
             runfile.write_text(
                 f"## SYSTEM\n\n{system}\n\n## USER\n\n{user}\n",
@@ -212,6 +219,7 @@ def main() -> int:
     parser.add_argument("--levels", default="L0,L1,L2,L3,L4")
     parser.add_argument("--langs", default="pt-BR")
     parser.add_argument("--reps", type=int, default=1)
+    parser.add_argument("--system", type=int, default=1, choices=[1, 2, 3, 4])
     parser.add_argument("--temperature", type=float, default=DEFAULT_TEMP)
     parser.add_argument("--dry-run", action="store_true", help="Apenas listar runs sem executar")
     parser.add_argument("--max-runs", type=int, default=None)
@@ -231,20 +239,21 @@ def main() -> int:
         reps = args.reps
         temperature = args.temperature
 
-    runs = build_runs(cfg, providers, levels, langs, reps, temperature)
+    runs = build_runs(cfg, providers, levels, langs, reps, temperature, system=args.system)
     if args.max_runs:
         runs = runs[: args.max_runs]
 
     print(f"[{datetime.now().isoformat(timespec='seconds')}] Planning {len(runs)} runs.")
-    print(f"  Providers: {providers} · Levels: {levels} · Langs: {langs} · Reps: {reps} · T: {temperature}")
+    print(f"  Sistema: S{args.system} · Providers: {providers} · Levels: {levels} · Langs: {langs} · Reps: {reps} · T: {temperature}")
 
     if args.dry_run:
         for r in runs:
-            print(f"  {r['provider']:10s} {r['model_id']:30s} {r['level']:3s} {r['language']:6s} rep={r['rep']}")
+            print(f"  S{r['system']} {r['provider']:10s} {r['model_id']:30s} {r['level']:3s} {r['language']:6s} rep={r['rep']}")
         return 0
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
-    run_id = f"{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}__{'smoke' if args.smoke_test else 'main'}"
+    suffix = "smoke" if args.smoke_test else "main"
+    run_id = f"{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}__s{args.system}_{suffix}"
     out_path = RESULTS_DIR / f"{run_id}.jsonl"
 
     n_ok = n_err = n_parse_fail = 0
@@ -273,7 +282,7 @@ def main() -> int:
 
             f.write(json.dumps(result, ensure_ascii=False, default=str) + "\n")
             f.flush()
-            print(f"  [{i:3d}/{len(runs)}] {run['provider']:10s} {run['level']:3s} {run['language']:6s} "
+            print(f"  [{i:3d}/{len(runs)}] S{run['system']} {run['provider']:10s} {run['level']:3s} {run['language']:6s} "
                   f"t={elapsed:5.1f}s {status}")
 
     total_t = time.time() - t_start

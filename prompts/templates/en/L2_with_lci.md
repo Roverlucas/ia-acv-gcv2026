@@ -22,6 +22,6 @@ The table below presents the aggregated LCI of air emissions for the system, wit
 
 ## Question
 
-Given the LCA study scope and the inventory above, what is the **human health impact of particulate matter**, in DALY/kg FPCM, for each of the three geographic scopes: **Global**, **Brazil**, and **State of São Paulo**?
+Given the LCA study scope and the inventory above, what is the **human health impact of particulate matter**, in DALY/kg FPCM, for each of the three geographic scopes: **Global**, **Brazil**, and **{{STATE_NAME_EN}}**?
 
 Respond in the specified JSON format.

@@ -1,0 +1,12 @@
+{
+  "paper": "Giusti et al. (2023)",
+  "doi": "10.1007/s11367-023-02184-8",
+  "scope": "Sistema 2 × Oberschelp et al. (2020) × Alocação Econômica",
+  "unit": "DALY/kg FPCM",
+  "state_label": "PR",
+  "ground_truth_economic": {
+    "global": 1.2811260424359784e-08,
+    "brazil": 1.095613510280553e-07,
+    "state": 1.5536479051332848e-07
+  }
+}
