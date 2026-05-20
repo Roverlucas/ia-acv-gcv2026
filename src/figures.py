@@ -55,19 +55,21 @@ def fig1_mape_vs_level(long: pd.DataFrame, out: Path) -> None:
     for ax, lang in zip(axes, ["pt-BR", "en"]):
         sub = long[long["language"] == lang]
         for prov in PROVIDERS:
-            x_vals, y_med, y_lo, y_hi = [], [], [], []
-            for lvl in LEVEL_ORDER:
+            x_idx, y_med, y_lo, y_hi = [], [], [], []
+            for i, lvl in enumerate(LEVEL_ORDER):
                 vals = sub[(sub["provider"] == prov) & (sub["level"] == lvl)]["abs_rel_error"].dropna().values
                 if len(vals) == 0:
                     continue
-                x_vals.append(lvl)
+                x_idx.append(i)
                 y_med.append(np.median(vals))
                 y_lo.append(np.percentile(vals, 25))
                 y_hi.append(np.percentile(vals, 75))
-            if not x_vals:
+            if not x_idx:
                 continue
-            ax.plot(x_vals, y_med, marker="o", color=PROVIDER_COLORS[prov], label=PROVIDER_LABELS[prov], linewidth=1.6)
-            ax.fill_between(x_vals, y_lo, y_hi, alpha=0.15, color=PROVIDER_COLORS[prov])
+            ax.plot(x_idx, y_med, marker="o", color=PROVIDER_COLORS[prov], label=PROVIDER_LABELS[prov], linewidth=1.6)
+            ax.fill_between(x_idx, y_lo, y_hi, alpha=0.15, color=PROVIDER_COLORS[prov])
+        ax.set_xticks(range(len(LEVEL_ORDER)))
+        ax.set_xticklabels(LEVEL_ORDER)
         ax.set_yscale("log")
         ax.set_title(lang)
         ax.set_xlabel("Nível de enriquecimento de prompt")

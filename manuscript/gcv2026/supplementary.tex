@@ -280,6 +280,34 @@ Em todas as 180 chamadas do teste, o prompt inclui nota experimental explícita 
 \end{figure}
 
 % ============================================================
+\section{Comparação com o paper-referência}
+
+\subsection{Tabela comparativa Giusti vs. LLMs}
+
+A Tabela~\ref{tab:sm_comparative} apresenta lado a lado o \emph{ground truth} de GIUSTI \emph{et al.} (2023) e as medianas das respostas dos três LLMs nos níveis L3 e L4 (PT-BR, $n=10$ por célula). A Figura~\ref{fig:sm_giusti} apresenta a comparação visual em escala logarítmica.
+
+\input{supplementary/tables/sm_comparative}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{supplementary/figures/sm_fig5_giusti_vs_llm.pdf}
+\caption{Ground truth publicado vs. mediana das respostas dos LLMs em L3+L4 (PT-BR). Eixo $y$ em escala logarítmica.}
+\label{fig:sm_giusti}
+\end{figure}
+
+\subsection{Análise de sensibilidade ao limiar de classificação}
+
+A classificação \emph{cálculo}/\emph{memorização}/\emph{misto} usa um limiar de $\pm 10\%$ contra os \emph{ground truths}. A Tabela~\ref{tab:sm_threshold} mostra que o ordenamento das taxas e a magnitude da diferença entre Gemini, GPT e DeepSeek são robustos sob limiares de $\pm 5\%$ e $\pm 15\%$.
+
+\input{supplementary/tables/sm_threshold_sensitivity}
+
+\subsection{Decomposição da memorização por perturbação e por nível}
+
+A Tabela~\ref{tab:sm_stress_break} apresenta a contagem de chamadas classificadas como \emph{memorização} estratificada por esquema de perturbação (P1, P2, P3) e por nível de prompt (L3, L4), revelando que o padrão é estável dentro de cada combinação LLM $\times$ sistema.
+
+\input{supplementary/tables/sm_stress_by_perturbation}
+
+% ============================================================
 \section{Diferenciação regional}
 
 A razão \emph{Estado/Global} esperada é $22{,}5\times$ para o Sistema 1 e $12{,}1\times$ para o Sistema 2. Em L0--L2, os três LLMs reportam razões de $1{,}0\times$ a $3{,}0\times$, subestimando a diferenciação em uma a duas ordens de magnitude. A Tabela~\ref{tab:sm_regional} apresenta as razões medianas por (sistema $\times$ LLM $\times$ nível).

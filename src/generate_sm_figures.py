@@ -30,27 +30,28 @@ LEVEL_ORDER = ["L0", "L1", "L2", "L3", "L4"]
 
 
 def fig_mape_by_system(long: pd.DataFrame, out: Path) -> None:
-    """Figure: MAPE curves separated by system (2 panels)."""
-    long = long.copy()
-    long["level"] = pd.Categorical(long["level"], categories=LEVEL_ORDER, ordered=True)
+    """Figure: MAPE curves separated by system (2 panels). Uses integer x-axis
+    indices to force the L0..L4 order (matplotlib alphabetizes string ticks)."""
     fig, axes = plt.subplots(1, 2, figsize=(10, 3.6), sharey=True)
     for ax, sys_n in zip(axes, [1, 2]):
         sub = long[(long["system"] == sys_n) & (long["language"] == "pt-BR")]
         for prov in PROVIDER_ORDER:
-            xs, ys_med, ys_lo, ys_hi = [], [], [], []
-            for lvl in LEVEL_ORDER:
+            x_idx, ys_med, ys_lo, ys_hi = [], [], [], []
+            for i, lvl in enumerate(LEVEL_ORDER):
                 vals = sub[(sub["provider"] == prov) & (sub["level"] == lvl)]["abs_rel_error"].dropna().values
                 if not len(vals):
                     continue
-                xs.append(lvl)
+                x_idx.append(i)
                 ys_med.append(np.median(vals))
                 ys_lo.append(np.percentile(vals, 25))
                 ys_hi.append(np.percentile(vals, 75))
-            if not xs:
+            if not x_idx:
                 continue
-            ax.plot(xs, ys_med, marker="o", color=PROVIDER_COLORS[prov],
+            ax.plot(x_idx, ys_med, marker="o", color=PROVIDER_COLORS[prov],
                     label=PROVIDER_LABELS[prov], linewidth=1.6)
-            ax.fill_between(xs, ys_lo, ys_hi, alpha=0.15, color=PROVIDER_COLORS[prov])
+            ax.fill_between(x_idx, ys_lo, ys_hi, alpha=0.15, color=PROVIDER_COLORS[prov])
+        ax.set_xticks(range(len(LEVEL_ORDER)))
+        ax.set_xticklabels(LEVEL_ORDER)
         ax.set_yscale("log")
         ax.set_title(f"Sistema {sys_n}")
         ax.set_xlabel("Nível de enriquecimento de prompt")

@@ -20,9 +20,14 @@
 \setlength{\parskip}{0pt}
 
 \usepackage{fancyhdr}
+\usepackage{graphicx}
 \pagestyle{fancy}
 \fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyhead[C]{\includegraphics[height=1.4cm]{figures/gcv2026_logo.png}}
+\setlength{\headheight}{50pt}
+\setlength{\headsep}{0.6cm}
 \fancyfoot[R]{\thepage}
 
 \usepackage{titlesec}
@@ -36,7 +41,6 @@
 \usepackage{caption}
 \captionsetup{font={small},labelfont={bf},labelsep=endash,justification=centering,skip=4pt}
 
-\usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{tabularx}
@@ -62,6 +66,9 @@ Yara de Souza Tadano\\
 PPGSAU --- Universidade Tecnológica Federal do Paraná (UTFPR) / yaratadano@utfpr.edu.br
 \end{flushright}
 
+\vspace{0.3\baselineskip}
+\noindent\textbf{\footnotesize Declaração de conflito de interesse.}\,{\footnotesize A coautora Yara de Souza Tadano é coautora do paper-referência (Giusti \emph{et al.}, 2023). Toda comparação foi feita contra os números publicados, sem reanálise privilegiada do dado bruto. Repositório público com 480 chamadas, prompts e scripts: \url{https://github.com/Roverlucas/ia-acv-gcv2026}.}
+
 \vspace{1\baselineskip}
 
 % ============================================================
@@ -69,7 +76,7 @@ PPGSAU --- Universidade Tecnológica Federal do Paraná (UTFPR) / yaratadano@utf
 
 Modelos de linguagem de grande porte (LLMs) foram incorporados a fluxos científicos desde a popularização do GPT-3 (BROWN \emph{et al.}, 2020). Pesquisadores e consultores de Avaliação do Ciclo de Vida (ACV) já usam essas ferramentas para estimar fatores, revisar inventários e gerar análises a partir de descrições em linguagem natural — sem protocolo, sem auditoria e sem medida de erro.
 
-Três lacunas convergentes motivam este trabalho. Primeiro, não há estudos que comparem estimativas de LLMs com ACVs auditadas e regionalizadas. Segundo, saídas de LLMs são fluentes mesmo quando incorretas (JI \emph{et al.}, 2023); modelos também memorizam dados de treinamento e os reproduzem na inferência (CARLINI \emph{et al.}, 2023; SAINZ \emph{et al.}, 2023). Terceiro, a regionalização de impactos para material particulado (MP) em saúde humana no Brasil (GIUSTI \emph{et al.}, 2022, 2023) costuma ser substituída por fatores globais quando o modelo é consultado sem dados específicos. A pergunta é: \textbf{em que ponto da escala de enriquecimento de prompt o LLM passa a produzir uma estimativa de ACV utilizável?}
+Três lacunas convergentes motivam este trabalho. Primeiro, até onde alcançamos, nenhum estudo testa sistematicamente estimativas de LLMs contra ACVs auditadas, regionalizadas e com controle de contaminação. Segundo, saídas de LLMs são fluentes mesmo quando incorretas (JI \emph{et al.}, 2023); modelos também memorizam dados de treinamento e os reproduzem na inferência (CARLINI \emph{et al.}, 2023; SAINZ \emph{et al.}, 2023). Terceiro, a regionalização de impactos para material particulado (MP) em saúde humana no Brasil (GIUSTI \emph{et al.}, 2022, 2023) costuma ser substituída por fatores globais quando o modelo é consultado sem dados específicos. A pergunta é: \textbf{em que ponto da escala de enriquecimento de prompt o LLM passa a produzir uma estimativa de ACV utilizável?}
 
 \textbf{Resultado central.} A acurácia aparente em níveis enriquecidos não vem de cálculo, mas de \textbf{memorização do paper-referência}. Sob inventário perturbado, $97\%$ das chamadas do Gemini (em dois sistemas), $90\%$ do GPT no Sistema 1 e $43\%$ do DeepSeek no Sistema 1 continuam reportando o valor publicado, ignorando os dados. O efeito varia entre LLMs e sistemas: o modelo recupera com mais facilidade casos muito citados no corpus.
 
@@ -104,7 +111,7 @@ Cinco níveis ordenados foram desenhados, cada um adicionando uma dimensão de i
 
 \subsection{Modelos LLM e desenho experimental}
 
-Foram avaliados três LLMs de fronteira: GPT (OpenAI, \texttt{gpt-4.1-2025-04-14}), Gemini 2.5 Pro (Google) e DeepSeek V3. Para cada sistema, cada combinação \emph{LLM $\times$ nível $\times$ idioma (PT-BR, EN)} foi replicada $n=5$ vezes, temperatura zero e \emph{seed} 42 (Gemini não expõe \emph{seed}). O \emph{system prompt} exigiu resposta em JSON estrito, com regras contra fabricação de valores e referências. Total: 300 chamadas (US\$\,3,42, 108\,min). Somadas às 180 do teste de contaminação (§2.5), o estudo perfaz \textbf{480 chamadas registradas}, compartilhadas em repositório público.
+Foram avaliados três LLMs de fronteira: GPT-4.1 (OpenAI, \texttt{gpt-4.1-2025-04-14}), Gemini 2.5 Pro (Google) e DeepSeek V3. Para cada sistema, cada combinação \emph{LLM $\times$ nível $\times$ idioma (PT-BR, EN)} foi replicada $n=5$ vezes, temperatura zero e \emph{seed} 42 nas APIs que expõem o parâmetro (Gemini não o expõe; sua estabilidade foi verificada \emph{a posteriori} por CV intra-célula em L3/L4, próximo de zero). O \emph{system prompt}, a nota experimental do teste de contaminação e o esquema JSON de resposta são reproduzidos no Material Complementar e versionados no repositório público (URL na primeira página). Total: 300 chamadas (US\$\,3,42, 108\,min de \emph{wall-clock} agregado). Somadas às 180 do teste de contaminação (§2.5), o estudo perfaz \textbf{480 chamadas registradas}. Três falhas de \emph{parsing} (DeepSeek L4 EN) foram recuperadas por avaliação aritmética das expressões fornecidas no campo \texttt{value}; nenhuma exigiu reexecução.
 
 \subsection{Métricas e análise}
 
@@ -152,20 +159,22 @@ A fração de estimativas que atendem ao critério $<30\%$ de erro relativo abso
 
 \begin{table}[h]
 \centering
-\small
-\caption{Teste de contaminação: classificação das chamadas L3+L4 (PT-BR, $n=30$ por LLM por sistema).}
+\footnotesize
+\caption{Teste de contaminação: classificação das chamadas L3+L4 PT-BR ($n=30$ por LLM por sistema) com intervalo de confiança 95\% (Clopper--Pearson) da taxa de memorização.}
 \label{tab:contam}
-\begin{tabular}{lcccccccc}
+\begin{tabular}{lccccc|ccccc}
 \toprule
-& \multicolumn{4}{c}{\textbf{Sistema 1 (SP)}} & \multicolumn{4}{c}{\textbf{Sistema 2 (PR)}} \\
-\textbf{LLM} & Calc. & Mem. & Misto & Null & Calc. & Mem. & Misto & Null \\
+& \multicolumn{5}{c|}{\textbf{Sistema 1 (SP)}} & \multicolumn{5}{c}{\textbf{Sistema 2 (PR)}} \\
+\textbf{LLM} & Calc. & Mem. & Misto & Null & IC$_{95}$(Mem.) & Calc. & Mem. & Misto & Null & IC$_{95}$(Mem.) \\
 \midrule
-GPT      & 0 & 27 & 3  & 0 & 0 &  3 & 27 & 0 \\
-Gemini   & 1 & 29 & 0  & 0 & 1 & 29 & 0  & 0 \\
-DeepSeek & 1 & 13 & 15 & 1 & 4 &  0 & 21 & 5 \\
+GPT      & 0 & 27 & 3  & 0 & [0{,}73; 0{,}98] & 0 &  3 & 27 & 0 & [0{,}02; 0{,}27] \\
+Gemini   & 1 & 29 & 0  & 0 & [0{,}83; 1{,}00] & 1 & 29 & 0  & 0 & [0{,}83; 1{,}00] \\
+DeepSeek & 1 & 13 & 15 & 1 & [0{,}25; 0{,}63] & 4 &  0 & 21 & 5 & [0{,}00; 0{,}12] \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+A análise de sensibilidade ao limiar de classificação ($\pm 5\%$ vs. $\pm 15\%$, ver Material Complementar) preserva o ordenamento das taxas e o caráter robusto da diferença Gemini--DeepSeek.
 
 \textbf{Variância em L0–L2.} CV intra-célula chegou a $1{,}2$ no Gemini; estimativas diferindo em até uma ordem de grandeza entre repetições mesmo sob $T=0$.
 
@@ -176,7 +185,7 @@ Para os dois sistemas testados, a acurácia aparente dos LLMs em L3 e L4 vem da 
 
 No uso informal típico (L0 e L1, sem dados), os erros variam de uma faixa de 2 a 273 vezes o valor publicado; nenhum LLM seleciona o modelo regionalizado, convergindo para ReCiPe 2016 (GPT, Gemini) ou IMPACT World+ (DeepSeek). A magnitude da diferenciação regional é subestimada em uma a duas ordens de grandeza.
 
-A matriz completa (4 sistemas $\times$ 5 modelos $\times$ 3 escopos) será apresentada em trabalho subsequente. \textbf{O ponto operacional, contudo, já se sustenta: se o caso está na literatura, o LLM devolve o número publicado e ignora o inventário; se não está, devolve um fator global qualquer.} Nenhum dos dois comportamentos é cálculo de ACV.
+A matriz completa (4 sistemas $\times$ 5 modelos $\times$ 3 escopos) será apresentada em trabalho subsequente, incluindo triangulação contra modelos de caracterização alternativos. \textbf{O ponto operacional, contudo, já se sustenta para os casos testados: se o caso está documentado na literatura, o LLM tende a devolver o número publicado e ignorar o inventário fornecido; quando não está, devolve um fator global genérico (ReCiPe 2016 ou IMPACT World+).} Nenhum dos dois comportamentos satisfaz os requisitos de uma ACV regionalizada nos termos da ISO 14044. A recomendação prática derivada é restringir o uso atual de LLMs em ACV a tarefas auxiliares (rascunho de Goal \& Scope, revisão linguística) e considerar arquiteturas de \emph{retrieval-augmented generation} ancoradas em tabelas verificadas de fatores como caminho para mitigação.
 
 % ============================================================
 \section*{REFERÊNCIAS}
