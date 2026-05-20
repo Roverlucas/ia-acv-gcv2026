@@ -1,0 +1,330 @@
+% ============================================================
+% Material Complementar — Resumo expandido GCV 2026
+% Acompanha "Teste de contaminação em LLMs aplicados à ACV
+% regionalizada do material particulado em produção leiteira"
+% ============================================================
+
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=3cm,right=3cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil,english]{babel}
+\usepackage{mathptmx}
+\usepackage[scaled=.90]{helvet}
+\usepackage{courier}
+\usepackage{setspace}
+\singlespacing
+\setlength{\parindent}{1.25cm}
+\setlength{\parskip}{0pt}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[R]{S\thepage}
+
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\bfseries\uppercase}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\bfseries\uppercase}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\bfseries}{\thesubsubsection}{1em}{}
+\titlespacing*{\section}{0pt}{1\baselineskip}{0.5\baselineskip}
+\titlespacing*{\subsection}{0pt}{0.8\baselineskip}{0.4\baselineskip}
+\titlespacing*{\subsubsection}{0pt}{0.6\baselineskip}{0.3\baselineskip}
+
+\usepackage{caption}
+\captionsetup{font={small},labelfont={bf},labelsep=endash,justification=centering,skip=4pt}
+
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{listings}
+\lstdefinestyle{prompt}{
+  basicstyle=\ttfamily\scriptsize,
+  breaklines=true,
+  breakatwhitespace=true,
+  columns=fullflexible,
+  keepspaces=true,
+  upquote=true,
+  showstringspaces=false,
+  frame=single,
+  framesep=4pt,
+  rulecolor=\color{black!20},
+  backgroundcolor=\color{black!2},
+  xleftmargin=0pt,
+  xrightmargin=0pt,
+  extendedchars=true,
+  literate=
+    {á}{{\'a}}1 {à}{{\`a}}1 {ã}{{\~a}}1 {â}{{\^a}}1 {ä}{{\"a}}1
+    {é}{{\'e}}1 {ê}{{\^e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ô}{{\^o}}1 {õ}{{\~o}}1
+    {ú}{{\'u}}1 {ç}{{\c c}}1 {Á}{{\'A}}1 {À}{{\`A}}1 {Ã}{{\~A}}1 {Â}{{\^A}}1
+    {É}{{\'E}}1 {Ê}{{\^E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ô}{{\^O}}1 {Õ}{{\~O}}1
+    {Ú}{{\'U}}1 {Ç}{{\c C}}1 {º}{{\textordmasculine}}1 {ª}{{\textordfeminine}}1
+    {₂}{{\textsubscript{2}}}1 {²}{{\textsuperscript{2}}}1
+    {⁻}{{\textsuperscript{-}}}1 {×}{{$\times$}}1 {α}{{$\alpha$}}1 {μ}{{$\mu$}}1
+    {–}{{--}}1 {—}{{---}}1 {≥}{{$\geq$}}1 {≤}{{$\leq$}}1
+}
+\sloppy
+
+\begin{document}
+
+\begin{center}
+{\bfseries\uppercase{Material Complementar}}\\[4pt]
+{\bfseries\uppercase{Teste de contaminação em LLMs aplicados à ACV regionalizada do material particulado em produção leiteira}}
+\end{center}
+
+\vspace{0.5\baselineskip}
+
+\begin{flushright}
+\small
+Lucas Rover --- PPGSAU/UTFPR --- lucasrover@alunos.utfpr.edu.br\\
+Yara de Souza Tadano --- PPGSAU/UTFPR --- yaratadano@utfpr.edu.br
+\end{flushright}
+
+\vspace{0.5\baselineskip}
+
+Este material complementar acompanha o resumo expandido submetido ao 9º Congresso Brasileiro sobre Gestão do Ciclo de Vida (GCV 2026) e reúne, em formato auditável: (i) os prompts utilizados em português e inglês; (ii) o inventário pré-processado e os fatores de caracterização que alimentaram os prompts; (iii) tabelas detalhadas dos 480 outputs registrados; (iv) figuras adicionais; (v) parâmetros completos do desenho experimental e de reprodutibilidade. Todo o pipeline, dados brutos e código de análise estão em repositório público (\url{https://github.com/Roverlucas/ia-acv-gcv2026}).
+
+\tableofcontents
+
+% ============================================================
+\section{Detalhamento metodológico}
+
+\subsection{Versões dos modelos e parâmetros de chamada}
+
+A Tabela~\ref{tab:sm_models} apresenta as versões exatas dos LLMs e os parâmetros de chamada utilizados em todas as 480 inferências registradas.
+
+\begin{table}[h]
+\centering
+\small
+\caption{Modelos LLM avaliados e parâmetros de chamada}
+\label{tab:sm_models}
+\begin{tabular}{lllc}
+\toprule
+\textbf{Provedor} & \textbf{Modelo} & \textbf{Versão da API} & \textbf{\emph{Seed} suportado} \\
+\midrule
+OpenAI    & GPT-4.1          & \texttt{gpt-4.1-2025-04-14} & 42 \\
+Google    & Gemini 2.5 Pro   & \texttt{gemini-2.5-pro}     & Não suportado \\
+DeepSeek  & DeepSeek V3      & \texttt{deepseek-chat}      & 42 \\
+\bottomrule
+\end{tabular}
+\caption*{Fonte: autores. Temperatura fixada em 0 em todas as chamadas. \emph{Max output tokens}: 4096 (OpenAI, DeepSeek); 16\,384 (Gemini, devido ao uso interno de \emph{thinking tokens}). Formato de resposta forçado a JSON (\emph{response\_format}) em OpenAI e DeepSeek.}
+\end{table}
+
+\subsection{Esquema canônico da resposta JSON}
+
+Todas as respostas exigidas em formato JSON estrito, validadas contra o esquema:
+
+\begin{lstlisting}[style=prompt]
+{
+  "answer": {
+    "global":   { "value": <numero ou null>, "unit": "DALY/kg FPCM" },
+    "brazil":   { "value": <numero ou null>, "unit": "DALY/kg FPCM" },
+    "state":    { "value": <numero ou null>, "unit": "DALY/kg FPCM" }
+  },
+  "characterization_model": "<modelo adotado>",
+  "allocation_method": "<economic | mass | system_expansion | none | other | unspecified>",
+  "reasoning": "<raciocinio passo a passo>",
+  "intermediate_steps": [ { "step": "...", "value": <num>, "unit": "..." } ],
+  "references": [ { "citation": "...", "doi": "..." } ],
+  "uncertainties": "<o que nao foi possivel calcular>",
+  "confidence": "<low | medium | high>"
+}
+\end{lstlisting}
+
+\subsection{Critérios operacionais (recapitulação)}
+
+\textbf{Concordância operacional.} Erro relativo absoluto $<30\%$ contra o \emph{ground truth} publicado.
+
+\textbf{Classificação do teste de contaminação} (Seção~\ref{sec:stress}):
+\begin{itemize}
+\setlength\itemsep{0.2em}
+\item \emph{Cálculo}: $|\Delta_{\text{novo}}|<10\%$ contra o novo GT calculado a partir do inventário perturbado.
+\item \emph{Memorização}: $|\Delta_{\text{orig}}|<10\%$ contra o GT publicado em Giusti \emph{et al.} (2023).
+\item \emph{Misto}: nenhum dos dois critérios é satisfeito.
+\item \emph{Null}: o LLM recusa numericamente (retorna \texttt{null}).
+\end{itemize}
+
+% ============================================================
+\section{Prompts utilizados (PT-BR e EN)}
+
+Esta seção reproduz o texto integral dos prompts utilizados em todas as 480 chamadas. Os \emph{placeholders} \texttt{\{\{LCI\_TABLE\}\}}, \texttt{\{\{CF\_TABLE\_OBERSCHELP\}\}}, \texttt{\{\{STATE\_NAME\_PT\}\}}, \texttt{\{\{STATE\_NAME\_EN\}\}} e \texttt{\{\{STATE\_CODE\}\}} são substituídos automaticamente pelo orquestrador (\texttt{src/render\_prompt.py}) com os valores apropriados para cada sistema avaliado (S1: São Paulo/SP; S2: Paraná/PR).
+
+\subsection{Instrução de sistema (PT-BR)}
+\lstinputlisting[style=prompt]{supplementary/prompts/_system_instruction_pt.md}
+
+\subsection{Instrução de sistema (EN)}
+\lstinputlisting[style=prompt]{supplementary/prompts/_system_instruction_en.md}
+
+\subsection{Nível L0 --- Zero context}
+\subsubsection{Português}
+\lstinputlisting[style=prompt]{supplementary/prompts/L0_zero_context_pt.md}
+\subsubsection{Inglês}
+\lstinputlisting[style=prompt]{supplementary/prompts/L0_zero_context_en.md}
+
+\subsection{Nível L1 --- Scoped}
+\subsubsection{Português}
+\lstinputlisting[style=prompt]{supplementary/prompts/L1_scoped_pt.md}
+\subsubsection{Inglês}
+\lstinputlisting[style=prompt]{supplementary/prompts/L1_scoped_en.md}
+
+\subsection{Nível L2 --- com LCI}
+\subsubsection{Português}
+\lstinputlisting[style=prompt]{supplementary/prompts/L2_with_lci_pt.md}
+\subsubsection{Inglês}
+\lstinputlisting[style=prompt]{supplementary/prompts/L2_with_lci_en.md}
+
+\subsection{Nível L3 --- com fatores}
+\subsubsection{Português}
+\lstinputlisting[style=prompt]{supplementary/prompts/L3_with_factors_pt.md}
+\subsubsection{Inglês}
+\lstinputlisting[style=prompt]{supplementary/prompts/L3_with_factors_en.md}
+
+\subsection{Nível L4 --- com procedimento}
+\subsubsection{Português}
+\lstinputlisting[style=prompt]{supplementary/prompts/L4_with_procedure_pt.md}
+\subsubsection{Inglês}
+\lstinputlisting[style=prompt]{supplementary/prompts/L4_with_procedure_en.md}
+
+% ============================================================
+\section{Dados pré-processados injetados nos prompts}
+
+Esta seção reproduz os blocos de dados (inventários agregados e fatores de caracterização) substituídos nos \emph{placeholders} dos prompts L2--L4 para cada sistema. A reconciliação dos fatores nativos extraídos do material suplementar de Oberschelp \emph{et al.} (2020) com a planilha de cálculo de Giusti \emph{et al.} (2023) apresentou discrepância inferior a $0{,}1\%$.
+
+\subsection{Sistema 1 --- inventário PM-relevante (alocação econômica)}
+\lstinputlisting[style=prompt]{supplementary/data/s1_lci.md}
+
+\subsection{Sistema 2 --- inventário PM-relevante (alocação econômica)}
+\lstinputlisting[style=prompt]{supplementary/data/s2_lci.md}
+
+\subsection{Sistema 1 --- fatores de caracterização Oberschelp (2020)}
+\lstinputlisting[style=prompt]{supplementary/data/s1_cf.md}
+
+\subsection{Sistema 2 --- fatores de caracterização Oberschelp (2020)}
+\lstinputlisting[style=prompt]{supplementary/data/s2_cf.md}
+
+% ============================================================
+\section{Resultados completos do experimento principal}
+
+\subsection{MAPE por (LLM $\times$ nível $\times$ idioma $\times$ escopo)}
+
+\input{supplementary/tables/sm_mape_by_geo}
+
+\subsection{Curvas de saturação por sistema}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{supplementary/figures/sm_fig1_mape_by_system.pdf}
+\caption{Erro relativo absoluto (mediana, IQR) por nível de enriquecimento de prompt, separado por sistema (PT-BR). Eixo $y$ em escala logarítmica.}
+\label{fig:sm_mape_sys}
+\end{figure}
+
+\subsection{Distribuição da log-razão}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{supplementary/figures/sm_fig2_log_ratio.pdf}
+\caption{Distribuição do $\log_{10}(\hat{I}/I_{\mathrm{GT}})$ por sistema, LLM e nível.}
+\label{fig:sm_logratio}
+\end{figure}
+
+\subsection{Coeficiente de variação intra-célula}
+
+\input{supplementary/tables/sm_cv}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{supplementary/figures/sm_fig4_cv_heatmap.pdf}
+\caption{Coeficiente de variação intra-célula entre 5 repetições sob $T=0$, média sobre 3 escopos geográficos e 2 idiomas.}
+\label{fig:sm_cv}
+\end{figure}
+
+\subsection{Modelo de caracterização declarado pelos LLMs}
+
+\input{supplementary/tables/sm_char_choice}
+
+% ============================================================
+\section{Teste de contaminação --- detalhado}
+\label{sec:stress}
+
+\subsection{Esquemas de perturbação}
+
+\begin{description}
+\setlength\itemsep{0.2em}
+\item[P1 (escala uniforme):] todas as massas de emissão multiplicadas por $2{,}0$. Novo \emph{ground truth} esperado $= 2\times$ original.
+\item[P2 (amônia atenuada):] massa de amônia (NH$_3$, precursor dominante para PM secundário) multiplicada por $0{,}1$, demais inalteradas. Para o Sistema 1, novo GT esperado $\approx 0{,}37\times$ original; para o Sistema 2, $\approx 0{,}57\times$.
+\item[P3 (perturbação aleatória):] cada substância multiplicada por um fator aleatório $\sim$U[0,5;\,2,0] com \emph{seed} fixa (42), produzindo um novo GT determinístico mas sem padrão geométrico imediato.
+\end{description}
+
+Em todas as 180 chamadas do teste, o prompt inclui nota experimental explícita informando que o inventário é hipotético e instruindo cálculo estrito sobre os números fornecidos.
+
+\subsection{Classificação por (sistema $\times$ LLM $\times$ esquema $\times$ nível)}
+
+\input{supplementary/tables/sm_stress_detail}
+
+\subsection{Resposta do LLM vs. novo \emph{ground truth}}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{supplementary/figures/sm_fig3_stress_scatter.pdf}
+\caption{Resposta do LLM (escopo Global) vs. novo \emph{ground truth} calculado para cada esquema de perturbação. Linha pontilhada: GT original publicado. Linha tracejada: novo GT esperado caso o LLM tivesse calculado a partir do inventário perturbado.}
+\label{fig:sm_scatter}
+\end{figure}
+
+% ============================================================
+\section{Diferenciação regional}
+
+A razão \emph{Estado/Global} esperada é $22{,}5\times$ para o Sistema 1 e $12{,}1\times$ para o Sistema 2. Em L0--L2, os três LLMs reportam razões de $1{,}0\times$ a $3{,}0\times$, subestimando a diferenciação em uma a duas ordens de magnitude. A Tabela~\ref{tab:sm_regional} apresenta as razões medianas por (sistema $\times$ LLM $\times$ nível).
+
+\input{supplementary/tables/sm_regional}
+
+% ============================================================
+\section{Reprodutibilidade}
+
+\subsection{Repositório público}
+
+Todo o pipeline experimental, dados brutos (JSONL com as 480 chamadas), prompts versionados, scripts de análise e código LaTeX são disponibilizados em:
+
+\begin{center}
+\url{https://github.com/Roverlucas/ia-acv-gcv2026}
+\end{center}
+
+\subsection{Estrutura do repositório}
+
+\begin{description}
+\setlength\itemsep{0.2em}
+\item[\texttt{prompts/templates/}] templates L0--L4 em PT-BR e EN, com instrução de sistema e esquema JSON.
+\item[\texttt{prompts/runs/}] \emph{snapshot} dos prompts efetivamente executados (hash em SHA-256 truncado em 12 caracteres por arquivo).
+\item[\texttt{src/run\_experiment.py}, \texttt{src/run\_stress\_test.py}] orquestradores das 300 chamadas do experimento principal e 180 do teste de contaminação.
+\item[\texttt{src/analyze.py}, \texttt{src/analyze\_regional.py}, \texttt{src/figures.py}, \texttt{src/generate\_sm\_tables.py}, \texttt{src/generate\_sm\_figures.py}] pipeline de análise e geração de artefatos.
+\item[\texttt{results/raw/*.jsonl}] respostas brutas das LLMs (480 linhas no total, em 6 arquivos JSONL).
+\item[\texttt{data/processed/s\{1,2\}/}] inventários agregados, fatores de caracterização e \emph{ground truth} por sistema; inclui o subdiretório \texttt{stress/} com os inventários perturbados.
+\item[\texttt{manuscript/gcv2026/}] resumo expandido e este material complementar em LaTeX.
+\end{description}
+
+\subsection{Conformidade de \emph{schema} JSON}
+
+Das 480 chamadas registradas, 472 retornaram JSON conforme o esquema canônico em uma única tentativa; 8 falhas de \emph{parsing} (todas em DeepSeek L4 EN) foram recuperáveis por avaliação aritmética das expressões fornecidas em vez de literais numéricos no campo \texttt{value}. Nenhuma chamada exigiu reexecução.
+
+\subsection{Custo agregado}
+
+\begin{description}
+\setlength\itemsep{0.2em}
+\item[Experimento principal (300 chamadas):] US\$\,3{,}42, 108 minutos.
+\item[Teste de contaminação (180 chamadas):] US\$\,2{,}65, $\approx 90$ minutos.
+\item[\textbf{Total}] US\$\,6{,}07, $\approx 200$ minutos de execução.
+\end{description}
+
+\subsection{Conflito de interesse}
+
+Uma das autoras (Yara de Souza Tadano) é coautora do paper-referência (Giusti \emph{et al.}, 2023). Toda comparação foi feita contra os números publicados, sem reanálise privilegiada do dado bruto.
+
+\end{document}
