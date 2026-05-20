@@ -22,22 +22,31 @@
 \usepackage{fancyhdr}
 \usepackage{graphicx}
 \usepackage{xcolor}
+\usepackage{eso-pic}
 \definecolor{gcvblue}{HTML}{1E6A99}
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhfoffset[LR]{3cm}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
+% Header: linha azul ACIMA do logo (largura do texto), logo centralizado abaixo
 \fancyhead[C]{%
-  \includegraphics[height=1.4cm]{figures/gcv2026_logo.png}\\[2pt]
-  \textcolor{gcvblue}{\rule{\headwidth}{1pt}}%
+  \textcolor{gcvblue}{\rule{\textwidth}{1pt}}\\[2pt]
+  \includegraphics[height=1.4cm]{figures/gcv2026_logo.png}%
 }
-\fancyfoot[L]{\hspace*{-3cm}\includegraphics[height=1.2cm]{figures/gcv2026_footer_left.png}}
 \fancyfoot[C]{\thepage}
-\fancyfoot[R]{\includegraphics[height=1.2cm]{figures/gcv2026_footer_right.png}\hspace*{-3cm}}
 \setlength{\headheight}{60pt}
 \setlength{\headsep}{0.6cm}
 \setlength{\footskip}{38pt}
+
+% Footer decorations: posicionamento absoluto nas bordas FÍSICAS da página
+\AddToShipoutPictureFG{%
+  \AtPageLowerLeft{%
+    \raisebox{0pt}{\includegraphics[height=1.4cm]{figures/gcv2026_footer_left.png}}%
+  }%
+  \AtPageLowerLeft{%
+    \makebox[\paperwidth][r]{\raisebox{0pt}{\includegraphics[height=1.4cm]{figures/gcv2026_footer_right.png}}}%
+  }%
+}
 
 \usepackage{titlesec}
 \titleformat{\section}{\normalfont\bfseries\uppercase}{\thesection}{1em}{}
