@@ -21,15 +21,21 @@
 
 \usepackage{fancyhdr}
 \usepackage{graphicx}
+\usepackage{xcolor}
+\definecolor{gcvblue}{HTML}{1E6A99}
 \pagestyle{fancy}
 \fancyhf{}
+\fancyhfoffset[LR]{3cm}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
-\fancyhead[R]{\includegraphics[height=1.4cm]{figures/gcv2026_logo.png}}
-\fancyfoot[L]{\includegraphics[height=1.2cm]{figures/gcv2026_footer_left.png}}
+\fancyhead[C]{%
+  \includegraphics[height=1.4cm]{figures/gcv2026_logo.png}\\[2pt]
+  \textcolor{gcvblue}{\rule{\headwidth}{1pt}}%
+}
+\fancyfoot[L]{\hspace*{-3cm}\includegraphics[height=1.2cm]{figures/gcv2026_footer_left.png}}
 \fancyfoot[C]{\thepage}
-\fancyfoot[R]{\includegraphics[height=1.2cm]{figures/gcv2026_footer_right.png}}
-\setlength{\headheight}{50pt}
+\fancyfoot[R]{\includegraphics[height=1.2cm]{figures/gcv2026_footer_right.png}\hspace*{-3cm}}
+\setlength{\headheight}{60pt}
 \setlength{\headsep}{0.6cm}
 \setlength{\footskip}{38pt}
 
