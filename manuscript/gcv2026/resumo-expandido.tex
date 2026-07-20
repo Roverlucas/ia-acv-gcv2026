@@ -7,7 +7,8 @@
 
 \documentclass[12pt,a4paper]{article}
 
-\usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=3cm,right=3cm]{geometry}
+% Margens conforme regras GCV 2026: superior 3, inferior 2, esquerda 3, direita 2 cm
+\usepackage[a4paper,top=1.25cm,bottom=2cm,left=3cm,right=2cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[brazil]{babel}
@@ -31,15 +32,15 @@
 % Header: linha azul ACIMA do logo (largura do texto), logo centralizado abaixo
 \fancyhead[C]{%
   \textcolor{gcvblue}{\rule{\textwidth}{1pt}}\\[2pt]
-  \includegraphics[height=1.4cm]{figures/gcv2026_logo.png}%
+  \includegraphics[height=0.95cm]{figures/gcv2026_logo.png}%
 }
-\fancyfoot[C]{\thepage}
-\setlength{\headheight}{60pt}
-\setlength{\headsep}{0.6cm}
-\setlength{\footskip}{38pt}
+\fancyfoot[R]{\thepage}
+\setlength{\headheight}{42pt}
+\setlength{\headsep}{0.30cm}
+\setlength{\footskip}{24pt}
 
 % Footer decorations: posicionamento absoluto nas bordas FÍSICAS da página
-\AddToShipoutPictureFG{%
+\AddToShipoutPictureBG{%
   \AtPageLowerLeft{%
     \raisebox{0pt}{\includegraphics[height=1.8cm]{figures/gcv2026_footer_left.png}}%
   }%
@@ -75,26 +76,17 @@
 {\bfseries\uppercase{Teste de contaminação em LLMs aplicados à ACV regionalizada do material particulado em produção leiteira}}
 \end{center}
 
-\vspace{1\baselineskip}
+\vspace{0.6\baselineskip}
 
 \begin{flushright}
-Lucas Rover\\
-Universidade Tecnológica Federal do Paraná (UTFPR) \\ lucasrover@alunos.utfpr.edu.br\\[2pt]
-Gabriela Giusti\\
-Universidade Federal de São Carlos (UFSCar) --- Grupo de Pesquisa em Engenharia da Sustentabilidade\\ gabriela.giusti@hotmail.com.br\\[2pt]
-
-Daiane Vitória da Silva\\
-Universidade Federal de São Carlos (UFSCar) --- Grupo de Pesquisa em Engenharia da Sustentabilidade\\ [2pt]
-
-Diogo Aparecido Lopes Silva\\
-Universidade Federal de São Carlos (UFSCar) --- Grupo de Pesquisa em Engenharia da Sustentabilidade\\ diogo.apls@ufscar.br\\[2pt]
-
-Yara de Souza Tadano\\
-Universidade Tecnológica Federal do Paraná (UTFPR)\\
-yaratadano@utfpr.edu.br
+Lucas Rover\textsuperscript{1}, Gabriela Giusti\textsuperscript{2}, Daiane Vitória da Silva\textsuperscript{2},\\
+Diogo Aparecido Lopes Silva\textsuperscript{2}, Yara de Souza Tadano\textsuperscript{1}\\[3pt]
+\textsuperscript{1}Universidade Tecnológica Federal do Paraná (UTFPR)\\
+\textsuperscript{2}Universidade Federal de São Carlos (UFSCar)\\[3pt]
+lucasrover@alunos.utfpr.edu.br; gabriela.giusti@hotmail.com.br;\\ diogo.apls@ufscar.br; yaratadano@utfpr.edu.br
 \end{flushright}
 
-\vspace{1\baselineskip}
+\vspace{0.6\baselineskip}
 
 % ============================================================
 \section{Introdução}
@@ -110,7 +102,7 @@ A pergunta de pesquisa é: em que ponto da escala de enriquecimento de prompt o 
 
 \subsection{Artigo-referência e \textit{ground truth}}
 
-Realizou-se um recorte dos estudos de caso de Giusti \emph{et al.} (2023). Foram selecionados dois sistemas brasileiros de produção leiteira que representam perfis extremos no estudo original: um confinado típico em São Paulo (S1) e um semi-intensivo no Paraná (S2). Avaliou-se na perspectiva \emph{cradle-to-farm gate} (ABNT NBR ISO 14040, 2009; ABNT NBR ISO 14044, 2009), com unidade funcional de 1\,kg FPCM (\emph{fat-and-protein corrected milk}). Adotou-se o modelo de Oberschelp \emph{et al.} (2020) com efeito \textit{Average} no nível do solo, considerando os três níveis de regionalização disponibilizados pelos autores (global, nacional e estadual), e alocação econômica. A extração e reconciliação do \emph{ground truth} foram conduzidas pelo primeiro autor, a partir do material suplementar publicado de Oberschelp e da planilha pública de Giusti (discrepância $<0{,}1\%$), sem reanálise de dados brutos pelas coautoras Giusti e Tadano. Resulta um \emph{ground truth} de seis células em DALY/kg FPCM (\emph{Disability-Adjusted Life Years}; Tabela~\ref{tab:gt}).
+Realizou-se um recorte dos estudos de caso de Giusti \emph{et al.} (2023). Foram selecionados dois sistemas brasileiros de produção leiteira que representam perfis extremos no estudo original: um confinado típico em São Paulo (S1) e um semi-intensivo no Paraná (S2). Avaliou-se na perspectiva \emph{cradle-to-farm gate} (ABNT NBR ISO 14040, 2009; ABNT NBR ISO 14044, 2009), com unidade funcional de 1\,kg FPCM (\emph{fat-and-protein corrected milk}). Adotou-se o modelo de Oberschelp \emph{et al.} (2020) com efeito \textit{Average} no nível do solo, considerando os três níveis de regionalização disponibilizados pelos autores (global, nacional e estadual), e alocação econômica. A reconciliação do \emph{ground truth} partiu do material suplementar de Oberschelp e da planilha pública de Giusti (discrepância $<0{,}1\%$). Resulta um \emph{ground truth} de seis células em DALY/kg FPCM (\emph{Disability-Adjusted Life Years}; Tabela~\ref{tab:gt}).
 
 \begin{table}[h]
 \centering
@@ -136,15 +128,14 @@ Cinco níveis ordenados (L0--L4) foram desenhados, cada um adicionando uma dimen
 
 \subsection{Modelos LLM e desenho experimental}
 
-Foram avaliados três LLMs: GPT-4.1 (OpenAI, \texttt{gpt-4.1-2025-04-14}; ACHIAM \emph{et al.}, 2023), Gemini 2.5 Pro (Google; GEMINI TEAM, 2025) e DeepSeek V3 (DEEPSEEK-AI, 2024). Para cada sistema, cada combinação LLM $\times$ nível (L0--L4) $\times$ idioma (português brasileiro --- PT-BR; inglês --- EN) foi replicada $n=5$ vezes, sob temperatura nula ($T=0$) e \emph{seed} 42. APIs proprietárias podem apresentar não-determinismo residual mesmo sob $T=0$ (ROVER \emph{et al.}, 2026); o Gemini não expõe \emph{seed}, e sua estabilidade foi verificada \emph{a posteriori} pelo coeficiente de variação (CV) intra-célula em L3/L4 ($\leq 0{,}003$). \emph{System prompt}, nota experimental e esquema JSON estão no Material Complementar\footnote{Material Complementar e \emph{scripts}: \url{https://github.com/Roverlucas/ia-acv-gcv2026}.}. No experimento principal foram registradas 300 chamadas (custo US\$\,3,38; 108\,min de tempo de execução); somadas às 180 do teste de contaminação, o estudo totaliza 480 chamadas. Falhas de \emph{parsing} (DeepSeek L4 EN) foram recuperadas por avaliação aritmética do campo \texttt{value}; nenhuma exigiu reexecução.
-
+Foram avaliados três LLMs: GPT-4.1 (OpenAI, \texttt{gpt-4.1-2025-04-14}; ACHIAM \emph{et al.}, 2023), Gemini 2.5 Pro (Google; GEMINI TEAM, 2025) e DeepSeek V3 (DEEPSEEK-AI, 2024). Para cada sistema, cada combinação LLM $\times$ nível (L0--L4) $\times$ idioma (português brasileiro --- PT-BR; inglês --- EN) foi replicada $n=5$ vezes, sob temperatura nula ($T=0$) e \emph{seed} 42. APIs proprietárias podem apresentar não-determinismo residual mesmo sob $T=0$ (ROVER \emph{et al.}, 2026); o Gemini não expõe \emph{seed}, e sua estabilidade foi verificada \emph{a posteriori} pelo coeficiente de variação (CV) intra-célula em L3/L4 ($\leq 0{,}003$). \emph{System prompt}, nota experimental e esquema JSON estão no Material Complementar\footnote{Material Complementar e \emph{scripts}: \url{https://github.com/Roverlucas/ia-acv-gcv2026}.}. No experimento principal foram registradas 300 chamadas; somadas às 180 do teste de contaminação, o estudo totaliza 480 chamadas.
 \subsection{Métricas e análise}
 
-Para cada chamada foram computados o erro relativo absoluto e o erro percentual médio absoluto (MAPE, \emph{Mean Absolute Percentage Error}), além da aderência metodológica (modelo de FC e alocação declarados) e da sensibilidade regional. A estabilidade foi avaliada por taxa de não-resposta, conformidade ao esquema JSON e CV intra-célula entre repetições. Adotou-se como critério operacional erro inferior a 30\%. Como limitação, $n=5$ é suficiente para LLMs determinísticos sob $T=0$, mas não permite testes inferenciais; comparações utilizam estatística descritiva.
+Para cada chamada foram computados o erro relativo absoluto e o erro percentual médio absoluto (MAPE, \emph{Mean Absolute Percentage Error}), a aderência metodológica (modelo de FC e alocação declarados) e a sensibilidade regional; a estabilidade foi avaliada por taxa de não-resposta, conformidade ao esquema JSON e CV intra-célula entre repetições. Dois limiares foram fixados \emph{a priori}. O de 30\% é o critério operacional de concordância e corresponde à ordem de grandeza da divergência entre os modelos de caracterização recomendados para o Brasil por Giusti \emph{et al.} (2022), abaixo da qual a estimativa não alteraria a conclusão comparativa de um estudo. O de 10\% separa cálculo de reprodução no teste de contaminação (seção 2.5) e é duas ordens de grandeza maior que o CV intra-célula observado em L3/L4 ($\leq 0{,}003$), de modo que a classificação não é sensível ao ruído do próprio modelo.
 
 \subsection{Controle de contaminação por treinamento}
 
-O artigo-referência foi publicado em 2023, anterior ao \emph{cutoff} de treinamento dos LLMs avaliados, o que abre a hipótese de memorização (CARLINI \emph{et al.}, 2023). Para discriminar memorização de cálculo, replicou-se L3 e L4 em PT-BR ($n=5$) com três esquemas de inventário perturbado em cada sistema: P1 (massas $\times$ 2); P2 (amônia $\times$ 0{,}1); P3 (cada substância $\times$ U[0{,}5;\,2{,}0], \emph{seed} fixa). O prompt traz nota experimental explícita informando que o inventário é hipotético. Cada chamada produz dois erros: $\Delta_{\text{novo}}$ contra o novo \emph{ground truth} calculado e $\Delta_{\text{orig}}$ contra o valor publicado. Classifica-se como \emph{cálculo} se $|\Delta_{\text{novo}}|<10\%$, \emph{memorização} se $|\Delta_{\text{orig}}|<10\%$, \emph{misto} se nenhum critério é satisfeito e \emph{null} quando o LLM recusa numericamente. Foram realizadas 180 chamadas adicionais (90 por sistema).
+O artigo-referência foi publicado em 2023, anterior ao \emph{cutoff} de treinamento dos LLMs avaliados, o que abre a hipótese de memorização (CARLINI \emph{et al.}, 2023). Para discriminar memorização de cálculo, replicou-se L3 e L4 em PT-BR ($n=5$) com três esquemas de inventário perturbado por sistema (massas $\times$ 2; amônia $\times$ 0{,}1; cada substância $\times$ U[0{,}5;\,2{,}0] com \emph{seed} fixa), em 180 chamadas adicionais. O prompt traz nota experimental explícita informando que o inventário é hipotético. Cada chamada produz dois erros: $\Delta_{\text{novo}}$ contra o \emph{ground truth} recalculado e $\Delta_{\text{orig}}$ contra o valor publicado. Classifica-se como \emph{cálculo} se $|\Delta_{\text{novo}}|<10\%$ e como \emph{memorização} se $|\Delta_{\text{orig}}|<10\%$; \emph{misto} quando nenhum critério é satisfeito e \emph{null} quando há recusa numérica. O termo memorização é empregado em sentido operacional --- reproduzir o valor publicado apesar de dados de entrada alterados --- e não no sentido estrito de extração \emph{verbatim} de dado de treino (CARLINI \emph{et al.}, 2023), cuja verificação exigiria acesso aos corpora.
 
 % ============================================================
 \section{Resultados}
@@ -157,14 +148,14 @@ A Figura~\ref{fig:saturation} apresenta a mediana e o intervalo interquartil do 
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.78\textwidth]{figures/fig1_mape_vs_level.pdf}
+\includegraphics[width=0.70\textwidth]{figures/fig1_mape_vs_level.pdf}
 \caption{Erro relativo absoluto (mediana, intervalo interquartil) por nível de enriquecimento de prompt, LLM e idioma (português brasileiro --- pt-BR; inglês --- en). Eixo $y$ em escala logarítmica. Linha tracejada: limiar operacional de $30\%$. Fonte: elaborada pelos autores.}
 \label{fig:saturation}
 \end{figure}
 
 \subsection{Comportamento metodológico (modelo declarado)}
 
-Em L0--L2, nenhum LLM selecionou espontaneamente o modelo de Oberschelp \emph{et al.} (2020), recomendado para o Brasil pelo GLAM (LIFE CYCLE INITIATIVE, 2024). GPT e Gemini citaram ReCiPe 2016 (HUIJBREGTS \emph{et al.}, 2017), que utiliza o modelo de Van Zelm \emph{et al.} (2016) --- um dos recomendados por Giusti \emph{et al.} (2022), porém com menor regionalização para o Brasil. DeepSeek citou IMPACT World+ (BULLE \emph{et al.}, 2019), com versão regionalizada para a América Latina, mas sem o detalhamento estadual de Oberschelp ou de Fantke \emph{et al.} (2019). Isto é, os LLMs tendem a utilizar FCs de métodos consolidados em \emph{softwares} de AICV, em vez de modelos publicados em artigos científicos ainda não integrados a ferramentas, mesmo havendo recomendações como as do GLAM e de Giusti \emph{et al.} (2022). A partir de L3, todos seguiram a instrução, confirmando a recomendação de Heijungs e Dekker (2022) de explicitar o modelo escolhido.
+Em L0--L2, nenhum LLM selecionou espontaneamente o modelo de Oberschelp \emph{et al.} (2020), recomendado para o Brasil pelo GLAM (LIFE CYCLE INITIATIVE, 2024). GPT e Gemini citaram ReCiPe 2016 (HUIJBREGTS \emph{et al.}, 2017), baseado em Van Zelm \emph{et al.} (2016), e DeepSeek citou IMPACT World+ (BULLE \emph{et al.}, 2019), regionalizado para a América Latina mas sem o detalhamento estadual de Oberschelp ou de Fantke \emph{et al.} (2019). Os LLMs tendem, portanto, a recorrer a FCs de métodos já consolidados em \emph{softwares} de AICV, e não a modelos publicados em artigos ainda não integrados a ferramentas, mesmo havendo recomendação do GLAM e de Giusti \emph{et al.} (2022). A partir de L3, todos seguiram a instrução, confirmando a recomendação de Heijungs e Dekker (2022) de explicitar o modelo escolhido.
 
 \subsection{Concordância operacional}
 
@@ -172,38 +163,46 @@ A fração de estimativas que atendem ao critério $<30\%$ de erro relativo abso
 
 \subsection{Achado central: memorização vs. cálculo}
 
-A razão Estado/Global publicada é $22{,}5\times$ (S1) e $12{,}1\times$ (S2); em L0--L2, os três LLMs reportam razões entre $1{,}0\times$ e $3{,}0\times$. Em L3--L4, o Gemini reproduz a razão exata ($22{,}52\times$ e $12{,}13\times$); GPT e DeepSeek aproximam-se ($\pm 10$--60\%). O GPT retornou \texttt{null} em $100\%$ das chamadas de L2 e em L1 EN, justificando ausência de FCs suficientes.
+A razão Estado/Global publicada é $22{,}5\times$ (S1) e $12{,}1\times$ (S2); em L0--L2, os três LLMs reportam razões entre $1{,}0\times$ e $3{,}0\times$. Em L3--L4, o Gemini reproduz a razão exata ($22{,}52\times$ e $12{,}13\times$); GPT e DeepSeek aproximam-se ($\pm 10$--60\%). O GPT retornou \texttt{null} em $100\%$ das chamadas de L2 e em L1 EN, justificando ausência de FCs suficientes. Essa recusa merece leitura distinta: abster-se quando os dados não sustentam o cálculo é comportamento preferível à alucinação ativa, e enquanto Gemini e DeepSeek estimaram valores em L0--L2 com erros de até duas ordens de grandeza, o GPT sinalizou o limite da própria informação. Em ACV, onde um número errado alimenta declarações ambientais indevidas, não responder é cientificamente superior a responder com fluência infundada.
 
-O teste de contaminação (Tabela~\ref{tab:contam}) mostra que o Gemini reproduziu o \emph{ground truth} com erro $<0{,}5\%$ e CV nulo em L3/L4 e, sob inventário perturbado, classifica-se como memorização em 29 de 30 chamadas em cada sistema. O GPT memoriza S1 (27/30) e quase nunca S2 (3/30, com 27 \emph{mistas}); DeepSeek apresenta o menor padrão (13/30 em S1; 0/30 em S2). A nota experimental no prompt não alterou o resultado. GPT e DeepSeek apresentarem memorização em S1 mas não em S2 sugere que o caso S1 está mais densamente representado nos corpora, ponto a explorar em trabalho futuro.
+O teste de contaminação (Tabela~\ref{tab:contam}) mostra que o Gemini reproduziu o \emph{ground truth} com erro $<0{,}5\%$ e CV nulo em L3/L4 e, sob inventário perturbado, classifica-se como memorização em 29 de 30 chamadas em cada sistema. O GPT memoriza S1 (27/30) e quase nunca S2 (3/30, com 27 \emph{mistas}); DeepSeek apresenta o menor padrão (13/30 em S1; 0/30 em S2). A nota experimental no prompt não alterou o resultado.
+
+O padrão é assimétrico entre sistemas: GPT e DeepSeek reproduzem o valor publicado em S1, mas quase nunca em S2. Uma explicação plausível é a densidade desigual dos casos nos corpora de treinamento. O sistema confinado paulista é o perfil mais recorrente na literatura de ACV leiteira brasileira, enquanto sistemas pastoris sulistas aparecem com menos frequência, de modo que o desequilíbrio amostral da própria produção científica seria herdado pelos corpora. Se essa leitura se confirmar, o viés geográfico da pesquisa em sustentabilidade se propaga para as ferramentas que passam a mediá-la, e regiões menos estudadas ficam sujeitas a estimativas menos ancoradas justamente onde a regionalização mais importa.
+
+O nível L4 entrega o procedimento de cálculo de forma explícita, sob a lógica de \emph{chain-of-thought prompting} (WEI \emph{et al.}, 2022), e ainda assim o Gemini reproduziu o valor publicado em 29 das 30 chamadas com inventário perturbado. O modelo ignorou os números fornecidos no prompt para devolver o resultado estocado durante o pré-treinamento, isto é, a contaminação anula a cadeia de raciocínio em vez de ser corrigida por ela. Engenharia de prompt, portanto, não é garantia de confiabilidade quando o caso de teste já está no corpus.
 
 \begin{table}[h]
 \centering
 \footnotesize
-\caption{Teste de contaminação: classificação das chamadas L3+L4 PT-BR ($n=30$ por LLM por sistema) com intervalo de confiança 95\% (Clopper--Pearson) da taxa de memorização.}
+\caption{Teste de contaminação: classificação das chamadas L3+L4 PT-BR ($n=30$ por LLM por sistema)}
 \label{tab:contam}
-\begin{tabular}{lccccc|ccccc}
+\begin{tabular}{lcccc|cccc}
 \toprule
-& \multicolumn{5}{c|}{\textbf{Sistema 1 (SP)}} & \multicolumn{5}{c}{\textbf{Sistema 2 (PR)}} \\
-\textbf{LLM} & Calc. & Mem. & Misto & Null & IC$_{95}$(Mem.) & Calc. & Mem. & Misto & Null & IC$_{95}$(Mem.) \\
+& \multicolumn{4}{c|}{\textbf{Sistema 1 (SP)}} & \multicolumn{4}{c}{\textbf{Sistema 2 (PR)}} \\
+\textbf{LLM} & Calc. & Mem. & Misto & Null & Calc. & Mem. & Misto & Null \\
 \midrule
-GPT      & 0 & 27 & 3  & 0 & [0{,}73; 0{,}98] & 0 &  3 & 27 & 0 & [0{,}02; 0{,}27] \\
-Gemini   & 1 & 29 & 0  & 0 & [0{,}83; 1{,}00] & 1 & 29 & 0  & 0 & [0{,}83; 1{,}00] \\
-DeepSeek & 1 & 13 & 15 & 1 & [0{,}25; 0{,}63] & 4 &  0 & 21 & 5 & [0{,}00; 0{,}12] \\
+GPT      & 0 & 27 & 3  & 0 & 0 &  3 & 27 & 0 \\
+Gemini   & 1 & 29 & 0  & 0 & 1 & 29 & 0  & 0 \\
+DeepSeek & 1 & 13 & 15 & 1 & 4 &  0 & 21 & 5 \\
 \bottomrule
 \end{tabular}
-\caption*{\footnotesize Legenda: Calc.~=~cálculo ($|\Delta_{\text{novo}}|<10\%$); Mem.~=~memorização ($|\Delta_{\text{orig}}|<10\%$); Misto~=~nenhum dos critérios; Null~=~recusa numérica; IC$_{95}$(Mem.)~=~intervalo de confiança 95\% da taxa de memorização. Fonte: elaborada pelos autores.}
+\caption*{\footnotesize Legenda: Calc.~=~cálculo ($|\Delta_{\text{novo}}|<10\%$); Mem.~=~memorização ($|\Delta_{\text{orig}}|<10\%$); Misto~=~nenhum dos critérios; Null~=~recusa numérica. IC$_{95}$ (Clopper--Pearson) da taxa de memorização --- S1: GPT [0{,}73; 0{,}98], Gemini [0{,}83; 1{,}00], DeepSeek [0{,}25; 0{,}63]; S2: GPT [0{,}02; 0{,}27], Gemini [0{,}83; 1{,}00], DeepSeek [0{,}00; 0{,}12]. Fonte: elaborada pelos autores.}
 \end{table}
 
 A diferença Gemini--DeepSeek é amparada por intervalos de confiança 95\% (Clopper--Pearson) não-sobrepostos em ambos os sistemas (Tabela~\ref{tab:contam}); a sensibilidade ao limiar preserva o ordenamento (em $\pm 5\%$, GPT-S1 cai para 22/30; em $\pm 15\%$, sobe para 29/30). Em L0--L2 o CV intra-célula chegou a $1{,}2$ no Gemini, com estimativas diferindo em até uma ordem de grandeza entre repetições mesmo sob $T=0$.
 
+\subsection{Limitações}
+
+O desenho cobre dois sistemas, um modelo de caracterização e três LLMs, o que restringe a generalização a outros produtos, categorias de impacto e famílias de modelos. Com $n=5$ por célula, suficiente para modelos determinísticos sob $T=0$, não cabem testes inferenciais, e as comparações permanecem descritivas. A memorização é inferida do comportamento sob perturbação, não verificada na fonte: sem acesso aos corpora de treinamento, não se descarta que parte das respostas decorra de ancoragem em valores plausíveis da literatura, ainda que a reprodução do valor exato com CV nulo torne essa alternativa pouco provável. Por fim, APIs proprietárias são atualizadas e depreciadas sem aviso, e a réplica exata deste teste depende da permanência das versões avaliadas, o que reforça o argumento de Rover \emph{et al.} (2026) sobre o não-determinismo oculto dessas interfaces.
+
 % ============================================================
 \section{Conclusões}
 
-Embora limitado a dois sistemas e um modelo de caracterização, este trabalho mostra que a acurácia aparente dos LLMs em L3 e L4 vem da memorização do artigo-referência, não de cálculo: sob inventário perturbado, 58/60 chamadas (96,7\%) do Gemini, 27/30 (90,0\%) do GPT no Sistema 1 e 13/30 (43,3\%) do DeepSeek no Sistema 1 reportam o valor publicado ignorando os dados. O gradiente Gemini $\to$ GPT $\to$ DeepSeek e a diferença do GPT entre Sistemas 1 e 2 sugerem que o artigo-referência chegou aos corpora em doses distintas.
+A acurácia aparente dos LLMs em L3 e L4 vem da reprodução do artigo-referência, não de cálculo: sob inventário perturbado, 58/60 chamadas do Gemini, 27/30 do GPT no Sistema 1 e 13/30 do DeepSeek no Sistema 1 reportam o valor publicado ignorando os dados fornecidos. O gradiente Gemini $\to$ GPT $\to$ DeepSeek e a assimetria entre os Sistemas 1 e 2 sugerem que o artigo-referência chegou aos corpora em doses distintas.
 
-No uso informal típico (L0--L1), os erros variam de 2 a 273 vezes o valor publicado e nenhum LLM seleciona o modelo recomendado pelo GLAM, possivelmente por ser recomendação recente (2024) ainda não disponível em \emph{softwares} de ACV. Os modelos convergem para ReCiPe 2016 (GPT, Gemini) ou IMPACT World+ (DeepSeek), métodos mais consolidados em \emph{softwares}, o que subestima a diferenciação regional em uma a duas ordens de grandeza.
+No uso informal típico (L0--L1), os erros variam de 2 a 273 vezes o valor publicado e nenhum LLM seleciona o modelo recomendado pelo GLAM, o que subestima a diferenciação regional em uma a duas ordens de grandeza.
 
-A matriz completa (4 sistemas $\times$ 5 modelos $\times$ 3 escopos) será apresentada em trabalho subsequente. No escopo avaliado, nenhum comportamento observado satisfaz os requisitos de uma ACV regionalizada tal qual apresentada em Giusti \emph{et al.} (2023), considerando que a ISO 14044 não é específica quanto à regionalização. Recomenda-se restringir LLMs em ACV a tarefas auxiliares (Objetivo e Escopo, revisão linguística) e considerar \emph{retrieval-augmented generation} ancorado em tabelas verificadas como mitigação.
+No escopo avaliado, nenhum comportamento observado satisfaz os requisitos de uma ACV regionalizada tal qual apresentada em Giusti \emph{et al.} (2023). Disso decorre uma recomendação metodológica explícita para a comunidade de ACV: \textbf{LLMs não devem ser empregados como motores de cálculo de impacto} (AICV). Quando acertam, não é por cálculo, e o acerto desaparece assim que o caso sai do que foi memorizado --- exatamente a situação de qualquer estudo novo. O papel seguro dessas ferramentas está nas etapas de processamento de linguagem natural, como a extração e a conversão de inventários textuais não estruturados para formatos legíveis por máquina, a exemplo do esquema JSON avaliado neste trabalho, delegando a caracterização regional e a álgebra de matrizes a sistemas determinísticos. Como mitigação parcial, \emph{retrieval-augmented generation} ancorado em tabelas de FCs verificadas mantém o modelo na função de interface, e não de calculadora. A matriz completa (4 sistemas $\times$ 5 modelos $\times$ 3 escopos) será apresentada em trabalho subsequente.
 
 \vspace{0.5\baselineskip}
 
@@ -220,11 +219,11 @@ A matriz completa (4 sistemas $\times$ 5 modelos $\times$ 3 escopos) será apres
 \scriptsize
 \setstretch{0.88}
 
+\noindent ACHIAM, J. \emph{et al.} GPT-4 technical report. \textbf{arXiv preprint}, arXiv:2303.08774, 2023.
+
 \noindent ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. \textbf{NBR ISO 14040}: gestão ambiental --- avaliação do ciclo de vida --- princípios e estrutura. Rio de Janeiro: ABNT, 2009.
 
 \noindent ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. \textbf{NBR ISO 14044}: gestão ambiental --- avaliação do ciclo de vida --- requisitos e orientações. Rio de Janeiro: ABNT, 2009.
-
-\noindent ACHIAM, J. \emph{et al.} GPT-4 technical report. \textbf{arXiv preprint}, arXiv:2303.08774, 2023.
 
 \noindent BROWN, T. \emph{et al.} Language models are few-shot learners. \textbf{Advances in Neural Information Processing Systems}, v. 33, p. 1877--1901, 2020.
 
