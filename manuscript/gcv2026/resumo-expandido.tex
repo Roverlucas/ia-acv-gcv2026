@@ -7,8 +7,7 @@
 
 \documentclass[12pt,a4paper]{article}
 
-% Margens conforme regras GCV 2026: superior 3, inferior 2, esquerda 3, direita 2 cm
-\usepackage[a4paper,top=1.25cm,bottom=2cm,left=3cm,right=2cm]{geometry}
+\usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=3cm,right=3cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[brazil]{babel}
@@ -32,15 +31,15 @@
 % Header: linha azul ACIMA do logo (largura do texto), logo centralizado abaixo
 \fancyhead[C]{%
   \textcolor{gcvblue}{\rule{\textwidth}{1pt}}\\[2pt]
-  \includegraphics[height=0.95cm]{figures/gcv2026_logo.png}%
+  \includegraphics[height=1.4cm]{figures/gcv2026_logo.png}%
 }
-\fancyfoot[R]{\thepage}
-\setlength{\headheight}{42pt}
-\setlength{\headsep}{0.30cm}
-\setlength{\footskip}{24pt}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{60pt}
+\setlength{\headsep}{0.6cm}
+\setlength{\footskip}{38pt}
 
 % Footer decorations: posicionamento absoluto nas bordas FÍSICAS da página
-\AddToShipoutPictureBG{%
+\AddToShipoutPictureFG{%
   \AtPageLowerLeft{%
     \raisebox{0pt}{\includegraphics[height=1.8cm]{figures/gcv2026_footer_left.png}}%
   }%
@@ -76,17 +75,23 @@
 {\bfseries\uppercase{Teste de contaminação em LLMs aplicados à ACV regionalizada do material particulado em produção leiteira}}
 \end{center}
 
-\vspace{0.6\baselineskip}
+\vspace{1\baselineskip}
 
 \begin{flushright}
-Lucas Rover\textsuperscript{1}, Gabriela Giusti\textsuperscript{2}, Daiane Vitória da Silva\textsuperscript{2},\\
-Diogo Aparecido Lopes Silva\textsuperscript{2}, Yara de Souza Tadano\textsuperscript{1}\\[3pt]
-\textsuperscript{1}Universidade Tecnológica Federal do Paraná (UTFPR)\\
-\textsuperscript{2}Universidade Federal de São Carlos (UFSCar)\\[3pt]
-lucasrover@alunos.utfpr.edu.br; gabriela.giusti@hotmail.com.br;\\ diogo.apls@ufscar.br; yaratadano@utfpr.edu.br
+Lucas Rover\\
+Universidade Tecnológica Federal do Paraná (UTFPR)\\ lucasrover@alunos.utfpr.edu.br\\[2pt]
+Gabriela Giusti\\
+Universidade Federal de São Carlos (UFSCar)\\ gabriela.giusti@hotmail.com.br\\[2pt]
+Daiane Vitória da Silva\\
+Universidade Federal de São Carlos (UFSCar)\\[2pt]
+Diogo Aparecido Lopes Silva\\
+Universidade Federal de São Carlos (UFSCar)\\ diogo.apls@ufscar.br\\[2pt]
+Yara de Souza Tadano\\
+Universidade Tecnológica Federal do Paraná (UTFPR)\\
+yaratadano@utfpr.edu.br
 \end{flushright}
 
-\vspace{0.6\baselineskip}
+\vspace{1\baselineskip}
 
 % ============================================================
 \section{Introdução}
@@ -148,7 +153,7 @@ A Figura~\ref{fig:saturation} apresenta a mediana e o intervalo interquartil do 
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.70\textwidth]{figures/fig1_mape_vs_level.pdf}
+\includegraphics[width=0.78\textwidth]{figures/fig1_mape_vs_level.pdf}
 \caption{Erro relativo absoluto (mediana, intervalo interquartil) por nível de enriquecimento de prompt, LLM e idioma (português brasileiro --- pt-BR; inglês --- en). Eixo $y$ em escala logarítmica. Linha tracejada: limiar operacional de $30\%$. Fonte: elaborada pelos autores.}
 \label{fig:saturation}
 \end{figure}
