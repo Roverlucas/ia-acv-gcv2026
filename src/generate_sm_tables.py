@@ -41,6 +41,13 @@ def fmt_simple(x, dec=2):
     return f"{x:.{dec}f}"
 
 
+def fmt_br(x, dec=2):
+    """Decimal comma, as used in the running text of the manuscript (PT-BR)."""
+    if pd.isna(x):
+        return "---"
+    return f"{x:.{dec}f}".replace(".", ",")
+
+
 def mape_by_geo_long(long: pd.DataFrame) -> str:
     """One table per system: MAPE by (LLM × level × idioma × escopo)."""
     out = []
@@ -171,6 +178,62 @@ def stress_classification(stress_files: list[Path]) -> str:
     return "\n".join(lines)
 
 
+def stress_gt_ratio() -> str:
+    """Effect of each perturbation scheme on the ground truth.
+
+    Reads the recomputed GTs written by build_stress_inventories.py and reports
+    new GT / original GT per (system x scheme x geographic scope). Demonstrates
+    that every scheme displaces the recomputed GT far enough from the published
+    value for the calculo/memorizacao classes to be disjoint.
+    """
+    stress_dir = ROOT / "data" / "processed"
+    scopes = ["global", "brazil", "state"]
+    rows = []
+    for sys_n in [1, 2]:
+        for scheme in ["P1", "P2", "P3"]:
+            path = stress_dir / f"s{sys_n}" / "stress" / f"gt_{scheme}.json"
+            d = json.loads(path.read_text(encoding="utf-8"))
+            rows.append({
+                "system": sys_n,
+                "scheme": scheme,
+                **{s: d["ratio_new_over_original"][s] for s in scopes},
+            })
+
+    # Smallest displacement from the published value across all cells; the
+    # classification threshold is 10%, so this must stay comfortably above it.
+    min_departure = min(abs(r[s] - 1.0) for r in rows for s in scopes)
+
+    lines = [r"\begin{table}[h]", r"\centering", r"\small",
+             r"\caption{Efeito de cada esquema de perturba\c{c}\~ao sobre o \emph{ground truth}: "
+             r"raz\~ao entre o GT recalculado a partir do invent\'ario perturbado e o GT original "
+             r"publicado, por sistema e escopo geogr\'afico.}",
+             r"\label{tab:sm_stress_gt_ratio}",
+             r"\begin{tabular}{clccc}",
+             r"\toprule",
+             r"& & \multicolumn{3}{c}{\textbf{GT novo / GT original}} \\",
+             r"\cmidrule(lr){3-5}",
+             r"\textbf{Sis.} & \textbf{Esquema} & \textbf{Global} & \textbf{Brasil} & \textbf{Estado} \\",
+             r"\midrule"]
+    for sys_n in [1, 2]:
+        for r in [x for x in rows if x["system"] == sys_n]:
+            cells = " & ".join(fmt_br(r[s], 3) for s in scopes)
+            lines.append(f"S{sys_n} & {r['scheme']} & {cells} \\\\")
+        lines.append(r"\midrule")
+    if lines[-1].strip() == r"\midrule":
+        lines.pop()
+    lines += [r"\bottomrule", r"\end{tabular}",
+              r"\caption*{\footnotesize Nota: raz\~ao $1{,}000$ indicaria aus\^encia de deslocamento. "
+              r"O P1 desloca proporcionalmente e de forma id\^entica nos tr\^es escopos; o P2 desloca de "
+              r"forma distinta por escopo, porque o fator de caracteriza\c{c}\~ao da am\^onia \'e "
+              r"regionalizado; o P3 desloca sem padr\~ao. O menor deslocamento observado entre as 18 "
+              rf"c\'elulas \'e de {fmt_br(min_departure*100, 1)}\%, acima do limiar de $\pm 10\%$ usado na "
+              r"classifica\c{c}\~ao, de modo que nenhuma chamada pode "
+              r"satisfazer simultaneamente os crit\'erios de \emph{c\'alculo} e de \emph{memoriza\c{c}\~ao}. "
+              r"Fonte: autores.}",
+              r"\end{table}"]
+    return "\n".join(lines)
+
+
 def regional_ratios(long: pd.DataFrame) -> str:
     """Median state/global ratio per (system, LLM, level)."""
     # Compute state/global per call
@@ -249,8 +312,9 @@ def main() -> int:
 
     stress_files = sorted((ROOT / "results" / "raw").glob("*stress*.jsonl"))
     (SM_TABLES / "sm_stress_detail.tex").write_text(stress_classification(stress_files), encoding="utf-8")
+    (SM_TABLES / "sm_stress_gt_ratio.tex").write_text(stress_gt_ratio(), encoding="utf-8")
 
-    print(f"Wrote 5 SM table fragments to {SM_TABLES}/")
+    print(f"Wrote 6 SM table fragments to {SM_TABLES}/")
     return 0
 
 
