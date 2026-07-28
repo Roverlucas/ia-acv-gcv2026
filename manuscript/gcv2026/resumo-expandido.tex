@@ -124,7 +124,7 @@ Estado-alvo    & $6{,}373 \times 10^{-7}$ & $1{,}554 \times 10^{-7}$ \\
 Razão Estado/Global & $22{,}5$ & $12{,}1$ \\
 \bottomrule
 \end{tabular}
-\caption*{\footnotesize Nota: as razões diferem por perfil de emissão e estado-alvo. Fonte: elaborada pelos autores a partir de Giusti \emph{et al.} (2023) e Oberschelp \emph{et al.} (2020).}
+\caption*{\footnotesize Nota: as razões diferem por perfil de emissão e estado-alvo. Fonte: elaborada pelos autores a partir de Giusti \emph{et al.} (2023) e Oberschelp \emph{et al.} (2020). Fonte: autores.}
 \end{table}
 
 \subsection{Variável independente: níveis de enriquecimento de prompt}
@@ -168,7 +168,7 @@ A fração de estimativas dentro do critério de $30\%$ é nula ou marginal em L
 
 \subsection{Achado central: memorização vs. cálculo}
 
-Em L0--L2, os três LLMs reportam razões Estado/Global medianas entre $0{,}5\times$ e $3{,}0\times$, ante as $22{,}5\times$ e $12{,}1\times$ publicadas (Tabela~\ref{tab:gt}). Em L3--L4, o Gemini reproduz a razão exata ($22{,}52\times$ e $12{,}13\times$) e GPT e DeepSeek aproximam-se ($\pm 10$--60\%). O GPT retornou \texttt{null} em $100\%$ das chamadas de L2 e em L1 EN (mas respondeu em L1 PT-BR), alegando ausência de FCs suficientes. Essa recusa não é falha: enquanto Gemini e DeepSeek estimaram em L0--L2 com erros de até duas ordens de grandeza, o GPT sinalizou o limite da própria informação. Em ACV, onde um número errado alimenta declarações ambientais indevidas, abster-se é preferível a responder com fluência infundada.
+Em L0--L2, os três LLMs reportam razões Estado/Global medianas entre $0{,}5$ e $3{,}0$, ante as $22{,}5$ e $12{,}1$ publicadas (Tabela~\ref{tab:gt}). Em L3--L4, o Gemini reproduz a razão exata ($22{,}52$ e $12{,}13$) e GPT e DeepSeek aproximam-se ($\pm 10$--60\%). O GPT retornou \texttt{null} em $100\%$ das chamadas de L2 e em L1 EN (mas respondeu em L1 PT-BR), alegando ausência de FCs suficientes. Essa recusa não é falha: enquanto Gemini e DeepSeek estimaram em L0--L2 com erros de até duas ordens de grandeza, o GPT sinalizou o limite da própria informação. Em ACV, em que um número errado alimenta declarações ambientais indevidas, abster-se é preferível a responder com fluência infundada.
 
 O teste de contaminação (Tabela~\ref{tab:contam}) mostra o Gemini reproduzindo o \emph{ground truth} com erro $<0{,}5\%$ e CV nulo em L3/L4 e, sob inventário perturbado, classificando-se como memorização em 29 de 30 chamadas por sistema. O GPT memoriza S1 (27/30) e quase nunca S2 (3/30), e o DeepSeek memoriza menos (13/30 em S1; 0/30 em S2). O aviso de que o inventário era hipotético não alterou o resultado.
 
@@ -191,7 +191,9 @@ Gemini   & 1 & 29 & 0  & 0 & 1 & 29 & 0  & 0 \\
 DeepSeek & 1 & 13 & 15 & 1 & 4 &  0 & 21 & 5 \\
 \bottomrule
 \end{tabular}
-\caption*{\footnotesize Critérios na seção 2.5. IC$_{95}$ (Clopper--Pearson) da memorização --- S1: GPT [0{,}73; 0{,}98], Gemini [0{,}83; 1{,}00], DeepSeek [0{,}25; 0{,}63]; S2: GPT [0{,}02; 0{,}27], Gemini [0{,}83; 1{,}00], DeepSeek [0{,}00; 0{,}12]. Fonte: autores.}
+\caption*{\footnotesize Critérios na seção 2.5. IC$_{95}$ (Clopper--Pearson) da memorização --- S1: GPT [0{,}73; 0{,}98], Gemini [0{,}83; 1{,}00], DeepSeek [0{,}25; 0{,}63]; S2: GPT [0{,}02; 0{,}27], Gemini [0{,}83; 1{,}00], DeepSeek [0{,}00; 0{,}12].
+
+Fonte: autores.}
 \end{table}
 
 A diferença Gemini--DeepSeek é consistente nos dois sistemas, com IC 95\% (Clopper--Pearson, $n=30$) não-sobrepostos (Tabela~\ref{tab:contam}); como sob $T=0$ as réplicas de um mesmo esquema são quase-determinísticas, a unidade independente é o agrupamento esquema$\times$nível ($n=6$): a separação persiste no Sistema 2 (Fisher exato $p=0{,}002$), não no Sistema 1 ($p=0{,}18$). A classificação é robusta ao limiar: entre $\pm 5\%$ e $\pm 15\%$ o Gemini mantém 29/30 e o DeepSeek-S2, 0/30. Em L0--L2 o CV do Gemini chegou a $1{,}9$, com estimativas diferindo em uma ordem de grandeza sob $T=0$.
@@ -209,7 +211,7 @@ Nenhum comportamento observado satisfaz os requisitos de uma ACV regionalizada c
 
 \vspace{0.3\baselineskip}
 
-\noindent\textbf{\footnotesize Conflito de interesse.}\,{\footnotesize Gabriela Giusti e Yara de Souza Tadano são autoras do artigo-referência; a comparação usou apenas números publicados, sem reanálise do dado bruto.}
+\noindent\textbf{\footnotesize Conflito de interesse.}\,{\footnotesize Gabriela Giusti, Daiane Vitória da Silva, Diogo Aparecido Lopes Silva e Yara de Souza Tadano são autores do artigo-referência; a comparação usou apenas números publicados, sem reanálise do dado bruto.}
 
 % ============================================================
 \section*{REFERÊNCIAS}
