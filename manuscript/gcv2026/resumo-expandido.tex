@@ -78,7 +78,7 @@
 \vspace{1\baselineskip}
 
 \begin{flushright}
-Lucas Rover\\
+Lucas Rover\
 Universidade Tecnológica Federal do Paraná (UTFPR)\\ lucasrover@alunos.utfpr.edu.br\\[2pt]
 Gabriela Giusti\\
 Universidade Federal de São Carlos (UFSCar)\\ gabriela.giusti@hotmail.com.br\\[2pt]
@@ -121,7 +121,7 @@ Global         & $2{,}830 \times 10^{-8}$ & $1{,}281 \times 10^{-8}$ \\
 Brasil         & $8{,}108 \times 10^{-8}$ & $1{,}096 \times 10^{-7}$ \\
 Estado-alvo    & $6{,}373 \times 10^{-7}$ & $1{,}554 \times 10^{-7}$ \\
 \midrule
-Razão Estado/Global & $22{,}5\times$ & $12{,}1\times$ \\
+Razão Estado/Global & $22{,}5$ & $12{,}1$ \\
 \bottomrule
 \end{tabular}
 \caption*{\footnotesize Nota: as razões diferem por perfil de emissão e estado-alvo. Fonte: elaborada pelos autores a partir de Giusti \emph{et al.} (2023) e Oberschelp \emph{et al.} (2020).}
@@ -134,13 +134,14 @@ Cinco níveis (L0--L4) acrescentam, cada um, uma dimensão de informação: L0 (
 \subsection{Modelos LLM e desenho experimental}
 
 Foram avaliados três LLMs: GPT-4.1 (OpenAI, \texttt{gpt-4.1-2025-04-14}; ACHIAM \emph{et al.}, 2023), Gemini 2.5 Pro (Google; GEMINI TEAM, 2025) e DeepSeek V3 (DEEPSEEK-AI, 2024). Cada combinação sistema $\times$ LLM $\times$ nível (L0--L4) $\times$ idioma (PT-BR; EN) foi replicada $n=5$ vezes sob temperatura nula ($T=0$) e \emph{seed} 42. APIs proprietárias podem ter não-determinismo residual mesmo sob $T=0$ (ROVER \emph{et al.}, 2026); o Gemini não expõe \emph{seed}. \emph{System prompt} e esquema JSON estão no Material Complementar\footnote{Material Complementar e \emph{scripts}: \url{https://github.com/Roverlucas/ia-acv-gcv2026}.}. O experimento principal reúne 300 chamadas e o teste de contaminação, 180.
+
 \subsection{Métricas e análise}
 
 Calcularam-se o erro relativo absoluto e o MAPE (\emph{Mean Absolute Percentage Error}), a aderência metodológica (modelo de FC e alocação declarados) e a sensibilidade regional; a estabilidade foi medida por taxa de não-resposta, conformidade ao esquema JSON e coeficiente de variação (CV) intra-célula. Dois limiares foram fixados \emph{a priori}. O de 30\%, critério operacional de concordância, corresponde à ordem de grandeza da divergência entre os modelos de caracterização recomendados para o Brasil (GIUSTI \emph{et al.}, 2022; HEIJUNGS; DEKKER, 2022); abaixo dele, a estimativa não altera a conclusão comparativa. O de 10\% separa cálculo de reprodução (seção 2.5) e supera em mais de duas ordens de grandeza o CV intra-célula do Gemini em L3/L4 ($\leq 0{,}0003$), modelo cujo sinal de memorização domina a classificação, de modo que a classe não é artefato do ruído.
 
 \subsection{Controle de contaminação por treinamento}
 
-Publicado em 2023, o artigo-referência antecede o \emph{cutoff} dos LLMs avaliados, o que abre a hipótese de memorização (CARLINI \emph{et al.}, 2023). Para discriminar memorização de cálculo, replicaram-se L3 e L4 em PT-BR ($n=5$) com três esquemas de inventário perturbado por sistema (massas $\times$ 2; amônia $\times$ 0{,}1; substâncias $\times$ U[0{,}5;\,2{,}0], \emph{seed} fixa). O prompt informa explicitamente que o inventário é hipotético. Cada chamada produz dois erros: $\Delta_{\text{novo}}$ contra o \emph{ground truth} recalculado e $\Delta_{\text{orig}}$ contra o valor publicado. As perturbações afastam o \emph{ground truth} recalculado do publicado, tornando as classes disjuntas (nenhuma das 180 chamadas satisfez ambos). Classifica-se como \emph{cálculo} se $|\Delta_{\text{novo}}|<10\%$ e como \emph{memorização} se $|\Delta_{\text{orig}}|<10\%$; \emph{misto} quando nenhum critério é satisfeito e \emph{null} quando há recusa numérica. Memorização é usada em sentido operacional, reproduzir o valor publicado apesar de dados alterados, não como extração \emph{verbatim} de treino, cuja verificação exigiria acesso aos corpora.
+Publicado em 2023, o artigo-referência antecede o \emph{cutoff} dos LLMs avaliados, o que abre a hipótese de memorização (CARLINI \emph{et al.}, 2023). Memorização é usada em sentido operacional, reproduzir o valor publicado apesar de dados alterados, não como extração \emph{verbatim} de treino, cuja verificação exigiria acesso à biblioteca registrada nos parâmetros de treinamento. Para discriminar memorização de cálculo, replicaram-se L3 e L4 em PT-BR ($n=5$) com três esquemas de inventário perturbado por sistema (massas $\times$ 2; amônia $\times$ 0{,}1; substâncias $\times$ U[0{,}5;\,2{,}0], \emph{seed} fixa). O prompt informa explicitamente que o inventário é hipotético. Cada chamada produz dois erros: $\Delta_{\text{novo}}$ contra o \emph{ground truth} recalculado e $\Delta_{\text{orig}}$ contra o valor publicado. As perturbações afastam o \emph{ground truth} recalculado do publicado, tornando as classes disjuntas (nenhuma das 180 chamadas satisfez ambos). Classifica-se como \emph{cálculo} se $|\Delta_{\text{novo}}|<10\%$ e como \emph{memorização} se $|\Delta_{\text{orig}}|<10\%$; \emph{misto} quando nenhum critério é satisfeito e \emph{null} quando há recusa numérica. 
 
 % ============================================================
 \section{Resultados}
